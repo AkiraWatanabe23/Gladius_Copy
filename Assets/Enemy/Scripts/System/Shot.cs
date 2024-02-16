@@ -49,6 +49,12 @@ public class Shot : EnemySystemBase
         if (_attackTimer >= _attackInterval)
         {
             //攻撃（弾のPrefab生成）
+            //var bullet = GameManager.Instance.ObjectPool.SpawnObject(_bulletPrefab);
+            //if (bullet.TryGetComponent(out IBulletData bulletData))
+            //{
+            //    bulletData.Damage = _attackValue;
+            //}
+
             Debug.Log("攻撃！！！");
             _attackTimer = 0f;
         }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 784497213305793633}
   - component: {fileID: 784497213305793634}
   - component: {fileID: 784497213305793632}
-  - component: {fileID: 784497213305793639}
   - component: {fileID: 784497213305793638}
   m_Layer: 0
   m_Name: Enemy
@@ -99,34 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8140f208d8652b4cb1923a901d7b840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 2
+  _enemyType: 3
   _hp: 1
   _attackValue: 1
   _moveSpeed: 3
   _player: {fileID: 0}
-  _searchRadius: 3
+  _searchRadius: 4
   _attackInterval: 1
---- !u!50 &784497213305793639
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784497213305793635}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &784497213305793638
 BoxCollider2D:
   m_ObjectHideFlags: 0
