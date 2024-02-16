@@ -15,6 +15,14 @@ public class EnemyController : MonoBehaviour, IDamage
     [SerializeField]
     private float _moveSpeed = 1f;
 
+    [Header("For ShotEnemy")]
+    [SerializeField]
+    private GameObject _player = default;
+    [SerializeField]
+    private float _searchRadius = 1f;
+    [SerializeField]
+    private float _attackInterval = 1f;
+
     private Rigidbody2D _rb2d = default;
     private EnemySystemBase _enemySystem = default;
 
@@ -26,7 +34,7 @@ public class EnemyController : MonoBehaviour, IDamage
         _enemySystem = _enemyType switch
         {
             EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
-            EnemyType.Shot => new Shot(_attackValue),
+            EnemyType.Shot => new Shot(gameObject, _player, _attackValue, _searchRadius, _attackInterval),
             EnemyType.Boss => new Boss(),
             _ => null
         };
@@ -57,8 +65,8 @@ public class EnemyController : MonoBehaviour, IDamage
         _hp -= value;
         if (_hp <= 0)
         {
-            //やられた
             Debug.Log("やられたー");
+            Destroy(gameObject);
         }
     }
 }
