@@ -15,6 +15,14 @@ public class EnemyController : MonoBehaviour, IDamage
     [SerializeField]
     private float _moveSpeed = 1f;
 
+    [Header("For ShotEnemy")]
+    [SerializeField]
+    private GameObject _player = default;
+    [SerializeField]
+    private float _searchRadius = 1f;
+    [SerializeField]
+    private float _attackInterval = 1f;
+
     private Rigidbody2D _rb2d = default;
     private EnemySystemBase _enemySystem = default;
 
@@ -26,8 +34,8 @@ public class EnemyController : MonoBehaviour, IDamage
         _enemySystem = _enemyType switch
         {
             EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
-            EnemyType.Shot => new Shot(_attackValue),
-            EnemyType.Boss => new Boss(),
+            EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _searchRadius, _attackInterval),
+            EnemyType.Boss => new Boss(_player.transform, _rb2d, _attackInterval),
             _ => null
         };
     }
@@ -52,13 +60,24 @@ public class EnemyController : MonoBehaviour, IDamage
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible() => Destroy(gameObject);
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        var old = Gizmos.color;
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawSphere(gameObject.transform.position, _searchRadius);
+        Gizmos.color = old;
+    }
+#endif
+
     public void ReceiveDamage(int value)
     {
         _hp -= value;
         if (_hp <= 0)
         {
-            //やられた
             Debug.Log("やられたー");
+            Destroy(gameObject);
         }
     }
 }
