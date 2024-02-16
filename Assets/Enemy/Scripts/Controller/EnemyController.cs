@@ -34,8 +34,8 @@ public class EnemyController : MonoBehaviour, IDamage
         _enemySystem = _enemyType switch
         {
             EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
-            EnemyType.Shot => new Shot(gameObject, _player, _attackValue, _searchRadius, _attackInterval),
-            EnemyType.Boss => new Boss(),
+            EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _searchRadius, _attackInterval),
+            EnemyType.Boss => new Boss(_player.transform, _rb2d, _attackInterval),
             _ => null
         };
     }
@@ -59,6 +59,17 @@ public class EnemyController : MonoBehaviour, IDamage
 
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible() => Destroy(gameObject);
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        var old = Gizmos.color;
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawSphere(gameObject.transform.position, _searchRadius);
+        Gizmos.color = old;
+    }
+#endif
 
     public void ReceiveDamage(int value)
     {

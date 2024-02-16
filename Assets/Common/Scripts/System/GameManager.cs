@@ -15,6 +15,6 @@ public class GameManager : MonoBehaviour
         }
         else { Destroy(gameObject); }
 
-        if (ObjectPool == null) { ObjectPool ??= new(); }
+        if (ObjectPool == null) { ObjectPool = new(); }
     }
 }

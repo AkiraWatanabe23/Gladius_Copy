@@ -6,29 +6,34 @@ public class Shot : EnemySystemBase
     private readonly float _attackInterval = 0f;
     private readonly float _searchAreaRadius = 0f;
     private readonly GameObject _enemy = default;
-    private readonly Renderer _renderer = default;
 
     private readonly Transform _enemyTransform = default;
     private readonly Transform _playerTransform = default;
 
+    private Renderer _renderer = default;
     private float _attackTimer = 0f;
+
+    private bool _isEnterArea = false;
 
     private bool IsEnterArea
     {
         get
         {
-            if (_renderer == null) { _enemy.GetComponent<Renderer>(); }
+            if (_renderer == null) { _renderer = _enemy.GetComponent<Renderer>(); }
 
             var sqrDistance = (_playerTransform.position - _enemyTransform.position).sqrMagnitude;
+            var isEnter = _renderer.isVisible && sqrDistance <= _searchAreaRadius * _searchAreaRadius;
 
-            return _renderer.isVisible && sqrDistance <= _searchAreaRadius * _searchAreaRadius;
+            if (isEnter) { _isEnterArea = true; }
+
+            return _isEnterArea;
         }
     }
 
-    public Shot(GameObject go, GameObject target, int attackValue, float searchRadius, float attackInterval)
+    public Shot(GameObject go, Transform target, int attackValue, float searchRadius, float attackInterval)
     {
         _enemy = go;
-        _playerTransform = target.transform;
+        _playerTransform = target;
         _attackValue = attackValue;
         _searchAreaRadius = searchRadius;
         _attackInterval = attackInterval;
@@ -44,6 +49,7 @@ public class Shot : EnemySystemBase
         if (_attackTimer >= _attackInterval)
         {
             //攻撃（弾のPrefab生成）
+            Debug.Log("攻撃！！！");
             _attackTimer = 0f;
         }
     }
