@@ -17,6 +17,19 @@ public class Boss : EnemySystemBase
         _attackInterval = attackInterval;
 
         _enemyTransform = _enemy.transform;
+
+        //Bossの場合、Coreが設定されているか調べる
+        EnemyCore enemyCore = null;
+        for (int i = 0; i < _enemyTransform.childCount; i++)
+        {
+            if (_enemyTransform.GetChild(i).gameObject.TryGetComponent(out enemyCore)) { return; }
+        }
+        if (enemyCore == null)
+        {
+            var core = Object.Instantiate(EnemyCommon.Instance.EnemyCorePrefab);
+            core.transform.parent = _enemyTransform;
+            core.transform.localPosition = Vector2.zero;
+        }
     }
 
     public override void EnemyMovement()
