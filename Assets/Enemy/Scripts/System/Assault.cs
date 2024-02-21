@@ -11,5 +11,5 @@ public class Assault : EnemySystemBase
         _rb2d = rb2d;
     }
 
-    public override void EnemyMovement() => _rb2d.velocity = Vector2.left * _moveSpeed;
+    public override void OnUpdate() => _rb2d.velocity = Vector2.left * _moveSpeed;
 }

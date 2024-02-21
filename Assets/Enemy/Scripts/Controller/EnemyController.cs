@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamage
+public class EnemyController : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private EnemyType _enemyType = EnemyType.None;
@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour, IDamage
     [SerializeField]
     private float _moveSpeed = 1f;
 
-    [Header("For ShotEnemy")]
+    [Header("Shot Enemy")]
     [SerializeField]
     private GameObject _player = default;
     [SerializeField]
@@ -36,8 +36,8 @@ public class EnemyController : MonoBehaviour, IDamage
         _enemySystem = _enemyType switch
         {
             EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
-            EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _searchRadius, _attackInterval),
-            EnemyType.Boss => new Boss(gameObject, _player.transform, _attackInterval),
+            EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _attackInterval, _searchRadius),
+            EnemyType.Boss => new Boss(gameObject, _player.transform, _attackValue, _attackInterval),
             _ => null
         };
     }
@@ -46,13 +46,13 @@ public class EnemyController : MonoBehaviour, IDamage
     {
         if (_enemySystem == null) { Debug.Log("Systemの割り当てがありません"); return; }
 
-        _enemySystem.EnemyMovement();
+        _enemySystem.OnUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Player _) &&
-            collision.gameObject.TryGetComponent(out IDamage player))
+            collision.gameObject.TryGetComponent(out IDamageable player))
         {
             player.ReceiveDamage(_attackValue);
             if (_enemyType == EnemyType.Assault) { Destroy(gameObject); }

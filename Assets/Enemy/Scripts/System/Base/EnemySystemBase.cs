@@ -1,4 +1,7 @@
 ﻿public abstract class EnemySystemBase
 {
-    public abstract void EnemyMovement();
+    public virtual int AttackValue { get; protected set; }
+    public virtual float AttackInterval { get; protected set; }
+
+    public abstract void OnUpdate();
 }

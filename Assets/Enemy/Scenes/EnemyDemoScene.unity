@@ -226,6 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debug: 1
   <EnemyCorePrefab>k__BackingField: {fileID: 1968044106956670669, guid: 79f783c16891f66428917aa12dfaf550, type: 3}
+  <BulletHolder>k__BackingField:
+    <DefaultBullet>k__BackingField: {fileID: 2431666936259891841, guid: fe435a849ff38094f82404afff6f0195, type: 3}
 --- !u!1 &1252853200 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4248242061682645767, guid: 601891b59664ecf4884524593a02ef32, type: 3}
@@ -326,6 +328,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1252853200}
+    - target: {fileID: 784497213305793632, guid: cc7352d222480a2448a997b9fd5b0738, type: 3}
+      propertyPath: _enemyType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 784497213305793633, guid: cc7352d222480a2448a997b9fd5b0738, type: 3}
       propertyPath: m_RootOrder
       value: 1
