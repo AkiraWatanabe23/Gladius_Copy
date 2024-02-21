@@ -3,27 +3,42 @@
 public class Boss : EnemySystemBase
 {
     private readonly float _attackInterval = 0f;
-    private readonly Rigidbody2D _rb2d = default;
+    private readonly GameObject _enemy = default;
 
     private readonly Transform _playerTransform = default;
+    private readonly Transform _enemyTransform = default;
 
     private float _attackTimer = 0f;
 
-    public Boss(Transform playerTransform, Rigidbody2D rb2d, float attackInterval)
+    public Boss(GameObject go, Transform playerTransform, float attackInterval)
     {
+        _enemy = go;
         _playerTransform = playerTransform;
-        _rb2d = rb2d;
         _attackInterval = attackInterval;
+
+        _enemyTransform = _enemy.transform;
+
+        //Bossの場合、Coreが設定されているか調べる
+        EnemyCore enemyCore = null;
+        for (int i = 0; i < _enemyTransform.childCount; i++)
+        {
+            if (_enemyTransform.GetChild(i).gameObject.TryGetComponent(out enemyCore)) { return; }
+        }
+        if (enemyCore == null)
+        {
+            var core = Object.Instantiate(EnemyCommon.Instance.EnemyCorePrefab);
+            core.transform.parent = _enemyTransform;
+            core.transform.localPosition = Vector2.zero;
+        }
     }
 
     public override void EnemyMovement()
     {
         //縦方向のみPlayerに合わせて移動
-        var velocity = _rb2d.velocity;
+        var velocity = _enemyTransform.position;
         velocity.y = _playerTransform.position.y;
 
-        _rb2d.velocity = velocity;
-
+        _enemyTransform.position = velocity;
 
         _attackTimer += Time.deltaTime;
         if (_attackTimer >= _attackInterval)

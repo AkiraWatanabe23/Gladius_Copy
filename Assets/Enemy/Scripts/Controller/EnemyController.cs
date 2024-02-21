@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : MonoBehaviour, IDamage
 {
     [SerializeField]
@@ -28,14 +27,17 @@ public class EnemyController : MonoBehaviour, IDamage
 
     private void Start()
     {
-        _rb2d = GetComponent<Rigidbody2D>();
-        _rb2d.gravityScale = 0f;
+        if (_enemyType == EnemyType.Assault)
+        {
+            if (!TryGetComponent(out _rb2d)) { _rb2d = gameObject.AddComponent<Rigidbody2D>(); }
+            _rb2d.gravityScale = 0f;
+        }
 
         _enemySystem = _enemyType switch
         {
             EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
             EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _searchRadius, _attackInterval),
-            EnemyType.Boss => new Boss(_player.transform, _rb2d, _attackInterval),
+            EnemyType.Boss => new Boss(gameObject, _player.transform, _attackInterval),
             _ => null
         };
     }
@@ -60,17 +62,6 @@ public class EnemyController : MonoBehaviour, IDamage
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible() => Destroy(gameObject);
 
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        var old = Gizmos.color;
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawSphere(gameObject.transform.position, _searchRadius);
-        Gizmos.color = old;
-    }
-#endif
-
     public void ReceiveDamage(int value)
     {
         _hp -= value;
@@ -80,6 +71,19 @@ public class EnemyController : MonoBehaviour, IDamage
             Destroy(gameObject);
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_enemyType != EnemyType.Shot) { return; }
+
+        var old = Gizmos.color;
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawSphere(gameObject.transform.position, _searchRadius);
+        Gizmos.color = old;
+    }
+#endif
 }
 
 public enum EnemyType
