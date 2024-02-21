@@ -1,5 +1,5 @@
 ﻿public interface IBulletData
 {
-    public float Speed { get; }
-    public float Damage { get; }
+    public float Speed { get; set; }
+    public int Damage { get; set; }
 }
