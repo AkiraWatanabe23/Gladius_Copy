@@ -2,51 +2,25 @@
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
-    [SerializeField]
+    [SubclassSelector]
+    [SerializeReference]
+    private IEnemy _enemySystem = default;
+
     private EnemyType _enemyType = EnemyType.None;
-    [Min(1)]
-    [SerializeField]
-    private int _hp = 1;
-    [Min(1)]
-    [SerializeField]
-    private int _attackValue = 1;
-    [Min(1f)]
-    [SerializeField]
-    private float _moveSpeed = 1f;
 
-    [Header("Shot Enemy")]
-    [SerializeField]
-    private GameObject _player = default;
-    [SerializeField]
-    private float _searchRadius = 1f;
-    [SerializeField]
-    private float _attackInterval = 1f;
+    public IEnemy EnemySystem => _enemySystem;
 
-    private Rigidbody2D _rb2d = default;
-    private EnemySystemBase _enemySystem = default;
-
-    private void Start()
+    public void Initialize()
     {
-        if (_enemyType == EnemyType.Assault)
+        _enemyType = _enemySystem switch
         {
-            if (!TryGetComponent(out _rb2d)) { _rb2d = gameObject.AddComponent<Rigidbody2D>(); }
-            _rb2d.gravityScale = 0f;
-        }
-
-        _enemySystem = _enemyType switch
-        {
-            EnemyType.Assault => new Assault(_moveSpeed, _rb2d),
-            EnemyType.Shot => new Shot(gameObject, _player.transform, _attackValue, _attackInterval, _searchRadius),
-            EnemyType.Boss => new Boss(gameObject, _player.transform, _attackValue, _attackInterval),
-            _ => null
+            AssaultSystem => EnemyType.Assault,
+            ShotSystem => EnemyType.Shot,
+            BossSystem => EnemyType.Boss,
+            _ => EnemyType.None,
         };
-    }
-
-    private void Update()
-    {
-        if (_enemySystem == null) { Debug.Log("Systemの割り当てがありません"); return; }
-
-        _enemySystem.OnUpdate();
+        _enemySystem.Enemy = gameObject;
+        _enemySystem.Transform = gameObject.transform;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,7 +28,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (collision.gameObject.TryGetComponent(out Player _) &&
             collision.gameObject.TryGetComponent(out IDamageable player))
         {
-            player.ReceiveDamage(_attackValue);
+            player.ReceiveDamage(_enemySystem.AttackValue);
             if (_enemyType == EnemyType.Assault) { Destroy(gameObject); }
         }
     }
@@ -64,11 +38,11 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ReceiveDamage(int value)
     {
-        _hp -= value;
-        if (_hp <= 0)
+        _enemySystem.HP -= value;
+        if (_enemySystem.HP <= 0)
         {
             Debug.Log("やられたー");
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -77,10 +51,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (_enemyType != EnemyType.Shot) { return; }
 
+        var shot = (Shot)_enemySystem;
+
         var old = Gizmos.color;
         Gizmos.color = Color.green;
 
-        Gizmos.DrawSphere(gameObject.transform.position, _searchRadius);
+        Gizmos.DrawWireSphere(gameObject.transform.position, shot.SearchRadius);
         Gizmos.color = old;
     }
 #endif

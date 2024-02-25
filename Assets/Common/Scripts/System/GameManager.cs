@@ -2,8 +2,6 @@
 
 public class GameManager : MonoBehaviour
 {
-    public ObjectPool ObjectPool { get; private set; }
-
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -14,7 +12,5 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
-
-        if (ObjectPool == null) { ObjectPool = new(); }
     }
 }

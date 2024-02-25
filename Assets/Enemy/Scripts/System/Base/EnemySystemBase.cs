@@ -1,7 +1,8 @@
 ﻿public abstract class EnemySystemBase
 {
-    public virtual int AttackValue { get; protected set; }
-    public virtual float AttackInterval { get; protected set; }
+    public EnemyCommon EnemyCommon { get; set; }
 
-    public abstract void OnUpdate();
+    public virtual void Initialize() { }
+    public virtual void OnUpdate() { }
+    public virtual void OnDestroy() { }
 }
