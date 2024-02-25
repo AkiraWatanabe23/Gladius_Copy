@@ -5,17 +5,17 @@ public class DefautBullet : BulletBase
 {
     private void OnEnable()
     {
-        
+        OnTriggerEnterEvent += Attack;
     }
 
     private void Update()
     {
-        Rigidbody2D.velocity = Vector2.left * Speed;
+        Rigidbody2D.velocity = Vector2.right * Speed;
     }
 
     private void OnDisable()
     {
-        
+        OnTriggerEnterEvent -= Attack;
     }
 
     private void Attack(GameObject target)
