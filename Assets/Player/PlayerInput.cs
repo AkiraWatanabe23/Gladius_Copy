@@ -10,6 +10,9 @@ public class PlayerInput
     [SerializeField] private KeyCode _shoot = KeyCode.Space;
     [SerializeField] private MouseButtonType _mouseButtonType = MouseButtonType.None;
 
+    private bool _isShootByKey => Input.GetKey(_shoot);
+    private bool _iIsShootByMouseButton => _mouseButtonType == MouseButtonType.None ? false : Input.GetMouseButton((int)_mouseButtonType);
+
     public int Horizontal
     {
         get
@@ -32,9 +35,7 @@ public class PlayerInput
         }
     }
 
-    public bool IsShootByKey => Input.GetKey(_shoot);
-
-    public bool IsShootByMouse => _mouseButtonType == MouseButtonType.None ? false : Input.GetMouseButton((int)_mouseButtonType);
+    public bool IsShoot => _isShootByKey || _iIsShootByMouseButton;
 }
 
 public enum MouseButtonType
