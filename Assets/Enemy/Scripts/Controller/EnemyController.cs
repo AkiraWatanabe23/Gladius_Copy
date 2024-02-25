@@ -14,9 +14,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         _enemyType = _enemySystem switch
         {
-            AssaultSystem => EnemyType.Assault,
-            ShotSystem => EnemyType.Shot,
-            BossSystem => EnemyType.Boss,
+            Assault => EnemyType.Assault,
+            Shot => EnemyType.Shot,
+            Boss => EnemyType.Boss,
             _ => EnemyType.None,
         };
         _enemySystem.Enemy = gameObject;
@@ -29,7 +29,10 @@ public class EnemyController : MonoBehaviour, IDamageable
             collision.gameObject.TryGetComponent(out IDamageable player))
         {
             player.ReceiveDamage(_enemySystem.AttackValue);
-            if (_enemyType == EnemyType.Assault) { Destroy(gameObject); }
+            if (_enemyType == EnemyType.Assault)
+            {
+                EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+            }
         }
     }
 
@@ -42,7 +45,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_enemySystem.HP <= 0)
         {
             Debug.Log("やられたー");
-            //Destroy(gameObject);
+            //EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
         }
     }
 

@@ -9,8 +9,20 @@ public class EnemyManager : MonoBehaviour
     private EnemyMasterSystem _enemyMasterSystem = default;
     private EnemySystemUpdate _updateSystem = default;
 
+    public EnemyCommon EnemyCommon => _enemyCommon;
+
+    public static EnemyManager Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else { Destroy(gameObject); }
+
+
         if (!TryGetComponent(out _updateSystem)) { _updateSystem = gameObject.AddComponent<EnemySystemUpdate>(); }
         _updateSystem.enabled = false;
     }

@@ -21,12 +21,11 @@ public class AssaultSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
-        foreach (var enemy in _assaultEnemies) { enemy.Rb2d.velocity = Vector2.left * enemy.MoveSpeed; }
-    }
-
-    public override void OnDestroy()
-    {
-        //EnemyCommon.Instance.ObjectPool.RemoveObject(Enemy);
+        for (int i = _assaultEnemies.Count - 1; i >= 0; i--)
+        {
+            if (_assaultEnemies[i] == null) { continue; }
+            _assaultEnemies[i].Rb2d.velocity = Vector2.left * _assaultEnemies[i].MoveSpeed;
+        }
     }
 
     public void AddEnemy(params Assault[] targets)
