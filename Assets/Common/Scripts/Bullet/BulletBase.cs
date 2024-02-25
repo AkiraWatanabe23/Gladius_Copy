@@ -51,6 +51,7 @@ public abstract class BulletBase : MonoBehaviour, IBulletData
     #region General LifeCycle
     private void Awake()
     {
+        BaseEventRegister();
         OnAwakeEvent?.Invoke();
     }
     private void OnEnable()
@@ -81,6 +82,7 @@ public abstract class BulletBase : MonoBehaviour, IBulletData
     private void OnDestroy()
     {
         OnDestroyEvent?.Invoke();
+        BaseEventUnregister();
     }
     #endregion
 
