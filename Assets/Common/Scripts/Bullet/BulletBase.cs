@@ -5,8 +5,8 @@ using UnityEngine;
 // 日本語対応
 public class BulletBase : MonoBehaviour, IBulletData
 {
-    public float Speed { get => _speed; set => _speed = value; }
-    public int Damage { get => _damage; set => _damage = value; }
+    public float Speed { get => _initSpeed; set => _initSpeed = value; }
+    public int Damage { get => _initDamage; set => _initDamage = value; }
     /// <summary>Colliderに接触したかどうか</summary>
     public bool IsTriggerEnter { get; private set; } = false;
     /// <summary>Colliderに接触しているかどうか</summary>
@@ -14,19 +14,20 @@ public class BulletBase : MonoBehaviour, IBulletData
     /// <summary>接触していたColliderから出たかどうか</summary>
     public bool IsTriggerExit { get; private set; } = false;
 
-    /// <summary>Colliderに接触したときに実行するイベント</summary>
-    protected event Action<GameObject> OnTriggerEnterEvent { add => _onTriggerEnter += value; remove => _onTriggerEnter -= value; }
-    /// <summary>Colliderに接触しているあいだ実行するイベント</summary>
-    protected event Action<GameObject> OnTriggerStayEvent { add => _onTriggerStay += value; remove => _onTriggerStay -= value; }
-    /// <summary>接触していたColliderから出たときに実行するイベント</summary>
-    protected event Action<GameObject> OnTriggerExitEvent { add => _onTriggerExit += value; remove => _onTriggerExit -= value; }
-
     protected Rigidbody2D Rigidbody2D => _rigidbody2D;
+    /// <summary>Colliderに接触したときに実行するイベント</summary>
+    protected event Action<GameObject> OnTriggerEnterEvent;
+    /// <summary>Colliderに接触しているあいだ実行するイベント</summary>
+    protected event Action<GameObject> OnTriggerStayEvent;
+    /// <summary>接触していたColliderから出たときに実行するイベント</summary>
+    protected event Action<GameObject> OnTriggerExitEvent;
 
-    [SerializeField] private float _speed = 0.0f;
-    [SerializeField] private int _damage = 0;
+    [SerializeField] private float _initSpeed = 1.0f;
+    [SerializeField] private int _initDamage = 0;
     [SerializeField] private Rigidbody2D _rigidbody2D = null;
 
+    /// <summary>自身を撃ったオブジェクトのレイヤー</summary>
+    private LayerMask _gunnerLayer = 0;
     private event Action<GameObject> _onTriggerEnter = null;
     private event Action<GameObject> _onTriggerStay = null;
     private event Action<GameObject> _onTriggerExit = null;
@@ -42,7 +43,7 @@ public class BulletBase : MonoBehaviour, IBulletData
                 false => gameObject.AddComponent<Rigidbody2D>(),
             };
         }
-        _rigidbody2D.isKinematic = true;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
         #endregion
 
         switch (TryGetComponent(out Collider2D collider))
@@ -56,22 +57,28 @@ public class BulletBase : MonoBehaviour, IBulletData
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == _gunnerLayer) return;
+
         _onTriggerEnter?.Invoke(collision.gameObject);
-        DetectionTriggerEnterAsync();
+        DetectionTriggerEnter();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == _gunnerLayer) return;
+
         _onTriggerStay?.Invoke(collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == _gunnerLayer) return;
+
         _onTriggerExit?.Invoke(collision.gameObject);
-        DetectionTriggerExitAsync();
+        DetectionTriggerExit();
     }
 
-    private async void DetectionTriggerEnterAsync()
+    private async void DetectionTriggerEnter()
     {
         IsTriggerStay = true;
         IsTriggerEnter = true;
@@ -79,11 +86,16 @@ public class BulletBase : MonoBehaviour, IBulletData
         IsTriggerEnter = false;
     }
 
-    private async void DetectionTriggerExitAsync()
+    private async void DetectionTriggerExit()
     {
         IsTriggerStay = false;
         IsTriggerExit = true;
         await UniTask.DelayFrame(1);
         IsTriggerExit = false;
+    }
+
+    public virtual void Init(LayerMask layer)
+    {
+        _gunnerLayer = layer;
     }
 }
