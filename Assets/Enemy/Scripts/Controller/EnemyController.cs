@@ -10,7 +10,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public IEnemy EnemySystem => _enemySystem;
 
-    public void Initialize()
+    private void OnEnable() => Initialize();
+
+    private void Initialize()
     {
         _enemyType = _enemySystem switch
         {
@@ -21,6 +23,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         };
         _enemySystem.Enemy = gameObject;
         _enemySystem.Transform = gameObject.transform;
+
+        _enemySystem.Init();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +41,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
 
     /// <summary> 画面外からいなくなったら呼び出される </summary>
-    private void OnBecameInvisible() => Destroy(gameObject);
+    private void OnBecameInvisible()
+    {
+        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+    }
+
+    private void OnDestroy() => EnemyManager.Instance.EnemyMasterSystem.RemoveEnemy(_enemySystem);
 
     public void ReceiveDamage(int value)
     {
@@ -45,14 +54,14 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_enemySystem.HP <= 0)
         {
             Debug.Log("やられたー");
-            //EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+            EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
         }
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (_enemyType != EnemyType.Shot) { return; }
+        if (_enemySystem is not Shot) { return; }
 
         var shot = (Shot)_enemySystem;
 

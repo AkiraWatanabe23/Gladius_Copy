@@ -8,8 +8,10 @@ public class BossSystem : EnemySystemBase
 {
     private readonly List<Boss> _bossEnemies = default;
 
-    public BossSystem(params Boss[] targets)
+    public BossSystem(EnemyCommon enemyCommon, params Boss[] targets)
     {
+        EnemyCommon = enemyCommon;
+
         _bossEnemies = new();
         _bossEnemies = targets.ToList();
         foreach (var target in targets) //初期化
@@ -22,7 +24,7 @@ public class BossSystem : EnemySystemBase
             {
                 if (target.Transform.GetChild(i).gameObject.TryGetComponent(out enemyCore)) { return; }
             }
-            if (enemyCore == null) //EnemyCOreの設定がなかった場合は生成、設定する
+            if (enemyCore == null) //EnemyCoreの設定がなかった場合は生成、設定する
             {
                 var core = UnityEngine.Object.Instantiate(EnemyCommon.EnemyCorePrefab);
                 core.transform.parent = target.Transform;
@@ -45,6 +47,20 @@ public class BossSystem : EnemySystemBase
         }
     }
 
+    public override void AddEnemy(IEnemy target)
+    {
+        if (target is not Boss) { return; }
+
+        _bossEnemies.Add((Boss)target);
+    }
+
+    public override void RemoveEnemy(IEnemy target)
+    {
+        if (target is not Boss) { return; }
+
+        _bossEnemies.Remove((Boss)target);
+    }
+
     private async void AttackMeasuring(Boss target)
     {
         if (target.IsMeasuring) { return; }
@@ -59,7 +75,13 @@ public class BossSystem : EnemySystemBase
     private void Attack(Boss target)
     {
         var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
-        if (bullet.TryGetComponent(out IBulletData bulletData)) { bulletData.Speed = 1f; bulletData.Damage = target.AttackValue; }
+        if (bullet.TryGetComponent(out BulletBase bulletData))
+        {
+            bulletData.Speed = 1f;
+            bulletData.Damage = target.AttackValue;
+
+            bulletData.Init(target.Enemy.layer);
+        }
         Debug.Log("attack!!");
     }
 }

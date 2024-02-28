@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1351310110263445582}
   - component: {fileID: 1351310110263445580}
   - component: {fileID: 1351310110263445578}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BossEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,13 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8140f208d8652b4cb1923a901d7b840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 3
-  _hp: 1
-  _attackValue: 1
-  _moveSpeed: 3
-  _player: {fileID: 0}
-  _searchRadius: 4
-  _attackInterval: 1
+  _enemySystem:
+    rid: 4576127351809638401
+  references:
+    version: 2
+    RefIds:
+    - rid: 4576127351809638401
+      type: {class: Boss, ns: , asm: Assembly-CSharp}
+      data:
+        _hp: 1
+        _attackValue: 1
+        _moveSpeed: 1
+        _attackInterval: 1
 --- !u!61 &1351310110263445578
 BoxCollider2D:
   m_ObjectHideFlags: 0

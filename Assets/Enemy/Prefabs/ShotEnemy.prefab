@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6685621949255094285}
   - component: {fileID: 6685621949255094287}
   - component: {fileID: 6685621949255094281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShotEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,13 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8140f208d8652b4cb1923a901d7b840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 2
-  _hp: 1
-  _attackValue: 1
-  _moveSpeed: 3
-  _player: {fileID: 0}
-  _searchRadius: 4
-  _attackInterval: 1
+  _enemySystem:
+    rid: 4576127351809638400
+  references:
+    version: 2
+    RefIds:
+    - rid: 4576127351809638400
+      type: {class: Shot, ns: , asm: Assembly-CSharp}
+      data:
+        _hp: 1
+        _attackValue: 1
+        _moveSpeed: 1
+        _searchAreaRadius: 1.5
+        _attackInterval: 1
 --- !u!61 &6685621949255094281
 BoxCollider2D:
   m_ObjectHideFlags: 0

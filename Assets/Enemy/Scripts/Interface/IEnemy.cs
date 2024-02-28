@@ -8,4 +8,6 @@ public interface IEnemy
 
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
+
+    public void Init();
 }

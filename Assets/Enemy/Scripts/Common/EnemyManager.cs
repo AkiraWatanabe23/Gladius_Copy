@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
     private EnemySystemUpdate _updateSystem = default;
 
     public EnemyCommon EnemyCommon => _enemyCommon;
+    public EnemyMasterSystem EnemyMasterSystem => _enemyMasterSystem;
 
     public static EnemyManager Instance { get; private set; }
 
@@ -21,7 +22,6 @@ public class EnemyManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
-
 
         if (!TryGetComponent(out _updateSystem)) { _updateSystem = gameObject.AddComponent<EnemySystemUpdate>(); }
         _updateSystem.enabled = false;
@@ -36,9 +36,14 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator Initialize()
     {
         var enemies = FindObjectsOfType<EnemyController>();
+        var spawners = FindObjectsOfType<EnemySpawner>();
         yield return null;
 
-        foreach (var enemy in enemies) { enemy.Initialize(); }
+        _enemyCommon.EnemySpawners = spawners;
+        if (_enemyCommon.EnemySpawners != null && _enemyCommon.EnemySpawners.Length > 0)
+        {
+            foreach (var spawner in _enemyCommon.EnemySpawners) { spawner.Initialize(); }
+        }
 
         _enemyMasterSystem = new(_enemyCommon, new ObjectPool());
         _enemyMasterSystem.Initialize(enemies);

@@ -6,5 +6,5 @@ public class EnemySystemUpdate : MonoBehaviour
 
     public void SetupEnemyMasterSystem(EnemyMasterSystem masterSystem) => _enemyMasterSystem = masterSystem;
 
-    private void Update() => _enemyMasterSystem.OnUpdate();
+    private void Update() => _enemyMasterSystem.OnUpdate(Time.deltaTime);
 }
