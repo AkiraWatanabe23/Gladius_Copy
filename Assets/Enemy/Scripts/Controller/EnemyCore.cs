@@ -19,6 +19,7 @@ public class EnemyCore : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out IBulletData _))
         {
             Debug.Log("boss撃破");
+            //ここで演出用のオブジェクト出しても良いかも
             Destroy(_enemy);
         }
     }

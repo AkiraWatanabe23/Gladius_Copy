@@ -1,19 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class EnemyCommon : MonoBehaviour
+[Serializable]
+public class BulletHolder
+{
+    [field: SerializeField]
+    public GameObject DefaultBullet { get; private set; }
+}
+
+[Serializable]
+public class EnemyCommon
 {
     [SerializeField]
-    private bool _debug = true;
+    private Transform _player = default;
+    [SerializeField]
+    private GameObject _enemyCorePrefab = default;
+    [SerializeField]
+    private BulletHolder _bulletHolder = new();
 
-    [field: SerializeField]
-    public GameObject EnemyCorePrefab { get; private set; }
+    public Transform Player => _player;
+    public GameObject EnemyCorePrefab => _enemyCorePrefab;
+    public BulletHolder BulletHolder => _bulletHolder;
 
-    public static EnemyCommon Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (!_debug) { return; }
-
-        if (Instance == null) { Instance = this; }
-    }
+    public ObjectPool ObjectPool { get; set; }
 }
