@@ -8,8 +8,10 @@ public class ShotSystem : EnemySystemBase
 {
     private readonly List<Shot> _shotEnemies = default;
 
-    public ShotSystem(params Shot[] targets)
+    public ShotSystem(EnemyCommon enemyCommon, params Shot[] targets)
     {
+        EnemyCommon = enemyCommon;
+
         _shotEnemies = new();
         _shotEnemies = targets.ToList();
         foreach (var target in targets)
@@ -29,6 +31,20 @@ public class ShotSystem : EnemySystemBase
         }
     }
 
+    public override void AddEnemy(IEnemy target)
+    {
+        if (target is not Shot) { return; }
+
+        _shotEnemies.Add((Shot)target);
+    }
+
+    public override void RemoveEnemy(IEnemy target)
+    {
+        if (target is not Shot) { return; }
+
+        _shotEnemies.Remove((Shot)target);
+    }
+
     private async void AttackMeasuring(Shot target)
     {
         if (target.IsMeasuring) { return; }
@@ -45,10 +61,12 @@ public class ShotSystem : EnemySystemBase
         var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
         bullet.transform.position = target.Transform.position;
 
-        if (bullet.TryGetComponent(out IBulletData bulletData))
+        if (bullet.TryGetComponent(out BulletBase bulletData))
         {
             bulletData.Speed = 1f;
             bulletData.Damage = target.AttackValue;
+
+            bulletData.Init(target.Enemy.layer);
         }
         Debug.Log("attack!!");
     }

@@ -42,4 +42,9 @@ public class Shot : IEnemy
 
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
+
+    public void Init()
+    {
+        PlayerTransform = EnemyManager.Instance.EnemyCommon.Player;
+    }
 }

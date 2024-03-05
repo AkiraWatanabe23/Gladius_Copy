@@ -6,8 +6,10 @@ public class AssaultSystem : EnemySystemBase
 {
     private readonly List<Assault> _assaultEnemies = default;
 
-    public AssaultSystem(params Assault[] targets)
+    public AssaultSystem(EnemyCommon enemyCommon, params Assault[] targets)
     {
+        EnemyCommon = enemyCommon;
+
         _assaultEnemies = new();
         _assaultEnemies = targets.ToList();
         foreach (var target in targets)
@@ -24,12 +26,23 @@ public class AssaultSystem : EnemySystemBase
         for (int i = _assaultEnemies.Count - 1; i >= 0; i--)
         {
             if (_assaultEnemies[i] == null) { continue; }
+            if (_assaultEnemies[i].Enemy == null) { continue; }
+
             _assaultEnemies[i].Rb2d.velocity = Vector2.left * _assaultEnemies[i].MoveSpeed;
         }
     }
 
-    public void AddEnemy(params Assault[] targets)
+    public override void AddEnemy(IEnemy target)
     {
-        foreach (var enemy in targets) { _assaultEnemies.Add(enemy); }
+        if (target is not Assault) { return; }
+
+        _assaultEnemies.Add((Assault)target);
+    }
+
+    public override void RemoveEnemy(IEnemy target)
+    {
+        if (target is not Assault) { return; }
+
+        _assaultEnemies.Remove((Assault)target);
     }
 }
