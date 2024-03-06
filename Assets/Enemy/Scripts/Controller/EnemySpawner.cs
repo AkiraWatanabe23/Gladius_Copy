@@ -1,19 +1,57 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+
+[Serializable]
+public class SpawnParameter
+{
+    [SerializeField]
+    private SpawnEnemy _spawnEnemy = SpawnEnemy.None;
+    [Tooltip("初回生成間隔（sec）")]
+    [SerializeField]
+    private float _firstSpawnInterval = 1f;
+    [Tooltip("2回目以降の生成間隔（sec）")]
+    [SerializeField]
+    private float _spawnInterval = 1f;
+    [Min(1)]
+    [Tooltip("一度に生成する数")]
+    [SerializeField]
+    private int _spawnCount = 1;
+
+    public float FirstSpawnInterval => _firstSpawnInterval;
+    public float SpawnInterval => _spawnInterval;
+    public int SpawnCount => _spawnCount;
+}
+
+public enum SpawnEnemy
+{
+    None,
+    Assault,
+    Shot
+}
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Tooltip("生成するEnemyPrefab")]
     [SerializeField]
     private GameObject _enemyPrefab = default;
+    [Tooltip("生成位置")]
     [SerializeField]
     private Transform _spawnMuzzle = default;
+
+    [Tooltip("")]
     [SerializeField]
-    private float _spawnInterval = 1f;
+    private SpawnParameter _spawnParam = new();
 
     private float _spawnTimer = 0f;
+    /// <summary> 初回生成を行ったかどうか </summary>
+    private bool _isFirstSpawning = false;
 
     protected Vector2 SpawnPos => _spawnMuzzle.position;
+
+    protected float SpawnInterval => _isFirstSpawning ? _spawnParam.SpawnInterval : _spawnParam.FirstSpawnInterval;
+
     /// <summary> 計測中 </summary>
-    protected bool IsMeasuring => _spawnTimer <= _spawnInterval;
+    protected bool IsMeasuring => _spawnTimer <= SpawnInterval;
 
     public void Initialize()
     {
@@ -37,6 +75,8 @@ public class EnemySpawner : MonoBehaviour
     private void EnemySpawn()
     {
         if (_enemyPrefab == null) { Debug.LogError("生成するオブジェクトの割り当てがありません"); return; }
+
+        if (!_isFirstSpawning) { _isFirstSpawning = true; }
 
         var enemy = EnemyManager.Instance.EnemyCommon.ObjectPool.SpawnObject(_enemyPrefab);
         enemy.transform.position = SpawnPos;

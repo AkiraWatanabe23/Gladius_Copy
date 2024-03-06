@@ -78,7 +78,7 @@ public class BossSystem : EnemySystemBase
         if (bullet.TryGetComponent(out BulletBase bulletData))
         {
             bulletData.Speed = 1f;
-            bulletData.Damage = target.AttackValue;
+            bulletData.AttackValue = target.AttackValue;
 
             bulletData.Init(target.Enemy.layer);
         }

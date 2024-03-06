@@ -58,16 +58,11 @@ public class ShotSystem : EnemySystemBase
 
     private void Attack(Shot target)
     {
-        var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
-        bullet.transform.position = target.Transform.position;
+        var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
+        go.transform.position = target.Transform.position;
+        var bullet = go.GetComponent<BulletController>();
 
-        if (bullet.TryGetComponent(out BulletBase bulletData))
-        {
-            bulletData.Speed = 1f;
-            bulletData.Damage = target.AttackValue;
-
-            bulletData.Init(target.Enemy.layer);
-        }
+        bullet.Intialize(1f, target.AttackValue, target.Enemy.layer);
         Debug.Log("attack!!");
     }
 }
