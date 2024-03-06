@@ -3,21 +3,20 @@ using UnityEngine;
 // 日本語対応
 public class Player : MonoBehaviour, IDamageable
 {
-    [SerializeField] private PlayerInput _input = new PlayerInput();
+    [SerializeField] private PlayerInput _input = new();
     [SerializeField] private float _moveSpeed = 5.0f;
     [SerializeField] private int _maxLife = 1;
-    [SerializeField] private Rigidbody2D _rb2d = null;
     [SerializeField] private BulletBase _bullet = null;
 
+    [SerializeField] private BulletController _bulletPrefab = default;
+
+    private Rigidbody2D _rb2d = null;
     private LifeController _life = null;
 
     private void Start()
     {
-        if (_rb2d)
-        {
-            _rb2d.bodyType = RigidbodyType2D.Kinematic;
-        }
-        else throw new System.NullReferenceException($"{_rb2d} is not found");
+        if (!TryGetComponent(out _rb2d)) { _rb2d = gameObject.AddComponent<Rigidbody2D>(); }
+        _rb2d.bodyType = RigidbodyType2D.Kinematic;
 
         _life = new LifeController(_maxLife);
         _life.OnDead += Destroy;
@@ -47,17 +46,13 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Shoot()
     {
-        if (!_bullet) return;
+        if (!_bullet) { return; }
 
         if (_input.IsShoot)
         {
             var bullet = Instantiate(_bullet, transform.position, _bullet.transform.rotation);
             bullet.Init(gameObject.layer);
             Debug.Log("Shoot!");
-        }
-        else
-        {
-
         }
     }
 
