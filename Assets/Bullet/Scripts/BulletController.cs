@@ -23,6 +23,11 @@ public class BulletController : MonoBehaviour
 
         _bulletData.Hit(collision.gameObject);
     }
+
+    private void OnBecameInvisible()
+    {
+        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+    }
 }
 
 public enum BulletType
