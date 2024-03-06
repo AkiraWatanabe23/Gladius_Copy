@@ -6,6 +6,8 @@ public class BulletHolder
 {
     [field: SerializeField]
     public GameObject DefaultBullet { get; private set; }
+    [field: SerializeField]
+    public GameObject PenetrationBullet { get; private set; }
 }
 
 [Serializable]
