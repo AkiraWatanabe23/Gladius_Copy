@@ -21,6 +21,6 @@ public class DefautBullet : IBulletData
         if (!hitTarget.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
-        Common.Instance.ObjectPool.RemoveObject(BulletObj);
+        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(BulletObj);
     }
 }
