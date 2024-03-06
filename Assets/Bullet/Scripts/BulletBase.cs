@@ -1,16 +1,15 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Net;
 using UnityEngine;
 
-// 日本語対応
-public abstract class BulletBase : MonoBehaviour, IBulletData
+[Serializable]
+public abstract class BulletBase : MonoBehaviour
 {
     [SerializeField] private float _initSpeed = 1.0f;
     [SerializeField] private int _initDamage = 0;
     [SerializeField] private float _coolTime = 1.0f;
-    [SerializeField] private Rigidbody2D _rigidbody2D = null;
 
+    private Rigidbody2D _rigidbody2D = null;
     /// <summary>自身を撃ったオブジェクトのレイヤー</summary>
     private LayerMask _gunnerLayer = 0;
 
@@ -31,10 +30,13 @@ public abstract class BulletBase : MonoBehaviour, IBulletData
     protected abstract void BaseEventRegister();
     protected abstract void BaseEventUnregister();
 
-    public float Speed { get => _rigidbody2D.velocity.magnitude;
-                         set => _rigidbody2D.velocity = _rigidbody2D.velocity.normalized * Mathf.Max(value, 0.0f); }
+    public float Speed
+    {
+        get => _rigidbody2D.velocity.magnitude;
+        set => _rigidbody2D.velocity = _rigidbody2D.velocity.normalized * Mathf.Max(value, 0.0f);
+    }
     public Vector2 Direction { get => _rigidbody2D.velocity.normalized; set => _rigidbody2D.velocity = value * Speed; }
-    public int Damage { get => _initDamage; set => _initDamage = Mathf.Max(value, 0); }
+    public int AttackValue { get => _initDamage; set => _initDamage = Mathf.Max(value, 0); }
     public float CoolTime { get => _coolTime; set => _coolTime = Mathf.Max(value, 0.0f); }
     /// <summary>Colliderに接触したかどうか</summary>
     public bool IsTriggerEnter { get; private set; } = false;
