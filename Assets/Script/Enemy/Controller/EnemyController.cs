@@ -10,9 +10,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public IEnemy EnemySystem => _enemySystem;
 
-    private void OnEnable() => Initialize();
-
-    private void Initialize()
+    public void Initialize()
     {
         _enemyType = _enemySystem switch
         {
@@ -35,7 +33,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             player.ReceiveDamage(_enemySystem.AttackValue);
             if (_enemyType == EnemyType.Assault)
             {
-                EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+                EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
             }
         }
     }
@@ -43,7 +41,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible()
     {
-        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+        EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 
     private void OnDestroy() => EnemyManager.Instance.EnemyMasterSystem.RemoveEnemy(_enemySystem);
@@ -54,7 +52,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_enemySystem.HP <= 0)
         {
             Debug.Log("やられたー");
-            EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+            EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
         }
     }
 

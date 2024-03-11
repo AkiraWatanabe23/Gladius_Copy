@@ -1,20 +1,19 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class BossSystem : EnemySystemBase
 {
-    private readonly List<Boss> _bossEnemies = default;
+    private List<Boss> _bossEnemies = default;
 
-    public BossSystem(EnemyCommon enemyCommon, params Boss[] targets)
+    public override void Initialize()
     {
-        EnemyCommon = enemyCommon;
+        if (EnemyCommon.BossEnemies == null) { return; }
+        _bossEnemies = EnemyCommon.BossEnemies;
 
-        _bossEnemies = new();
-        _bossEnemies = targets.ToList();
-        foreach (var target in targets) //初期化
+        if (_bossEnemies == null || _bossEnemies.Count <= 0) { return; }
+        foreach (var target in _bossEnemies) //初期化
         {
             target.PlayerTransform = EnemyCommon.Player.transform;
 
@@ -35,6 +34,7 @@ public class BossSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
+        if (_bossEnemies == null || _bossEnemies.Count <= 0) { return; }
         foreach (var enemy in _bossEnemies)
         {
             //縦方向のみPlayerに合わせて移動

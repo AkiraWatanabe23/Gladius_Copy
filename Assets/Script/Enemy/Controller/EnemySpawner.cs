@@ -78,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (!_isFirstSpawning) { _isFirstSpawning = true; }
 
-        var enemy = EnemyManager.Instance.EnemyCommon.ObjectPool.SpawnObject(_enemyPrefab);
+        var enemy = EnemyManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
         enemy.transform.position = SpawnPos;
 
         var enemySystem = enemy.GetComponent<EnemyController>().EnemySystem;

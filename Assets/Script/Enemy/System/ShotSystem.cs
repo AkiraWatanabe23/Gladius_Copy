@@ -1,20 +1,19 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ShotSystem : EnemySystemBase
 {
-    private readonly List<Shot> _shotEnemies = default;
+    private List<Shot> _shotEnemies = default;
 
-    public ShotSystem(EnemyCommon enemyCommon, params Shot[] targets)
+    public override void Initialize()
     {
-        EnemyCommon = enemyCommon;
+        if (EnemyCommon.ShotEnemies == null) { return; }
+        _shotEnemies = EnemyCommon.ShotEnemies;
 
-        _shotEnemies = new();
-        _shotEnemies = targets.ToList();
-        foreach (var target in targets)
+        if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
+        foreach (var target in _shotEnemies)
         {
             //ここで必要な値の初期化処理
             target.PlayerTransform = EnemyCommon.Player;
@@ -23,6 +22,7 @@ public class ShotSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
+        if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
         foreach (var target in _shotEnemies)
         {
             if (!target.IsEnterArea) { continue; }
@@ -58,11 +58,11 @@ public class ShotSystem : EnemySystemBase
 
     private void Attack(Shot target)
     {
-        var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
+        var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.MissileBullet);
         go.transform.position = target.Transform.position;
         var bullet = go.GetComponent<BulletController>();
+        var moveVector = new Vector2(1, -1);
 
-        bullet.Intialize(1f, target.AttackValue, target.Enemy.layer);
-        Debug.Log("attack!!");
+        bullet.Intialize(1f, target.AttackValue, target.Enemy.layer, moveVector);
     }
 }

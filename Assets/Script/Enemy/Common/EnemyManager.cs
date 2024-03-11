@@ -12,6 +12,8 @@ public class EnemyManager : MonoBehaviour
     public EnemyCommon EnemyCommon => _enemyCommon;
     public EnemyMasterSystem EnemyMasterSystem => _enemyMasterSystem;
 
+    public ObjectPool ObjectPool { get; private set; }
+
     public static EnemyManager Instance { get; private set; }
 
     private void Awake()
@@ -39,16 +41,35 @@ public class EnemyManager : MonoBehaviour
         var spawners = FindObjectsOfType<EnemySpawner>();
         yield return null;
 
+        foreach (var enemy in enemies)
+        {
+            enemy.Initialize();
+            SetUp(enemy.EnemySystem);
+        }
+
         _enemyCommon.EnemySpawners = spawners;
         if (_enemyCommon.EnemySpawners != null && _enemyCommon.EnemySpawners.Length > 0)
         {
             foreach (var spawner in _enemyCommon.EnemySpawners) { spawner.Initialize(); }
         }
 
-        _enemyMasterSystem = new(_enemyCommon, new ObjectPool());
-        _enemyMasterSystem.Initialize(enemies);
+        _enemyMasterSystem = new(_enemyCommon, ObjectPool = new(), new AssaultSystem(), new ShotSystem(), new BossSystem());
+        _enemyMasterSystem.Initialize();
 
         yield return null;
+    }
+
+    private void SetUp(IEnemy enemy)
+    {
+        switch (enemy)
+        {
+            case Assault:
+                _enemyCommon.AssaultEnemies ??= new(); _enemyCommon.AssaultEnemies.Add((Assault)enemy); break;
+            case Shot:
+                _enemyCommon.ShotEnemies ??= new(); _enemyCommon.ShotEnemies.Add((Shot)enemy); break;
+            case Boss:
+                _enemyCommon.BossEnemies ??= new(); _enemyCommon.BossEnemies.Add((Boss)enemy); break;
+        }
     }
 
     private void Loaded()

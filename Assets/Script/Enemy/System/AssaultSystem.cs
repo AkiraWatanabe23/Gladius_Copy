@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class AssaultSystem : EnemySystemBase
 {
-    private readonly List<Assault> _assaultEnemies = default;
+    private List<Assault> _assaultEnemies = default;
 
-    public AssaultSystem(EnemyCommon enemyCommon, params Assault[] targets)
+    public override void Initialize()
     {
-        EnemyCommon = enemyCommon;
+        if (EnemyCommon.AssaultEnemies == null) { return; }
+        _assaultEnemies = EnemyCommon.AssaultEnemies;
 
-        _assaultEnemies = new();
-        _assaultEnemies = targets.ToList();
-        foreach (var target in targets)
+        if (_assaultEnemies == null || _assaultEnemies.Count <= 0) { return; }
+        foreach (var target in _assaultEnemies)
         {
             if (target.Enemy.TryGetComponent(out Rigidbody2D rb2d)) { target.Rb2d = rb2d; }
             else { target.Rb2d = target.Enemy.AddComponent<Rigidbody2D>(); }
@@ -23,6 +22,7 @@ public class AssaultSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
+        if (_assaultEnemies == null || _assaultEnemies.Count <= 0) { return; }
         for (int i = _assaultEnemies.Count - 1; i >= 0; i--)
         {
             if (_assaultEnemies[i] == null) { continue; }
