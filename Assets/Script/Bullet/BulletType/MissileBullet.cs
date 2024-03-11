@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MissileBullet : MonoBehaviour
+/// <summary> ミサイル弾 </summary>
+public class MissileBullet : IBulletData
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject BulletObj { get; set; }
+    public float Speed { get; set; }
+    public int AttackValue { get; set; }
+    public LayerMask GunnerLayer { get; set; }
+    public Vector2 MoveDirection { get; set; }
+    public Rigidbody2D Rb2d { get; set; }
+
+    public void Movement()
     {
-        
+        Rb2d.velocity = MoveDirection * Speed;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hit(Collider2D collision)
     {
-        
+        if (collision.gameObject == null) { return; }
+
+        if (collision.gameObject.TryGetComponent(out Ground _))
+        {
+            ChangeDirection(collision.gameObject);
+        }
+        else
+        {
+            if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
+
+            damageTarget.ReceiveDamage(AttackValue);
+            EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(BulletObj);
+        }
+    }
+
+    /// <summary> 地面等に衝突したときの方向転換処理 </summary>
+    private void ChangeDirection(GameObject hitTarget)
+    {
+        //弾の回転を更新
+        var bulletRot = BulletObj.transform.localEulerAngles;
+        var targetRot = hitTarget.transform.localEulerAngles;
+
+        if (Mathf.Approximately(targetRot.z, 0f)) { bulletRot.z = 90f; }
+        else { bulletRot.z += targetRot.z; }
+
+        BulletObj.transform.localEulerAngles = bulletRot;
+
+        //弾の移動方向を更新
+        MoveDirection = hitTarget.transform.right;
     }
 }

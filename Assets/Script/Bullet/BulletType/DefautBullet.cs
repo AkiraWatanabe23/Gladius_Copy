@@ -7,18 +7,18 @@ public class DefautBullet : IBulletData
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public LayerMask GunnerLayer { get; set; }
+    public Vector2 MoveDirection { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
     public void Movement()
     {
-        Rb2d.velocity = Vector2.right * Speed;
+        Rb2d.velocity = MoveDirection * Speed;
     }
 
-    public void Hit(GameObject hitTarget)
+    public void Hit(Collider2D collision)
     {
-        Debug.Log("hit");
-        if (hitTarget == null) { return; }
-        if (!hitTarget.TryGetComponent(out IDamageable damageTarget)) { return; }
+        if (collision.gameObject == null) { return; }
+        if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
         EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(BulletObj);
