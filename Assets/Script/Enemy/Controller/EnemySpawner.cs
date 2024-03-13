@@ -4,8 +4,6 @@ using UnityEngine;
 [Serializable]
 public class SpawnParameter
 {
-    [SerializeField]
-    private SpawnEnemy _spawnEnemy = SpawnEnemy.None;
     [Tooltip("初回生成間隔（sec）")]
     [SerializeField]
     private float _firstSpawnInterval = 1f;
@@ -22,13 +20,6 @@ public class SpawnParameter
     public int SpawnCount => _spawnCount;
 }
 
-public enum SpawnEnemy
-{
-    None,
-    Assault,
-    Shot
-}
-
 public class EnemySpawner : MonoBehaviour
 {
     [Tooltip("生成するEnemyPrefab")]
@@ -37,10 +28,18 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("生成位置")]
     [SerializeField]
     private Transform _spawnMuzzle = default;
+    [Tooltip("画面内で生成するか")]
+    [SerializeField]
+    private bool _spawnInScreen = true;
 
-    [Tooltip("")]
+    [Tooltip("Enemy生成に関するパラメータ")]
     [SerializeField]
     private SpawnParameter _spawnParam = new();
+
+    [Header("Only In Screen")]
+    [Tooltip("サーチ範囲（画面内生成の時のみ適応）")]
+    [SerializeField]
+    private float _spawnSearchRadius = 1f;
 
     private float _spawnTimer = 0f;
     /// <summary> 初回生成を行ったかどうか </summary>
@@ -55,11 +54,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void Initialize()
     {
-        if (_spawnMuzzle == null)
-        {
-            Debug.Log("生成位置の割り当てがなかったため、自オブジェクトを生成位置に設定します");
-            _spawnMuzzle = transform;
-        }
+        _spawnMuzzle ??= transform;
     }
 
     public void Measuring(float deltaTime)
@@ -84,4 +79,14 @@ public class EnemySpawner : MonoBehaviour
         var enemySystem = enemy.GetComponent<EnemyController>().EnemySystem;
         EnemyManager.Instance.EnemyMasterSystem.AddEnemy(enemySystem);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!_spawnInScreen) { return; }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(gameObject.transform.position, _spawnSearchRadius);
+    }
+#endif
 }

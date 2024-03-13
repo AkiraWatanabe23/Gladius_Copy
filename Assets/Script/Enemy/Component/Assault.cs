@@ -16,6 +16,7 @@ public class Assault : IEnemy
     public Rigidbody2D Rb2d { get; set; }
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
+    public bool IsFindPlayer { get; set; }
 
     public void Init()
     {
