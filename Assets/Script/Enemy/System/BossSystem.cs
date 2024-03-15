@@ -75,12 +75,9 @@ public class BossSystem : EnemySystemBase
     private void Attack(Boss target)
     {
         var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
-        if (bullet.TryGetComponent(out BulletBase bulletData))
+        if (bullet.TryGetComponent(out BulletController bulletData))
         {
-            bulletData.Speed = 1f;
-            bulletData.AttackValue = target.AttackValue;
-
-            bulletData.Init(target.Enemy.layer);
+            bulletData.Initialize(1f, target.AttackValue, target.Enemy.layer, Vector2.left);
         }
         Debug.Log("attack!!");
     }

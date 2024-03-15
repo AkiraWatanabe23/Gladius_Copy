@@ -63,6 +63,6 @@ public class ShotSystem : EnemySystemBase
         var bullet = go.GetComponent<BulletController>();
         var moveVector = new Vector2(1, -1);
 
-        bullet.Intialize(1f, target.AttackValue, target.Enemy.layer, moveVector);
+        bullet.Initialize(1f, target.AttackValue, target.Enemy.layer, moveVector);
     }
 }
