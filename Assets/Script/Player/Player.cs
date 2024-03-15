@@ -6,9 +6,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private PlayerInput _input = new();
     [SerializeField] private float _moveSpeed = 5.0f;
     [SerializeField] private int _maxLife = 1;
-    [SerializeField] private BulletBase _bullet = null;
-
-    [SerializeField] private BulletController _bulletPrefab = default;
+    [SerializeField] private BulletController _bullet = null;
 
     private Rigidbody2D _rb2d = null;
     private LifeController _life = null;
@@ -51,7 +49,8 @@ public class Player : MonoBehaviour, IDamageable
         if (_input.IsShoot)
         {
             var bullet = Instantiate(_bullet, transform.position, _bullet.transform.rotation);
-            bullet.Init(gameObject.layer);
+
+            bullet.Initialize(1f, 1, gameObject.layer, Vector2.right);
             Debug.Log("Shoot!");
         }
     }

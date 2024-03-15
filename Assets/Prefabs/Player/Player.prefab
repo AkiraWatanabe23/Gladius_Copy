@@ -105,8 +105,10 @@ MonoBehaviour:
     _left: 97
     _right: 100
     _shoot: 32
+    _mouseButtonType: -1
   _moveSpeed: 5
-  _rb2d: {fileID: 4248242061682645771}
+  _maxLife: 1
+  _bullet: {fileID: 1862758396250232829, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
 --- !u!50 &4248242061682645771
 Rigidbody2D:
   serializedVersion: 4
