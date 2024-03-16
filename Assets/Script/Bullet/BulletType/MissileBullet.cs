@@ -4,6 +4,7 @@
 public class MissileBullet : IBulletData
 {
     public GameObject BulletObj { get; set; }
+    public Transform Transform { get; set; }
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public LayerMask GunnerLayer { get; set; }
@@ -36,13 +37,13 @@ public class MissileBullet : IBulletData
     private void ChangeDirection(GameObject hitTarget)
     {
         //弾の回転を更新
-        var bulletRot = BulletObj.transform.localEulerAngles;
+        var bulletRot = Transform.localEulerAngles;
         var targetRot = hitTarget.transform.localEulerAngles;
 
         if (Mathf.Approximately(targetRot.z, 0f)) { bulletRot.z = 90f; }
         else { bulletRot.z += targetRot.z; }
 
-        BulletObj.transform.localEulerAngles = bulletRot;
+        Transform.localEulerAngles = bulletRot;
 
         //弾の移動方向を更新
         MoveDirection = hitTarget.transform.right;

@@ -4,6 +4,7 @@ using UnityEngine;
 public class DefautBullet : IBulletData
 {
     public GameObject BulletObj { get; set; }
+    public Transform Transform { get; set; }
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public LayerMask GunnerLayer { get; set; }

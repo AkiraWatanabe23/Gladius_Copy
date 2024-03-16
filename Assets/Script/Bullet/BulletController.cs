@@ -28,6 +28,21 @@ public class BulletController : MonoBehaviour
     {
         EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_bulletData is not BombBullet) { return; }
+
+        var bomb = (BombBullet)_bulletData;
+
+        var old = Gizmos.color;
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(gameObject.transform.position, bomb.BombAreaRadius);
+        Gizmos.color = old;
+    }
+#endif
 }
 
 public enum BulletType
