@@ -3,6 +3,7 @@
 public interface IBulletData
 {
     public GameObject BulletObj { get; set; }
+    public Transform Transform { get; set; }
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     /// <summary> 自身を撃ったオブジェクトのLayer </summary>
@@ -14,6 +15,7 @@ public interface IBulletData
     public void Init(GameObject go, float speed, int attackValue, LayerMask gunner, Vector2 direction)
     {
         BulletObj = go;
+        Transform = BulletObj.transform;
         Speed = speed;
         AttackValue = attackValue;
         GunnerLayer = gunner;
@@ -25,10 +27,10 @@ public interface IBulletData
         Rb2d.isKinematic = true;
         Rb2d.gravityScale = 0f;
 
-        var rot = BulletObj.transform.localEulerAngles;
+        var rot = Transform.localEulerAngles;
         rot.z = 45f;
 
-        BulletObj.transform.localEulerAngles = rot;
+        Transform.localEulerAngles = rot;
     }
 
     public void Movement();

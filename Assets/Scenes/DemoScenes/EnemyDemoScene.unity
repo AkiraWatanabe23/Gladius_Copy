@@ -286,11 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248242061682645769, guid: 601891b59664ecf4884524593a02ef32, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.83
+      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 4248242061682645769, guid: 601891b59664ecf4884524593a02ef32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.28
       objectReference: {fileID: 0}
     - target: {fileID: 4248242061682645769, guid: 601891b59664ecf4884524593a02ef32, type: 3}
       propertyPath: m_LocalPosition.z
@@ -465,11 +465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6685621949255094286, guid: e1b5f5a69f316ff4fbafa54be00b6044, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.85
+      value: -7.05
       objectReference: {fileID: 0}
     - target: {fileID: 6685621949255094286, guid: e1b5f5a69f316ff4fbafa54be00b6044, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0.89
       objectReference: {fileID: 0}
     - target: {fileID: 6685621949255094286, guid: e1b5f5a69f316ff4fbafa54be00b6044, type: 3}
       propertyPath: m_LocalPosition.z
@@ -711,6 +711,8 @@ MonoBehaviour:
       <DefaultBullet>k__BackingField: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
       <PenetrationBullet>k__BackingField: {fileID: 1430901034967867357, guid: f2c59f429a27fa348afe115e3459a026, type: 3}
       <MissileBullet>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
+      <TrackingBullet>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
+      <BombBullet>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
 --- !u!1001 &4479510200592901006
 PrefabInstance:
   m_ObjectHideFlags: 0

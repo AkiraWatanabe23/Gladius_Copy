@@ -11,6 +11,10 @@ public class BulletHolder
     public GameObject PenetrationBullet { get; private set; }
     [field: SerializeField]
     public GameObject MissileBullet { get; private set; }
+    [field: SerializeField]
+    public GameObject TrackingBullet { get; private set; }
+    [field: SerializeField]
+    public GameObject BombBullet { get; private set; }
 }
 
 [Serializable]

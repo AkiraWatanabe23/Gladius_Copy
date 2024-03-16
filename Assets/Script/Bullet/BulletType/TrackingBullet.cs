@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TrackingBullet : MonoBehaviour
+/// <summary> 追尾 </summary>
+public class TrackingBullet : IBulletData
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject BulletObj { get; set; }
+    public Transform Transform { get; set; }
+    public float Speed { get; set; }
+    public int AttackValue { get; set; }
+    public LayerMask GunnerLayer { get; set; }
+    public Vector2 MoveDirection { get; set; }
+    public Rigidbody2D Rb2d { get; set; }
+
+    public void Movement()
     {
-        
+        Vector2 direction = EnemyManager.Instance.EnemyCommon.Player.position - Transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Transform.position += Transform.right * Speed * Time.deltaTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hit(Collider2D collision)
     {
-        
+        if (collision.gameObject == null) { return; }
+        if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
+
+        damageTarget.ReceiveDamage(AttackValue);
+        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(BulletObj);
     }
 }
