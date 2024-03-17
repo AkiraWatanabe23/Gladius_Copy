@@ -61,7 +61,8 @@ public class ShotSystem : EnemySystemBase
         var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.TrackingBullet);
         go.transform.position = target.Transform.position;
         var bullet = go.GetComponent<BulletController>();
-        var moveVector = new Vector2(1, -1);
+        var moveVector = Vector2.right;
+        //var moveVector = new Vector2(1, -1);
 
         bullet.Initialize(2f, target.AttackValue, target.Enemy.layer, moveVector);
     }

@@ -15,9 +15,12 @@ public class TrackingBullet : IBulletData
     {
         Vector2 direction = EnemyManager.Instance.EnemyCommon.Player.position - Transform.position;
         direction.Normalize();
+        MoveDirection = direction;
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        Transform.position += Transform.right * Speed * Time.deltaTime;
+        Transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+
+        Rb2d.velocity = MoveDirection * Speed;
     }
 
     public void Hit(Collider2D collision)
