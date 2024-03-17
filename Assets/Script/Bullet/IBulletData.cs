@@ -27,10 +27,7 @@ public interface IBulletData
         Rb2d.isKinematic = true;
         Rb2d.gravityScale = 0f;
 
-        var rot = Transform.localEulerAngles;
-        rot.z = 45f;
-
-        Transform.localEulerAngles = rot;
+        Transform.localEulerAngles = new Vector3(0f, 0f, 90f);
     }
 
     public void Movement();
