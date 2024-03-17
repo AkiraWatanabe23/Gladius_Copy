@@ -27,7 +27,15 @@ public interface IBulletData
         Rb2d.isKinematic = true;
         Rb2d.gravityScale = 0f;
 
-        Transform.localEulerAngles = new Vector3(0f, 0f, 90f);
+        if (MoveDirection == Vector2.zero)
+        {
+            Vector2 initialDirection = EnemyManager.Instance.EnemyCommon.Player.position - Transform.position;
+            initialDirection.Normalize();
+            MoveDirection = initialDirection;
+
+            float angle = Mathf.Atan2(initialDirection.y, initialDirection.x) * Mathf.Rad2Deg;
+            Transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+        }
     }
 
     public void Movement();
