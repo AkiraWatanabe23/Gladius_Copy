@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Player _) &&
+        if (collision.gameObject.TryGetComponent(out PlayerController _) &&
             collision.gameObject.TryGetComponent(out IDamageable player))
         {
             player.ReceiveDamage(_enemySystem.AttackValue);
