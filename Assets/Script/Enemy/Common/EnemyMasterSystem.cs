@@ -1,6 +1,6 @@
 ﻿public class EnemyMasterSystem
 {
-    private EnemySystemBase[] _enemySystems = default;
+    private readonly EnemySystemBase[] _enemySystems = default;
 
     public EnemyCommon EnemyCommon { get; private set; }
 

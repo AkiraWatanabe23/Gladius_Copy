@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyCommon:
-    _player: {fileID: 0}
+    _player: {fileID: 4875325871131705159}
     _enemyCorePrefab: {fileID: 1968044106956670669, guid: 79f783c16891f66428917aa12dfaf550, type: 3}
     _enemySpawners: []
     _bulletHolder:
@@ -777,3 +777,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+--- !u!4 &4875325871131705159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+  m_PrefabInstance: {fileID: 4875325871131705158}
+  m_PrefabAsset: {fileID: 0}

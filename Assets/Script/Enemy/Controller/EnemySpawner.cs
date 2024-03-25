@@ -14,10 +14,13 @@ public class SpawnParameter
     [Tooltip("一度に生成する数")]
     [SerializeField]
     private int _spawnCount = 1;
+    [SerializeField]
+    private EnemyMovementType _moveType = EnemyMovementType.None;
 
     public float FirstSpawnInterval => _firstSpawnInterval;
     public float SpawnInterval => _spawnInterval;
     public int SpawnCount => _spawnCount;
+    public EnemyMovementType MoveType => _moveType;
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -76,8 +79,9 @@ public class EnemySpawner : MonoBehaviour
         var enemy = EnemyManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
         enemy.transform.position = SpawnPos;
 
-        var enemySystem = enemy.GetComponent<EnemyController>().EnemySystem;
-        EnemyManager.Instance.EnemyMasterSystem.AddEnemy(enemySystem);
+        var enemySystem = enemy.GetComponent<EnemyController>();
+        enemySystem.MovementType = _spawnParam.MoveType;
+        EnemyManager.Instance.EnemyMasterSystem.AddEnemy(enemySystem.EnemySystem);
     }
 
 #if UNITY_EDITOR

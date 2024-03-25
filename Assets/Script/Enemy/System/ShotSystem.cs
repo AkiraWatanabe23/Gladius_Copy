@@ -64,6 +64,6 @@ public class ShotSystem : EnemySystemBase
         var moveVector = Vector2.right;
         //var moveVector = new Vector2(1, -1);
 
-        bullet.Initialize(2f, target.AttackValue, target.Enemy.layer, moveVector);
+        bullet.Initialize(2f, target.EnemyController.AttackValue, target.Enemy.layer, moveVector);
     }
 }

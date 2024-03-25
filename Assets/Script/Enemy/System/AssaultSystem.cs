@@ -22,13 +22,11 @@ public class AssaultSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
-        if (_assaultEnemies == null || _assaultEnemies.Count <= 0) { return; }
+        if (_assaultEnemies == null || _assaultEnemies.Count == 0) { return; }
         for (int i = _assaultEnemies.Count - 1; i >= 0; i--)
         {
             if (_assaultEnemies[i] == null) { continue; }
-            if (_assaultEnemies[i].Enemy == null) { continue; }
-
-            _assaultEnemies[i].Rb2d.velocity = Vector2.left * _assaultEnemies[i].MoveSpeed;
+            Movement(_assaultEnemies[i]);
         }
     }
 
@@ -44,5 +42,17 @@ public class AssaultSystem : EnemySystemBase
         if (target is not Assault) { return; }
 
         _assaultEnemies.Remove((Assault)target);
+    }
+
+    private void Movement(Assault enemy)
+    {
+        switch (enemy.EnemyController.MovementType)
+        {
+            case EnemyMovementType.Straight: break;
+            case EnemyMovementType.RightAngle: break;
+            case EnemyMovementType.FigureEight: break;
+            case EnemyMovementType.ZShapedMeandering: break;
+            case EnemyMovementType.FollowTerrain: break;
+        }
     }
 }

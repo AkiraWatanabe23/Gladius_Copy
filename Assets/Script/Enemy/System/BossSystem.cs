@@ -77,7 +77,7 @@ public class BossSystem : EnemySystemBase
         var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
-            bulletData.Initialize(1f, target.AttackValue, target.Enemy.layer, Vector2.left);
+            bulletData.Initialize(1f, target.EnemyController.AttackValue, target.Enemy.layer, Vector2.left);
         }
         Debug.Log("attack!!");
     }
