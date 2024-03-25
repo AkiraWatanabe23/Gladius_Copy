@@ -2,13 +2,26 @@
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
+    [SerializeField]
+    private int _hp = 1;
+    [SerializeField]
+    private int _attackValue = 1;
+    [SerializeField]
+    private float _moveSpeed = 1f;
+
     [SubclassSelector]
     [SerializeReference]
     private IEnemy _enemySystem = default;
+    [SerializeField]
+    private EnemyMovementType _movementType = EnemyMovementType.None;
 
     private EnemyType _enemyType = EnemyType.None;
 
+    public int HP { get => _hp; set => _hp = value; }
+    public int AttackValue => _attackValue;
+    public float MoveSpeed => _moveSpeed;
     public IEnemy EnemySystem => _enemySystem;
+    public EnemyMovementType MovementType { get => _movementType; set => _movementType = value; }
 
     public void Initialize()
     {
@@ -19,6 +32,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             Boss => EnemyType.Boss,
             _ => EnemyType.None,
         };
+        _enemySystem.EnemyController = this;
         _enemySystem.Enemy = gameObject;
         _enemySystem.Transform = gameObject.transform;
 
@@ -30,7 +44,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (collision.gameObject.TryGetComponent(out PlayerController _) &&
             collision.gameObject.TryGetComponent(out IDamageable player))
         {
-            player.ReceiveDamage(_enemySystem.AttackValue);
+            player.ReceiveDamage(_attackValue);
             if (_enemyType == EnemyType.Assault)
             {
                 EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
@@ -48,8 +62,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ReceiveDamage(int value)
     {
-        _enemySystem.HP -= value;
-        if (_enemySystem.HP <= 0)
+        _hp -= value;
+        if (_hp <= 0)
         {
             Debug.Log("やられたー");
             EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);

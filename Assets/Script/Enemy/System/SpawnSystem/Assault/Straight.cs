@@ -14,7 +14,7 @@ public class Straight : IEnemyGeneration
 
         var assault = (Assault)enemy.EnemySystem;
 
-        if (!assault.IsFindPlayer) { assault.Rb2d.velocity = Vector2.left * assault.MoveSpeed; }
+        if (!assault.IsFindPlayer) { assault.Rb2d.velocity = Vector2.left * enemy.MoveSpeed; }
         else
         {
 
