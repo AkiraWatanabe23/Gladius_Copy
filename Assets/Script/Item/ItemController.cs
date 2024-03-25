@@ -4,7 +4,7 @@ public class ItemController : MonoBehaviour
 {
     [SubclassSelector]
     [SerializeReference]
-    private IItemSystem _itemSystem = default;
+    private IGameItem _itemSystem = default;
 
-    public IItemSystem ItemSystem => _itemSystem;
+    public IGameItem ItemSystem => _itemSystem;
 }
