@@ -26,5 +26,10 @@ public class PlayerController : MonoBehaviour, IDamageable
         _attack.OnUpdate();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _movement.OnTriggerEnter2D(collision);
+    }
+
     public void ReceiveDamage(int value) { _health.ReceiveDamage(value); }
 }

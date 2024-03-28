@@ -28,4 +28,13 @@ public class PlayerMovement : PlayerSystemBase
 
         _rb2d.velocity = new Vector2(horizontal, vertical) * _moveSpeed;
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        //ここに移動による当たり判定の記述をする
+        if (collision.gameObject.TryGetComponent(out ItemController item))
+        {
+            item.ItemSystem.PlayEffect();
+        }
+    }
 }
