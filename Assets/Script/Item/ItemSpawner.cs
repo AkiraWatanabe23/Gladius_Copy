@@ -12,24 +12,8 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> _itemPrefabs = default;
 
-    private int _itemSpawnCount = 0;
-
-    public int ItemSpawnCount
+    public void Spawn(int index)
     {
-        get => _itemSpawnCount;
-        set
-        {
-            _itemSpawnCount = value;
-            if (IsSpawn) { ItemSpawn(); }
-        }
-    }
-
-    protected int ItemIndex => _itemSpawnCount % _itemSpawnMultiple;
-    protected bool IsSpawn => ItemIndex == 0;
-
-    private void ItemSpawn()
-    {
-        var index = ItemIndex;
         if (_itemPrefabs == null) { Debug.Log("no item settings"); return; }
         if (index + 1 >= _itemPrefabs.Count) { index = 0; }
 
