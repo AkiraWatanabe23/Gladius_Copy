@@ -81,13 +81,3 @@ public class EnemyManager : MonoBehaviour
 
     private void OnDestroy() => _enemyMasterSystem.OnDestroy();
 }
-
-public enum EnemyMovementType
-{
-    None,
-    Straight,
-    RightAngle,
-    FigureEight,
-    ZShapedMeandering,
-    FollowTerrain
-}
