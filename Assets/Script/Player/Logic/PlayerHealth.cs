@@ -9,6 +9,9 @@ public class PlayerHealth :  PlayerSystemBase
     [SerializeField]
     private int _maxLife = 1;
 
+    public int Life => _life;
+    public int MaxLife => _maxLife;
+
     public override void Initialize(GameObject go)
     {
         _life = _maxLife;

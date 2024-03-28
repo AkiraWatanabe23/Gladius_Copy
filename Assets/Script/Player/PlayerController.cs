@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private PlayerHealth _health = new();
 
+    public PlayerMovement Movement => _movement;
+    public PlayerAttack Attack => _attack;
+    public PlayerHealth Health => _health;
+
     private void Start()
     {
         _movement.Initialize(gameObject);
