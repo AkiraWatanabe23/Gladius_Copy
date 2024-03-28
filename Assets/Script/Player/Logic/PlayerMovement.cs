@@ -40,6 +40,7 @@ public class PlayerMovement : PlayerSystemBase
         if (collision.gameObject.TryGetComponent(out ItemController item))
         {
             item.ItemSystem.PlayEffect();
+            UnityEngine.Object.Destroy(collision.gameObject);
         }
     }
 }
