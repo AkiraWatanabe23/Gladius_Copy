@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         _hp -= value;
         if (_hp <= 0)
         {
-            Debug.Log("やられたー");
+            GameManager.Instance.EnemyDeadCount++;
             EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
         }
     }
