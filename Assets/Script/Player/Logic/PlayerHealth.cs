@@ -39,4 +39,10 @@ public class PlayerHealth :  PlayerSystemBase
             }
         }
     }
+
+    public void Heal(int value)
+    {
+        _life += value;
+        if (_life > _maxLife) { _life = _maxLife; }
+    }
 }
