@@ -58,7 +58,7 @@ public class ShotSystem : EnemySystemBase
 
     private void Attack(Shot target)
     {
-        var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.BombBullet);
+        var go = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
         go.transform.position = target.Transform.position;
         var bullet = go.GetComponent<BulletController>();
         var moveVector = Vector2.right;
