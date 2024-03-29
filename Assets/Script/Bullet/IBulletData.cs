@@ -43,3 +43,24 @@ public interface IBulletData
     /// <summary> オブジェクトとの衝突時に実行される関数 </summary>
     public void Hit(Collider2D collision);
 }
+
+/// <summary> 初期ショットに設定可能な弾の種類 </summary>
+public enum InitialBulletType
+{
+    Default,
+    Laser,
+    ChargeBeam,
+    Homing,
+    ShotGun
+}
+
+/// <summary> アイテムで追加することができる弾の種類 </summary>
+public enum PlusShotType
+{
+    Missile,
+    TwoWay,
+    SupportShot,
+    ReflectLaser,
+    Melee,
+    Barrier
+}

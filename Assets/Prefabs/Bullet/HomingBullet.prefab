@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1122573615853774346}
   - component: {fileID: 1122573615853774347}
   m_Layer: 0
-  m_Name: TrackingBullet
+  m_Name: HomingBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
