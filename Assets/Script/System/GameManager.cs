@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,9 +8,18 @@ public class GameManager : MonoBehaviour
     private PlayerController _player = default;
     [SerializeField]
     private ItemSpawner _itemSpawner = default;
+    [Tooltip("使用するプラスショット")]
+    [SerializeField]
+    private List<PlusShotType> _plusShots = default;
+    [Tooltip("インゲームに出てくる弾やショットのリスト")]
+    [SerializeField]
+    private BulletHolder _bulletHolder = new();
+    [Tooltip("倒したEnemyの数")]
     [ReadOnly]
     [SerializeField]
     private int _enemyDeadCount = 0;
+
+    private List<GameObject> _plusShotPrefabs = default;
 
     public PlayerController Player
     {
@@ -18,6 +29,23 @@ public class GameManager : MonoBehaviour
             return _player;
         }
     }
+
+    public List<GameObject> PlusShots
+    {
+        get
+        {
+            if (_plusShotPrefabs == null)
+            {
+                _plusShotPrefabs = new();
+                foreach (var shot in _plusShots)
+                {
+                    _plusShotPrefabs.Add(_bulletHolder.PlusShotsDictionary[shot]);
+                }
+            }
+            return _plusShotPrefabs;
+        }
+    }
+    public BulletHolder BulletHolder => _bulletHolder;
     public int EnemyDeadCount
     {
         get => _enemyDeadCount;
@@ -29,6 +57,7 @@ public class GameManager : MonoBehaviour
             if (remainder == 0) { _itemSpawner.Spawn(remainder); }
         }
     }
+    public ObjectPool ObjectPool { get; private set; }
 
     public static GameManager Instance { get; private set; }
 
@@ -40,5 +69,17 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
+    }
+
+    private IEnumerator Start()
+    {
+        yield return Initialize();
+    }
+
+    private IEnumerator Initialize()
+    {
+        ObjectPool = new();
+
+        yield return null;
     }
 }

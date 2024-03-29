@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2925223453046732366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2925223453046732365}
+  - component: {fileID: 2925223453046732364}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2925223453046732365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925223453046732366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2925223453046732364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925223453046732366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0261be3a50fb21547841c3edaabfb37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _itemSpawner: {fileID: 0}
+  _bulletHolder:
+    <DefaultBullet>k__BackingField: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
+    <PenetrationBullet>k__BackingField: {fileID: 1430901034967867357, guid: f2c59f429a27fa348afe115e3459a026, type: 3}
+    <MissileBullet>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
+    <TrackingBullet>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
+    <BombBullet>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
+  _enemyDeadCount: 0

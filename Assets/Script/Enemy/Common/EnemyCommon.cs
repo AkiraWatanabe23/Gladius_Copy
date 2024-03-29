@@ -15,6 +15,57 @@ public class BulletHolder
     public GameObject TrackingBullet { get; private set; }
     [field: SerializeField]
     public GameObject BombBullet { get; private set; }
+
+    [SerializeField]
+    private List<InitialBullet> _initialBullets = default;
+    [SerializeField]
+    private List<PlusShot> _plusShots = default;
+
+    private Dictionary<InitialBulletType, GameObject> _bulletsDictionary = default;
+    private Dictionary<PlusShotType, GameObject> _plusShotsDictionary = default;
+
+    public Dictionary<InitialBulletType, GameObject> BulletsDictionary
+    {
+        get
+        {
+            if (_bulletsDictionary == null)
+            {
+                _bulletsDictionary = new();
+                foreach (var bullet in _initialBullets) { _bulletsDictionary.Add(bullet.BulletType, bullet.BulletPrefab); }
+            }
+            return _bulletsDictionary;
+        }
+    }
+    public Dictionary<PlusShotType, GameObject> PlusShotsDictionary
+    {
+        get
+        {
+            if (_plusShotsDictionary == null)
+            {
+                _plusShotsDictionary = new();
+                foreach (var shot in _plusShots) { _plusShotsDictionary.Add(shot.ShotType, shot.BulletPrefab); }
+            }
+            return _plusShotsDictionary;
+        }
+    }
+}
+
+[Serializable]
+public class InitialBullet
+{
+    [field: SerializeField]
+    public InitialBulletType BulletType { get; private set; }
+    [field: SerializeField]
+    public GameObject BulletPrefab { get; private set; }
+}
+
+[Serializable]
+public class PlusShot
+{
+    [field: SerializeField]
+    public PlusShotType ShotType { get; private set; }
+    [field: SerializeField]
+    public GameObject BulletPrefab { get; private set; }
 }
 
 [Serializable]
