@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary> 追尾 </summary>
-public class TrackingBullet : IBulletData
+public class HomingBullet : IBulletData
 {
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
@@ -25,7 +25,6 @@ public class TrackingBullet : IBulletData
 
     public void Hit(Collider2D collision)
     {
-        if (collision.gameObject == null) { return; }
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
