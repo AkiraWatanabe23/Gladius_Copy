@@ -43,11 +43,17 @@ public enum BGMType
 {
     None,
     TitleBGM,
-    HomeBGM,
+    InGameBGM,
+    GameClearBGM,
+    GameOverBGM
 }
 
 public enum SEType
 {
     None,
     Click,
+    Attack,
+    AttackHit,
+    PlayerCrash,
+    EnemyCrash
 }
