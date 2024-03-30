@@ -791,14 +791,6 @@ MonoBehaviour:
     _player: {fileID: 4875325871131705159}
     _enemyCorePrefab: {fileID: 1968044106956670669, guid: 79f783c16891f66428917aa12dfaf550, type: 3}
     _enemySpawners: []
-    _bulletHolder:
-      <DefaultBullet>k__BackingField: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
-      <PenetrationBullet>k__BackingField: {fileID: 1430901034967867357, guid: f2c59f429a27fa348afe115e3459a026, type: 3}
-      <MissileBullet>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
-      <TrackingBullet>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
-      <BombBullet>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
-      _initialBullets: []
-      _plusShots: []
 --- !u!1001 &2925223452252958947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,66 +798,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _plusShots.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _plusShots.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _plusShots.Array.data[1]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _plusShots.Array.data[2]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._plusShots.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[1].<BulletType>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[2].<BulletType>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[3].<BulletType>k__BackingField
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[4].<BulletType>k__BackingField
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[0].<BulletPrefab>k__BackingField
-      value: 
-      objectReference: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[1].<BulletPrefab>k__BackingField
-      value: 
-      objectReference: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[2].<BulletPrefab>k__BackingField
-      value: 
-      objectReference: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[3].<BulletPrefab>k__BackingField
-      value: 
-      objectReference: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _bulletHolder._bullets.Array.data[4].<BulletPrefab>k__BackingField
-      value: 
-      objectReference: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
     - target: {fileID: 2925223453046732365, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -996,18 +928,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _attack._initialBullets.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _attack._initialBullets.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _attack._initialBullets.Array.data[2]
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_RootOrder
       value: 5

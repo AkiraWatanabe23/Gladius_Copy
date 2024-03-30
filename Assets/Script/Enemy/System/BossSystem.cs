@@ -74,7 +74,8 @@ public class BossSystem : EnemySystemBase
 
     private void Attack(Boss target)
     {
-        var bullet = EnemyCommon.ObjectPool.SpawnObject(EnemyCommon.BulletHolder.DefaultBullet);
+        var bullet = EnemyCommon.ObjectPool.SpawnObject(
+            GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
             bulletData.Initialize(1f, target.EnemyController.AttackValue, target.Enemy.layer, Vector2.left);

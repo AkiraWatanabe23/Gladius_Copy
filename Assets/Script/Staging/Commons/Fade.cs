@@ -21,7 +21,7 @@ public class Fade : SingletonMonoBehaviour<Fade>
     /// <summary> フェードアウト開始 </summary>
     public void StartFadeOut(params Action[] onCompleteFadeOut) => StartCoroutine(FadeOut(onCompleteFadeOut));
 
-    public IEnumerator FadeIn(params Action[] onCompleteFadeIn)
+    private IEnumerator FadeIn(params Action[] onCompleteFadeIn)
     {
         _fadePanel.gameObject.SetActive(true);
 
@@ -48,7 +48,7 @@ public class Fade : SingletonMonoBehaviour<Fade>
         }
     }
 
-    public IEnumerator FadeOut(params Action[] onCompleteFadeOut)
+    private IEnumerator FadeOut(params Action[] onCompleteFadeOut)
     {
         _fadePanel.gameObject.SetActive(true);
 

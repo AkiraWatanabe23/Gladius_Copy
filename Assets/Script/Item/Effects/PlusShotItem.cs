@@ -16,5 +16,6 @@ public class PlusShotItem : IGameItem
     public void PlayEffect()
     {
         //ショット追加
+        GameManager.Instance.Player.Attack.PlusShotBullet = _plusShotType;
     }
 }
