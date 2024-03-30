@@ -18,8 +18,6 @@ public class MissileBullet : IBulletData
 
     public void Hit(Collider2D collision)
     {
-        if (collision.gameObject == null) { return; }
-
         if (collision.gameObject.TryGetComponent(out Ground _))
         {
             ChangeDirection(collision.gameObject);

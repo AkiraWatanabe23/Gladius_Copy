@@ -20,6 +20,7 @@ public class BulletController : MonoBehaviour
     {
         //衝突対象が攻撃対象でなければ無視
         if (collision.gameObject.layer == _bulletData.GunnerLayer) { return; }
+        if (collision.gameObject == null) { return; }
 
         _bulletData.Hit(collision);
     }

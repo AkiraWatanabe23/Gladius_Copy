@@ -11,12 +11,12 @@ public class ChargeBeamBullet : IBulletData
     public Vector2 MoveDirection { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
-    public void Hit(Collider2D collision)
+    public void Movement()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Movement()
+    public void Hit(Collider2D collision)
     {
         throw new System.NotImplementedException();
     }

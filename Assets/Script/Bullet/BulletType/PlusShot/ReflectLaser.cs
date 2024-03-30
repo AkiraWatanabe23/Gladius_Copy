@@ -1,14 +1,8 @@
 ﻿using UnityEngine;
 
-/// <summary> レーザー（貫通） </summary>
-public class LaserBullet : IBulletData
+/// <summary> 反射レーザー </summary>
+public class ReflectLaser : IBulletData
 {
-    [Tooltip("貫通数")]
-    [SerializeField]
-    private int _penetrationCount = 1;
-
-    private int _hitCount = 0;
-
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
     public float Speed { get; set; }
@@ -24,14 +18,16 @@ public class LaserBullet : IBulletData
 
     public void Hit(Collider2D collision)
     {
-        if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
-
-        damageTarget.ReceiveDamage(AttackValue);
-        _hitCount++;
-
-        if (_hitCount == _penetrationCount)
+        if (collision.gameObject.TryGetComponent(out Ground _))
         {
-            _hitCount = 0;
+            var reflect = Vector2.Reflect(collision.gameObject.transform.position, Vector2.up);
+            MoveDirection = reflect;
+        }
+        else
+        {
+            if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
+
+            damageTarget.ReceiveDamage(AttackValue);
             GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
         }
     }
