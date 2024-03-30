@@ -47,16 +47,19 @@ public interface IBulletData
 /// <summary> 初期ショットに設定可能な弾の種類 </summary>
 public enum InitialBulletType
 {
+    None,
     Default,
     Laser,
     ChargeBeam,
     Homing,
-    ShotGun
+    ShotGun,
+    Bomb
 }
 
 /// <summary> アイテムで追加することができる弾の種類 </summary>
 public enum PlusShotType
 {
+    None,
     Missile,
     TwoWay,
     SupportShot,

@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class BulletHolder
+public class InitialBullet
 {
     [field: SerializeField]
-    public GameObject DefaultBullet { get; private set; }
+    public InitialBulletType BulletType { get; private set; }
     [field: SerializeField]
-    public GameObject PenetrationBullet { get; private set; }
-    [field: SerializeField]
-    public GameObject MissileBullet { get; private set; }
-    [field: SerializeField]
-    public GameObject TrackingBullet { get; private set; }
-    [field: SerializeField]
-    public GameObject BombBullet { get; private set; }
+    public GameObject BulletPrefab { get; private set; }
+}
 
+[Serializable]
+public class PlusShot
+{
+    [field: SerializeField]
+    public PlusShotType ShotType { get; private set; }
+    [field: SerializeField]
+    public GameObject BulletPrefab { get; private set; }
+}
+
+[Serializable]
+public class BulletHolder
+{
+    [Tooltip("初期ショットのList")]
     [SerializeField]
     private List<InitialBullet> _initialBullets = default;
+    [Tooltip("プラスショットのList")]
     [SerializeField]
     private List<PlusShot> _plusShots = default;
 
@@ -51,24 +60,6 @@ public class BulletHolder
 }
 
 [Serializable]
-public class InitialBullet
-{
-    [field: SerializeField]
-    public InitialBulletType BulletType { get; private set; }
-    [field: SerializeField]
-    public GameObject BulletPrefab { get; private set; }
-}
-
-[Serializable]
-public class PlusShot
-{
-    [field: SerializeField]
-    public PlusShotType ShotType { get; private set; }
-    [field: SerializeField]
-    public GameObject BulletPrefab { get; private set; }
-}
-
-[Serializable]
 public class EnemyCommon
 {
     [SerializeField]
@@ -77,15 +68,12 @@ public class EnemyCommon
     private GameObject _enemyCorePrefab = default;
     [SerializeField]
     private EnemySpawner[] _enemySpawners = default;
-    [SerializeField]
-    private BulletHolder _bulletHolder = new();
 
     public Transform Player => _player;
     public GameObject EnemyCorePrefab => _enemyCorePrefab;
     public List<Assault> AssaultEnemies { get; set; }
     public List<Shot> ShotEnemies { get; set; }
     public List<Boss> BossEnemies { get; set; }
-    public BulletHolder BulletHolder => _bulletHolder;
 
     public EnemySpawner[] EnemySpawners { get => _enemySpawners; set => _enemySpawners = value; }
 

@@ -46,10 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _itemSpawner: {fileID: 0}
+  _plusShots: 010000000300000006000000
   _bulletHolder:
-    <DefaultBullet>k__BackingField: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
-    <PenetrationBullet>k__BackingField: {fileID: 1430901034967867357, guid: f2c59f429a27fa348afe115e3459a026, type: 3}
-    <MissileBullet>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
-    <TrackingBullet>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
-    <BombBullet>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
+    _initialBullets:
+    - <BulletType>k__BackingField: 1
+      <BulletPrefab>k__BackingField: {fileID: 4270151735557775222, guid: 6051d38f71b2ba141b4efb53f5c2724d, type: 3}
+    - <BulletType>k__BackingField: 2
+      <BulletPrefab>k__BackingField: {fileID: 1047641568700036919, guid: a53c1a31380e6fd48b3357f5ecb484d1, type: 3}
+    - <BulletType>k__BackingField: 3
+      <BulletPrefab>k__BackingField: {fileID: 1549710928187148267, guid: e429ea24a45237e479cc3c81c9b86c62, type: 3}
+    - <BulletType>k__BackingField: 4
+      <BulletPrefab>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
+    - <BulletType>k__BackingField: 6
+      <BulletPrefab>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
+    _plusShots:
+    - <ShotType>k__BackingField: 1
+      <BulletPrefab>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
   _enemyDeadCount: 0

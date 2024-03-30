@@ -5,20 +5,35 @@ using UnityEngine;
 [Serializable]
 public class PlayerAttack : PlayerSystemBase
 {
+    [Tooltip("弾を射出するMuzzle")]
     [SerializeField]
-    private Transform _spawnMuzzle = default;
+    private List<Transform> _spawnMuzzles = default;
     [SerializeField]
     private int _attackValue = 1;
     [SerializeField]
     private float _attackInterval = 1f;
+    [SerializeField]
+    private PlusShotType _plusShotBullet = PlusShotType.None;
     [Tooltip("初期ショット")]
     [SerializeField]
     private List<InitialBulletType> _initialBullets = default;
 
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
+    private GameObject _plusShot = default;
 
-    public List<GameObject> Bullets
+    public int AttackValue => _attackValue;
+    public PlusShotType PlusShotBullet
+    {
+        get => _plusShotBullet;
+        set
+        {
+            _plusShotBullet = value;
+            _plusShot = GameManager.Instance.BulletHolder.PlusShotsDictionary[value];
+        }
+    }
+
+    protected List<GameObject> Bullets
     {
         get
         {
@@ -33,12 +48,9 @@ public class PlayerAttack : PlayerSystemBase
             return _bullets;
         }
     }
-
-    public int AttackValue => _attackValue;
-
     protected bool IsGetShootInput => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
-    protected bool IsGetBulletChangeInputUp => Input.GetKeyDown(KeyCode.UpArrow);
-    protected bool IsGetBulletChangeInputDown => Input.GetKeyDown(KeyCode.DownArrow);
+    protected bool IsGetBulletChangeInputUp => Input.mouseScrollDelta.y >= 1f;
+    protected bool IsGetBulletChangeInputDown => Input.mouseScrollDelta.y <= -1f;
 
     public override void OnUpdate()
     {
@@ -50,14 +62,27 @@ public class PlayerAttack : PlayerSystemBase
     private void Attack()
     {
         Debug.Log("attack");
-        //var bullet = GameManager.Instance.ObjectPool.SpawnObject(_bullets[_bulletIndex]);
-        //bullet.transform.position = _spawnMuzzle.position;
+        if (_spawnMuzzles == null || _spawnMuzzles.Count == 0) { return; }
+        for (int i = 0; i < _spawnMuzzles.Count; i++)
+        {
+            GameObject bullet = null;
+            if (i == 0)
+            {
+                bullet = GameManager.Instance.ObjectPool.SpawnObject(Bullets[_bulletIndex]);
+            }
+            else if (i < 0 && _plusShotBullet != PlusShotType.None)
+            {
+                //PlusShotを撃つ
+                bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
+            }
+            bullet.transform.position = _spawnMuzzles[i].position;
+        }
     }
 
     private void BulletChange(int changeValue = 1)
     {
-        if (_bulletIndex + changeValue >= _bullets.Count) { _bulletIndex = 0; return; }
-        if (_bulletIndex + changeValue < 0) { _bulletIndex = _bullets.Count - 1; return; }
+        if (_bulletIndex + changeValue >= Bullets.Count) { _bulletIndex = 0; return; }
+        if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
 
         _bulletIndex += changeValue;
     }

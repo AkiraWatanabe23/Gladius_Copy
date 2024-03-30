@@ -19,30 +19,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _enemyDeadCount = 0;
 
-    private List<GameObject> _plusShotPrefabs = default;
-
+    #region public Properties
     public PlayerController Player
     {
         get
         {
             if (_player == null) { _player = FindObjectOfType<PlayerController>(); }
             return _player;
-        }
-    }
-
-    public List<GameObject> PlusShots
-    {
-        get
-        {
-            if (_plusShotPrefabs == null)
-            {
-                _plusShotPrefabs = new();
-                foreach (var shot in _plusShots)
-                {
-                    _plusShotPrefabs.Add(_bulletHolder.PlusShotsDictionary[shot]);
-                }
-            }
-            return _plusShotPrefabs;
         }
     }
     public BulletHolder BulletHolder => _bulletHolder;
@@ -60,6 +43,7 @@ public class GameManager : MonoBehaviour
     public ObjectPool ObjectPool { get; private set; }
 
     public static GameManager Instance { get; private set; }
+    #endregion
 
     private void Awake()
     {
@@ -74,6 +58,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return Initialize();
+
+        //Fade.Instance.StartFadeIn();
     }
 
     private IEnumerator Initialize()
