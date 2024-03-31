@@ -33,7 +33,7 @@ public class BombBullet : IBulletData
         Rb2d.isKinematic = false;
         Rb2d.gravityScale = 1f;
 
-        Vector2 direction = EnemyManager.Instance.EnemyCommon.Player.position - Transform.position;
+        Vector2 direction = GameManager.Instance.PlayerTransform.position - Transform.position;
         direction.Normalize();
 
         Rb2d.AddForce(direction * 5f, ForceMode2D.Impulse);
