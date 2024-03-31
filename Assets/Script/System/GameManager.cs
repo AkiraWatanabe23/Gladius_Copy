@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _enemyDeadCount = 0;
 
+    private GameUpdate _inGameUpdate = default;
+
     #region public Properties
     public PlayerController Player
     {
@@ -60,12 +62,22 @@ public class GameManager : MonoBehaviour
         yield return Initialize();
 
         //Fade.Instance.StartFadeIn();
+        Loaded();
     }
 
     private IEnumerator Initialize()
     {
+        if (!TryGetComponent(out _inGameUpdate)) { _inGameUpdate = gameObject.AddComponent<GameUpdate>(); }
+        _inGameUpdate.enabled = false;
+
         ObjectPool = new();
 
         yield return null;
+    }
+
+    private void Loaded()
+    {
+        _inGameUpdate.Initialize();
+        _inGameUpdate.enabled = true;
     }
 }
