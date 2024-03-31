@@ -8,6 +8,6 @@ public class Annihilation : IGameItem
     public void PlayEffect()
     {
         var enemies = Object.FindObjectsOfType<EnemyController>();
-        foreach (var enemy in enemies) { EnemyManager.Instance.ObjectPool.RemoveObject(enemy.gameObject); }
+        foreach (var enemy in enemies) { GameManager.Instance.ObjectPool.RemoveObject(enemy.gameObject); }
     }
 }

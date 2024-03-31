@@ -13,7 +13,7 @@ public class HomingBullet : IBulletData
 
     public void Movement()
     {
-        Vector2 direction = EnemyManager.Instance.EnemyCommon.Player.position - Transform.position;
+        Vector2 direction = GameManager.Instance.PlayerTransform.position - Transform.position;
         direction.Normalize();
         MoveDirection = direction;
 
@@ -28,6 +28,6 @@ public class HomingBullet : IBulletData
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
-        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(BulletObj);
+        GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
     }
 }

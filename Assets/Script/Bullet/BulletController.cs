@@ -12,7 +12,7 @@ public class BulletController : MonoBehaviour
     public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 direction)
     {
         _bulletData.Init(gameObject, speed, attackValue, gunner, direction);
-        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.Player.transform); }
+        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        EnemyManager.Instance.EnemyCommon.ObjectPool.RemoveObject(gameObject);
+        GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 
 #if UNITY_EDITOR
