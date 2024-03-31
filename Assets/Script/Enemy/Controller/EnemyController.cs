@@ -35,8 +35,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         _enemySystem.EnemyController = this;
         _enemySystem.Enemy = gameObject;
         _enemySystem.Transform = gameObject.transform;
-
-        _enemySystem.Init();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,7 +45,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             player.ReceiveDamage(_attackValue);
             if (_enemyType == EnemyType.Assault)
             {
-                EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
+                GameManager.Instance.ObjectPool.RemoveObject(gameObject);
             }
         }
     }
@@ -55,10 +53,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible()
     {
-        EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
+        GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
-
-    private void OnDestroy() => EnemyManager.Instance.EnemyMasterSystem.RemoveEnemy(_enemySystem);
 
     public void ReceiveDamage(int value)
     {
@@ -66,7 +62,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (_hp <= 0)
         {
             GameManager.Instance.EnemyDeadCount++;
-            EnemyManager.Instance.ObjectPool.RemoveObject(gameObject);
+            GameManager.Instance.ObjectPool.RemoveObject(gameObject);
         }
     }
 

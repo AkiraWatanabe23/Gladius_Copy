@@ -14,9 +14,11 @@ public class Boss : IEnemy
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
 
-    public void Init()
+    public void Init() { }
+
+    public void Init(Transform playerTransform, GameObject corePrefab)
     {
-        PlayerTransform = EnemyManager.Instance.EnemyCommon.Player.transform;
+        PlayerTransform = playerTransform;
 
         //Bossの場合、Coreが設定されているか調べる
         EnemyCore enemyCore = null;
@@ -26,7 +28,7 @@ public class Boss : IEnemy
         }
         if (enemyCore == null) //EnemyCoreの設定がなかった場合は生成、設定する
         {
-            var core = Object.Instantiate(EnemyManager.Instance.EnemyCommon.EnemyCorePrefab);
+            var core = Object.Instantiate(corePrefab);
             core.transform.parent = Transform;
             core.transform.localPosition = Vector2.zero;
         }

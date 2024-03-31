@@ -7,15 +7,14 @@ public class BossSystem : EnemySystemBase
 {
     private List<Boss> _bossEnemies = default;
 
-    public override void Initialize()
+    public override void Initialize(EnemyManager enemyManager)
     {
-        if (EnemyCommon.BossEnemies == null) { return; }
-        _bossEnemies = EnemyCommon.BossEnemies;
+        EnemyManager = enemyManager;
 
         if (_bossEnemies == null || _bossEnemies.Count <= 0) { return; }
         foreach (var target in _bossEnemies) //初期化
         {
-            target.PlayerTransform = EnemyCommon.Player.transform;
+            target.PlayerTransform = EnemyManager.PlayerTransform;
 
             //Bossの場合、Coreが設定されているか調べる
             EnemyCore enemyCore = null;
@@ -25,7 +24,7 @@ public class BossSystem : EnemySystemBase
             }
             if (enemyCore == null) //EnemyCoreの設定がなかった場合は生成、設定する
             {
-                var core = UnityEngine.Object.Instantiate(EnemyCommon.EnemyCorePrefab);
+                var core = UnityEngine.Object.Instantiate(EnemyManager.EnemyCorePrefab);
                 core.transform.parent = target.Transform;
                 core.transform.localPosition = Vector2.zero;
             }
@@ -49,17 +48,15 @@ public class BossSystem : EnemySystemBase
 
     public override void AddEnemy(IEnemy target)
     {
-        if (target is not Boss) { return; }
-
+        _bossEnemies ??= new();
         _bossEnemies.Add((Boss)target);
+
+        var enemy = target as Boss;
+        enemy.PlayerTransform = EnemyManager.PlayerTransform;
+        enemy.Init(EnemyManager.PlayerTransform, EnemyManager.EnemyCorePrefab);
     }
 
-    public override void RemoveEnemy(IEnemy target)
-    {
-        if (target is not Boss) { return; }
-
-        _bossEnemies.Remove((Boss)target);
-    }
+    public override void RemoveEnemy(IEnemy target) { _bossEnemies.Remove((Boss)target); }
 
     private async void AttackMeasuring(Boss target)
     {
@@ -74,7 +71,7 @@ public class BossSystem : EnemySystemBase
 
     private void Attack(Boss target)
     {
-        var bullet = EnemyCommon.ObjectPool.SpawnObject(
+        var bullet = GameManager.Instance.ObjectPool.SpawnObject(
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
