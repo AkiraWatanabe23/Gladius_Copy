@@ -2,6 +2,9 @@
 
 public class BulletController : MonoBehaviour
 {
+    [Tooltip("Playerの子オブジェクトに設定するか")]
+    [SerializeField]
+    private bool _isChildSetting = false;
     [SubclassSelector]
     [SerializeReference]
     private IBulletData _bulletData = default;
@@ -9,6 +12,7 @@ public class BulletController : MonoBehaviour
     public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 direction)
     {
         _bulletData.Init(gameObject, speed, attackValue, gunner, direction);
+        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.Player.transform); }
     }
 
     private void Update()
