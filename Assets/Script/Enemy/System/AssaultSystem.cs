@@ -5,10 +5,9 @@ public class AssaultSystem : EnemySystemBase
 {
     private List<Assault> _assaultEnemies = default;
 
-    public override void Initialize()
+    public override void Initialize(EnemyManager enemyManager)
     {
-        if (EnemyCommon.AssaultEnemies == null) { return; }
-        _assaultEnemies = EnemyCommon.AssaultEnemies;
+        EnemyManager = enemyManager;
 
         if (_assaultEnemies == null || _assaultEnemies.Count <= 0) { return; }
         foreach (var target in _assaultEnemies)
@@ -32,17 +31,13 @@ public class AssaultSystem : EnemySystemBase
 
     public override void AddEnemy(IEnemy target)
     {
-        if (target is not Assault) { return; }
-
+        _assaultEnemies ??= new();
         _assaultEnemies.Add((Assault)target);
+
+        target.Init();
     }
 
-    public override void RemoveEnemy(IEnemy target)
-    {
-        if (target is not Assault) { return; }
-
-        _assaultEnemies.Remove((Assault)target);
-    }
+    public override void RemoveEnemy(IEnemy target) { _assaultEnemies.Remove((Assault)target); }
 
     private void Movement(Assault enemy)
     {

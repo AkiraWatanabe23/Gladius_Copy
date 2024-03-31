@@ -51,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private SpawnSearchDirection _spawnDir = SpawnSearchDirection.Left;
 
+    private EnemyManager _enemyManager = default;
     private float _spawnTimer = 0f;
     /// <summary> 初回生成を行ったかどうか </summary>
     private bool _isFirstSpawning = false;
@@ -60,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
     {
         get
         {
-            var sqrDistance = (EnemyManager.Instance.EnemyCommon.Player.position - transform.position).sqrMagnitude;
+            var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
 
             return sqrDistance <= _spawnSearchRadius * _spawnSearchRadius;
         }
@@ -70,9 +71,10 @@ public class EnemySpawner : MonoBehaviour
     /// <summary> 計測中 </summary>
     protected bool IsMeasuring => _spawnTimer <= SpawnInterval;
 
-    public void Initialize()
+    public void Initialize(EnemyManager enemyManager)
     {
         _spawnMuzzle ??= transform;
+        _enemyManager = enemyManager;
     }
 
     public void Measuring(float deltaTime)
@@ -100,12 +102,12 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _spawnParam.SpawnCount; i++)
         {
-            var enemy = EnemyManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
+            var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
             enemy.transform.position = SpawnPos;
 
             var enemySystem = enemy.GetComponent<EnemyController>();
             enemySystem.MovementType = _spawnParam.MoveType;
-            EnemyManager.Instance.EnemyMasterSystem.AddEnemy(enemySystem.EnemySystem);
+            _enemyManager.AddEnemy(enemySystem.EnemySystem);
             yield return new WaitForSeconds(0.3f);
         }
         yield return null;

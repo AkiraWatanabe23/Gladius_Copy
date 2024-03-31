@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Constants;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private PlayerController _player = default;
+    [SerializeField]
+    private EnemyManager _enemyManager = new();
     [SerializeField]
     private ItemSpawner _itemSpawner = default;
     [Tooltip("使用するプラスショット")]
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _enemyDeadCount = 0;
 
+    private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
 
     #region public Properties
@@ -28,6 +32,14 @@ public class GameManager : MonoBehaviour
         {
             if (_player == null) { _player = FindObjectOfType<PlayerController>(); }
             return _player;
+        }
+    }
+    public Transform PlayerTransform
+    {
+        get
+        {
+            if (_playerTransform == null) { _playerTransform = _player.transform; }
+            return _playerTransform;
         }
     }
     public BulletHolder BulletHolder => _bulletHolder;
@@ -70,6 +82,10 @@ public class GameManager : MonoBehaviour
         if (!TryGetComponent(out _inGameUpdate)) { _inGameUpdate = gameObject.AddComponent<GameUpdate>(); }
         _inGameUpdate.enabled = false;
 
+        //もしシーン上にEnemy, Spawnerが存在したら実行を管理するclassに渡す
+        yield return _enemyManager.Initialize(
+            FindObjectsOfType<EnemyController>(), FindObjectsOfType<EnemySpawner>(), _player.transform);
+
         ObjectPool = new();
 
         yield return null;
@@ -77,7 +93,8 @@ public class GameManager : MonoBehaviour
 
     private void Loaded()
     {
-        _inGameUpdate.Initialize();
+        Consts.Log("Finish Initialized");
+        _inGameUpdate.Initialize(_enemyManager);
         _inGameUpdate.enabled = true;
     }
 }

@@ -1,83 +1,89 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+[Serializable]
+public class EnemyManager
 {
     [SerializeField]
-    private EnemyCommon _enemyCommon = new();
+    private GameObject _enemyCorePrefab = default;
+    [SerializeField]
+    private EnemySpawner[] _enemySpawners = default;
+    [SerializeField]
+    private List<EnemyController> _enemies = default;
 
-    private EnemyMasterSystem _enemyMasterSystem = default;
-    private EnemySystemUpdate _updateSystem = default;
+    private AssaultSystem _assaultSystem = default;
+    private ShotSystem _shotSystem = default;
+    private BossSystem _bossSystem = default;
+    private EnemySystemBase[] _enemySystems = default;
 
-    public EnemyCommon EnemyCommon => _enemyCommon;
-    public EnemyMasterSystem EnemyMasterSystem => _enemyMasterSystem;
+    public GameObject EnemyCorePrefab => _enemyCorePrefab;
+    public EnemySpawner[] EnemySpawners { get => _enemySpawners; private set => _enemySpawners = value; }
+    public Transform PlayerTransform { get; private set; }
 
-    public ObjectPool ObjectPool { get; private set; }
-
-    public static EnemyManager Instance { get; private set; }
-
-    private void Awake()
+    public IEnumerator Initialize(EnemyController[] enemies, EnemySpawner[] spawners, Transform playerTransform)
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else { Destroy(gameObject); }
+        PlayerTransform = playerTransform;
 
-        if (!TryGetComponent(out _updateSystem)) { _updateSystem = gameObject.AddComponent<EnemySystemUpdate>(); }
-        _updateSystem.enabled = false;
-    }
+        _assaultSystem = new AssaultSystem();
+        _shotSystem = new ShotSystem();
+        _bossSystem = new BossSystem();
 
-    private IEnumerator Start()
-    {
-        yield return Initialize();
-        Loaded();
-    }
-
-    private IEnumerator Initialize()
-    {
-        var enemies = FindObjectsOfType<EnemyController>();
-        var spawners = FindObjectsOfType<EnemySpawner>();
-        yield return null;
-
+        _enemies = new();
         foreach (var enemy in enemies)
         {
+            _enemies.Add(enemy);
             enemy.Initialize();
-            SetUp(enemy.EnemySystem);
+            AddEnemy(enemy.EnemySystem);
         }
 
-        _enemyCommon.EnemySpawners = spawners;
-        if (_enemyCommon.EnemySpawners != null && _enemyCommon.EnemySpawners.Length > 0)
+        _enemySpawners = spawners;
+        if (_enemySpawners != null && _enemySpawners.Length > 0)
         {
-            foreach (var spawner in _enemyCommon.EnemySpawners) { spawner.Initialize(); }
+            foreach (var spawner in _enemySpawners) { spawner.Initialize(this); }
         }
 
-        _enemyMasterSystem = new(_enemyCommon, ObjectPool = new(), new AssaultSystem(), new ShotSystem(), new BossSystem());
-        _enemyMasterSystem.Initialize();
+        _enemySystems = new EnemySystemBase[] { _assaultSystem, _shotSystem, _bossSystem };
+        for (int i = 0; i < _enemySystems.Length; i++) { _enemySystems[i].Initialize(this); }
 
         yield return null;
     }
 
-    private void SetUp(IEnemy enemy)
+    public void OnUpdate(float deltaTime)
     {
-        switch (enemy)
+        if (_enemySystems.Length == 0) { return; }
+        foreach (var enemy in _enemySystems) { enemy.OnUpdate(); }
+
+        if (_enemySpawners != null && _enemySpawners.Length > 0)
         {
-            case Assault:
-                _enemyCommon.AssaultEnemies ??= new(); _enemyCommon.AssaultEnemies.Add((Assault)enemy); break;
-            case Shot:
-                _enemyCommon.ShotEnemies ??= new(); _enemyCommon.ShotEnemies.Add((Shot)enemy); break;
-            case Boss:
-                _enemyCommon.BossEnemies ??= new(); _enemyCommon.BossEnemies.Add((Boss)enemy); break;
+            foreach (var spawner in _enemySpawners) { spawner.Measuring(deltaTime); }
         }
     }
 
-    private void Loaded()
+    public void OnDestroy()
     {
-        Debug.Log("Finish Initialized Enemy Systems");
-        _updateSystem.SetupEnemyMasterSystem(_enemyMasterSystem);
-        _updateSystem.enabled = true;
+        if (_enemySystems.Length == 0) { return; }
+        foreach (var enemy in _enemySystems) { enemy.OnDestroy(); }
     }
 
-    private void OnDestroy() => _enemyMasterSystem.OnDestroy();
+    public void AddEnemy(IEnemy target)
+    {
+        switch (target)
+        {
+            case Assault: _assaultSystem.AddEnemy(target); break;
+            case Shot: _shotSystem.AddEnemy(target); break;
+            case Boss: _bossSystem.AddEnemy(target); break;
+        }
+    }
+
+    public void RemoveEnemy(IEnemy target)
+    {
+        switch (target)
+        {
+            case Assault: _assaultSystem.RemoveEnemy(target); break;
+            case Shot: _shotSystem.RemoveEnemy(target); break;
+            case Boss: _bossSystem.RemoveEnemy(target); break;
+        }
+    }
 }

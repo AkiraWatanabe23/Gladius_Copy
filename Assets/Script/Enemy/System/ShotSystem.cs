@@ -7,16 +7,15 @@ public class ShotSystem : EnemySystemBase
 {
     private List<Shot> _shotEnemies = default;
 
-    public override void Initialize()
+    public override void Initialize(EnemyManager enemyManager)
     {
-        if (EnemyCommon.ShotEnemies == null) { return; }
-        _shotEnemies = EnemyCommon.ShotEnemies;
+        EnemyManager = enemyManager;
 
         if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
         foreach (var target in _shotEnemies)
         {
             //ここで必要な値の初期化処理
-            target.PlayerTransform = EnemyCommon.Player;
+            target.PlayerTransform = EnemyManager.PlayerTransform;
         }
     }
 
@@ -33,17 +32,15 @@ public class ShotSystem : EnemySystemBase
 
     public override void AddEnemy(IEnemy target)
     {
-        if (target is not Shot) { return; }
-
+        _shotEnemies ??= new();
         _shotEnemies.Add((Shot)target);
+
+        var enemy = target as Shot;
+        enemy.PlayerTransform = EnemyManager.PlayerTransform;
+        enemy.Init();
     }
 
-    public override void RemoveEnemy(IEnemy target)
-    {
-        if (target is not Shot) { return; }
-
-        _shotEnemies.Remove((Shot)target);
-    }
+    public override void RemoveEnemy(IEnemy target) { _shotEnemies.Remove((Shot)target); }
 
     private async void AttackMeasuring(Shot target)
     {
@@ -58,7 +55,7 @@ public class ShotSystem : EnemySystemBase
 
     private void Attack(Shot target)
     {
-        var go = EnemyCommon.ObjectPool.SpawnObject(
+        var go = GameManager.Instance.ObjectPool.SpawnObject(
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         go.transform.position = target.Transform.position;
         var bullet = go.GetComponent<BulletController>();
