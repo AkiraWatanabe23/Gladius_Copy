@@ -10,7 +10,7 @@ public class Boss : IEnemy
     public bool IsMeasuring { get; set; }
     public Transform PlayerTransform { get; set; }
 
-    public EnemyController EnemyController { get; set; }
+    public EnemyController Controller { get; set; }
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
 

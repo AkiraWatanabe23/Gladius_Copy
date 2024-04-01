@@ -5,7 +5,6 @@
     public virtual void Initialize(EnemyManager enemyManager) { }
     public virtual void OnUpdate() { }
     public virtual void OnDestroy() { }
-    public virtual void Movement() { }
     public virtual void AddEnemy(IEnemy target) { }
     public virtual void RemoveEnemy(IEnemy target) { }
 }

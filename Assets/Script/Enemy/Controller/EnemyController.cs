@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             Boss => EnemyType.Boss,
             _ => EnemyType.None,
         };
-        _enemySystem.EnemyController = this;
+        _enemySystem.Controller = this;
         _enemySystem.Enemy = gameObject;
         _enemySystem.Transform = gameObject.transform;
     }

@@ -29,6 +29,8 @@ public class BossSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
+        if (_bossEnemy == null) { return; }
+
         //縦方向のみPlayerに合わせて移動
         var velocity = _bossEnemy.Transform.position;
         velocity.y = _bossEnemy.PlayerTransform.position.y;
@@ -63,7 +65,7 @@ public class BossSystem : EnemySystemBase
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
-            bulletData.Initialize(1f, target.EnemyController.AttackValue, target.Enemy.layer, Vector2.left);
+            bulletData.Initialize(1f, target.Controller.AttackValue, target.Enemy.layer, Vector2.left);
         }
         Debug.Log("attack!!");
     }

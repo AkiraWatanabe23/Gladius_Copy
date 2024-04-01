@@ -24,6 +24,8 @@ public class ShotSystem : EnemySystemBase
         if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
         foreach (var target in _shotEnemies)
         {
+            Movement(target);
+
             if (!target.IsEnterArea) { continue; }
 
             AttackMeasuring(target);
@@ -41,6 +43,11 @@ public class ShotSystem : EnemySystemBase
     }
 
     public override void RemoveEnemy(IEnemy target) { _shotEnemies.Remove((Shot)target); }
+
+    private void Movement(Shot target)
+    {
+
+    }
 
     private async void AttackMeasuring(Shot target)
     {
@@ -62,6 +69,6 @@ public class ShotSystem : EnemySystemBase
         var moveVector = Vector2.right;
         //var moveVector = new Vector2(1, -1);
 
-        bullet.Initialize(2f, target.EnemyController.AttackValue, target.Enemy.layer, moveVector);
+        bullet.Initialize(2f, target.Controller.AttackValue, target.Enemy.layer, moveVector);
     }
 }
