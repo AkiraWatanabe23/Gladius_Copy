@@ -5,6 +5,12 @@ public class AssaultSystem : EnemySystemBase
 {
     private List<Assault> _assaultEnemies = default;
 
+    private Straight _straightMovement = default;
+    private RightAngle _rightAngle = default;
+    private FigureEight _figureEight = default;
+    private ZShapedMeandering _zShapedMeandering = default;
+    private FollowTerrain _followTerrain = default;
+
     public override void Initialize(EnemyManager enemyManager)
     {
         EnemyManager = enemyManager;
@@ -41,9 +47,10 @@ public class AssaultSystem : EnemySystemBase
 
     private void Movement(Assault enemy)
     {
-        switch (enemy.EnemyController.MovementType)
+        switch (enemy.Controller.MovementType)
         {
-            case EnemyMovementType.Straight: break;
+            case EnemyMovementType.Straight:
+                _straightMovement ??= new(EnemyManager); _straightMovement.Movement(enemy.Controller); break; 
             case EnemyMovementType.RightAngle: break;
             case EnemyMovementType.FigureEight: break;
             case EnemyMovementType.ZShapedMeandering: break;

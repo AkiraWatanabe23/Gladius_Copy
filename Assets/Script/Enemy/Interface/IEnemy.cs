@@ -2,7 +2,7 @@
 
 public interface IEnemy
 {
-    public EnemyController EnemyController { get; set; }
+    public EnemyController Controller { get; set; }
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
 

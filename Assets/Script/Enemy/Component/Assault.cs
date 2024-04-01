@@ -2,11 +2,12 @@
 
 public class Assault : IEnemy
 {
-    public Rigidbody2D Rb2d { get; set; }
-    public EnemyController EnemyController { get; set; }
+    public EnemyController Controller { get; set; }
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
+    public Rigidbody2D Rb2d { get; set; }
     public bool IsFindPlayer { get; set; }
+    public Vector2 MoveDirection { get; set; }
 
     public void Init()
     {
