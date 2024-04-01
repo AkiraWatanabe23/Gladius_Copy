@@ -163,7 +163,9 @@ MonoBehaviour:
     - {fileID: 1783640917}
     _attackValue: 1
     _attackInterval: 1
-    _currentInitialBullet: 1
+    _playerLayer:
+      serializedVersion: 2
+      m_Bits: 8
     _plusShotBullet: 0
     _initialBullets: 010000000200000003000000
   _health:
