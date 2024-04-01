@@ -98,17 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8140f208d8652b4cb1923a901d7b840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 1
+  _attackValue: 1
+  _moveSpeed: 1
   _enemySystem:
     rid: 4576127283257147393
+  _movementType: 2
   references:
     version: 2
     RefIds:
     - rid: 4576127283257147393
       type: {class: Assault, ns: , asm: Assembly-CSharp}
-      data:
-        _hp: 1
-        _attackValue: 1
-        _moveSpeed: 3
+      data: 
 --- !u!61 &6155388509111697076
 BoxCollider2D:
   m_ObjectHideFlags: 0
