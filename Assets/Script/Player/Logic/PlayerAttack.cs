@@ -13,6 +13,8 @@ public class PlayerAttack : PlayerSystemBase
     [SerializeField]
     private float _attackInterval = 1f;
     [SerializeField]
+    private LayerMask _playerLayer = default;
+    [SerializeField]
     private PlusShotType _plusShotBullet = PlusShotType.None;
     [Tooltip("初期ショット")]
     [SerializeField]
@@ -76,6 +78,8 @@ public class PlayerAttack : PlayerSystemBase
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
             }
             bullet.transform.position = _spawnMuzzles[i].position;
+            var bulletData = bullet.GetComponent<BulletController>();
+            bulletData.Initialize(1f, _attackValue, _playerLayer, Vector2.right);
         }
     }
 
