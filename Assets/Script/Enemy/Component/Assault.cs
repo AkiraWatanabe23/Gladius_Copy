@@ -6,8 +6,12 @@ public class Assault : IEnemy
     public GameObject Enemy { get; set; }
     public Transform Transform { get; set; }
     public Rigidbody2D Rb2d { get; set; }
-    public bool IsFindPlayer { get; set; }
     public Vector2 MoveDirection { get; set; }
+
+    #region Movement Unique Data
+    public bool IsFindPlayer { get; set; }
+    public bool IsFinishMoveUp { get; set; }
+    #endregion
 
     public void Init()
     {
