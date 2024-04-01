@@ -11,6 +11,7 @@ public class Assault : IEnemy
     #region Movement Unique Data
     public bool IsFindPlayer { get; set; }
     public bool IsFinishMoveUp { get; set; }
+    public float Angle { get; set; }
     #endregion
 
     public void Init()

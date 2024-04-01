@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary> まっすぐ進行 </summary>
-[Serializable]
 public class Straight : IEnemyGeneration
 {
     protected EnemyManager EnemyManager { get; private set; }
