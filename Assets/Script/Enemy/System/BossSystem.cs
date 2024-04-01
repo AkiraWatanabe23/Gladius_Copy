@@ -1,62 +1,50 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossSystem : EnemySystemBase
 {
-    private List<Boss> _bossEnemies = default;
+    private Boss _bossEnemy = default;
 
     public override void Initialize(EnemyManager enemyManager)
     {
         EnemyManager = enemyManager;
+        if (_bossEnemy == null) { return; }
 
-        if (_bossEnemies == null || _bossEnemies.Count <= 0) { return; }
-        foreach (var target in _bossEnemies) //初期化
+        _bossEnemy.PlayerTransform = EnemyManager.PlayerTransform;
+
+        //Bossの場合、Coreが設定されているか調べる
+        EnemyCore enemyCore = null;
+        for (int i = 0; i < _bossEnemy.Transform.childCount; i++)
         {
-            target.PlayerTransform = EnemyManager.PlayerTransform;
-
-            //Bossの場合、Coreが設定されているか調べる
-            EnemyCore enemyCore = null;
-            for (int i = 0; i < target.Transform.childCount; i++)
-            {
-                if (target.Transform.GetChild(i).gameObject.TryGetComponent(out enemyCore)) { return; }
-            }
-            if (enemyCore == null) //EnemyCoreの設定がなかった場合は生成、設定する
-            {
-                var core = UnityEngine.Object.Instantiate(EnemyManager.EnemyCorePrefab);
-                core.transform.parent = target.Transform;
-                core.transform.localPosition = Vector2.zero;
-            }
+            if (_bossEnemy.Transform.GetChild(i).gameObject.TryGetComponent(out enemyCore)) { return; }
+        }
+        if (enemyCore == null) //EnemyCoreの設定がなかった場合は生成、設定する
+        {
+            var core = UnityEngine.Object.Instantiate(EnemyManager.EnemyCorePrefab);
+            core.transform.parent = _bossEnemy.Transform;
+            core.transform.localPosition = Vector2.zero;
         }
     }
 
     public override void OnUpdate()
     {
-        if (_bossEnemies == null || _bossEnemies.Count <= 0) { return; }
-        foreach (var enemy in _bossEnemies)
-        {
-            //縦方向のみPlayerに合わせて移動
-            var velocity = enemy.Transform.position;
-            velocity.y = enemy.PlayerTransform.position.y;
+        //縦方向のみPlayerに合わせて移動
+        var velocity = _bossEnemy.Transform.position;
+        velocity.y = _bossEnemy.PlayerTransform.position.y;
 
-            enemy.Transform.position = velocity;
+        _bossEnemy.Transform.position = velocity;
 
-            AttackMeasuring(enemy);
-        }
+        AttackMeasuring(_bossEnemy);
     }
 
     public override void AddEnemy(IEnemy target)
     {
-        _bossEnemies ??= new();
-        _bossEnemies.Add((Boss)target);
+        _bossEnemy = (Boss)target;
 
-        var enemy = target as Boss;
-        enemy.PlayerTransform = EnemyManager.PlayerTransform;
-        enemy.Init(EnemyManager.PlayerTransform, EnemyManager.EnemyCorePrefab);
+        _bossEnemy.PlayerTransform = EnemyManager.PlayerTransform;
+        _bossEnemy.Init(EnemyManager.PlayerTransform, EnemyManager.EnemyCorePrefab);
     }
-
-    public override void RemoveEnemy(IEnemy target) { _bossEnemies.Remove((Boss)target); }
 
     private async void AttackMeasuring(Boss target)
     {
