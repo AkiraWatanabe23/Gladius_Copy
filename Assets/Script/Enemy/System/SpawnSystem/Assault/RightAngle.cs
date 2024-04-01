@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary> 直角に曲がる </summary>
-[Serializable]
 public class RightAngle : IEnemyGeneration
 {
     protected EnemyManager EnemyManager { get; private set; }

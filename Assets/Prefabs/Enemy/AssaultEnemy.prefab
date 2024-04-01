@@ -100,10 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 1
   _attackValue: 1
-  _moveSpeed: 1
+  _moveSpeed: 3
   _enemySystem:
     rid: 4576127283257147393
-  _movementType: 2
+  _movementType: 3
   references:
     version: 2
     RefIds:

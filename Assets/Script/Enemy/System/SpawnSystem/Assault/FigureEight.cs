@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 /// <summary> 8の字 </summary>
-[Serializable]
 public class FigureEight : IEnemyGeneration
 {
-    public List<EnemyController> Enemies { get; set; }
-
     public void Movement(EnemyController enemy)
     {
+        if (enemy.EnemySystem is not Assault) { return; }
 
+        var assault = (Assault)enemy.EnemySystem;
+
+        assault.Angle += Time.deltaTime * enemy.MoveSpeed;
+
+        assault.Transform.position = new Vector3(
+            assault.Transform.position.x, Mathf.Sin(assault.Angle), assault.Transform.position.z
+        );
+        assault.Rb2d.velocity = Vector2.left * enemy.MoveSpeed;
     }
 }
