@@ -352,6 +352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssaultEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6155388509111697074, guid: 9d23ec7503ae68c40810e79a62942f1b, type: 3}
+      propertyPath: _movementType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6155388509111697075, guid: 9d23ec7503ae68c40810e79a62942f1b, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -362,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6155388509111697075, guid: 9d23ec7503ae68c40810e79a62942f1b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.99
       objectReference: {fileID: 0}
     - target: {fileID: 6155388509111697075, guid: 9d23ec7503ae68c40810e79a62942f1b, type: 3}
       propertyPath: m_LocalPosition.z
