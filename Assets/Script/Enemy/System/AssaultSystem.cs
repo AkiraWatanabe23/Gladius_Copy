@@ -55,8 +55,10 @@ public class AssaultSystem : EnemySystemBase
                 _rightAngle ??= new(EnemyManager); _rightAngle.Movement(enemy.Controller); break;
             case EnemyMovementType.FigureEight:
                 _figureEight ??= new(); _figureEight.Movement(enemy.Controller); break;
-            case EnemyMovementType.ZShapedMeandering: break;
-            case EnemyMovementType.FollowTerrain: break;
+            case EnemyMovementType.ZShapedMeandering:
+                _zShapedMeandering ??= new(); _zShapedMeandering.Movement(enemy.Controller); break;
+            case EnemyMovementType.FollowTerrain:
+                _followTerrain ??= new(); _followTerrain.Movement(enemy.Controller); break;
         }
     }
 }

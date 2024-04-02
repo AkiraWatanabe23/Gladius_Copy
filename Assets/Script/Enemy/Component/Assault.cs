@@ -12,6 +12,8 @@ public class Assault : IEnemy
     public bool IsFindPlayer { get; set; }
     public bool IsFinishMoveUp { get; set; }
     public float Angle { get; set; }
+    public float MovementTimer { get; set; }
+    public ZShapedMove ZShaped { get; set; } = ZShapedMove.Straight;
     #endregion
 
     public void Init()
