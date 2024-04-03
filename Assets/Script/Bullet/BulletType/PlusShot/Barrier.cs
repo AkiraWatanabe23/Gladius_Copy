@@ -6,6 +6,9 @@ public class Barrier : IBulletData
     [SerializeField]
     private int _enduranceCount = 5;
 
+    /// <summary> 耐久回数をキャッシュしておく（オブジェクトを再利用したときに齟齬が起きないように） </summary>
+    private readonly int _initEnduranceCount = 5;
+
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
     public float Speed { get; set; }
@@ -26,6 +29,7 @@ public class Barrier : IBulletData
             _enduranceCount--;
             if (_enduranceCount <= 0)
             {
+                _enduranceCount = _initEnduranceCount;
                 GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
             }
         }

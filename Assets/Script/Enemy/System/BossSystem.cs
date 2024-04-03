@@ -65,7 +65,7 @@ public class BossSystem : EnemySystemBase
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
-            bulletData.Initialize(1f, target.Controller.AttackValue, target.Enemy.layer, Vector2.left);
+            bulletData.Initialize(1f, target.Controller.AttackValue, target.Enemy.layer);
         }
         Debug.Log("attack!!");
     }

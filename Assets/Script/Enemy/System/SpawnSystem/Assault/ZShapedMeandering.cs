@@ -1,16 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary> Z字蛇行 </summary>
-[Serializable]
 public class ZShapedMeandering : IEnemyGeneration
 {
-    [Tooltip("横移動時の移動時間")]
-    [SerializeField]
-    private float _straightMoveSec = 2f;
-    [Tooltip("斜め移動時の移動時間")]
-    [SerializeField]
-    private float _diagonalMoveSec = 1f;
+    private readonly float _straightMoveSec = 2f;
+    private readonly float _diagonalMoveSec = 1f;
+
+    public ZShapedMeandering()
+    {
+        _straightMoveSec = GameManager.Instance.EnemyMovementParams.StraightMoveSec;
+        _diagonalMoveSec = GameManager.Instance.EnemyMovementParams.DiagonalMoveSec;
+    }
 
     public void Movement(EnemyController enemy)
     {
