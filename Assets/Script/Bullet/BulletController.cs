@@ -5,13 +5,21 @@ public class BulletController : MonoBehaviour
     [Tooltip("Playerの子オブジェクトに設定するか")]
     [SerializeField]
     private bool _isChildSetting = false;
+    [SerializeField]
+    private Vector2 _initialDirection = Vector2.zero;
     [SubclassSelector]
     [SerializeReference]
     private IBulletData _bulletData = default;
 
-    public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 direction)
+    public void Initialize(float speed, int attackValue, LayerMask gunner)
     {
-        _bulletData.Init(gameObject, speed, attackValue, gunner, direction);
+        _bulletData.Init(gameObject, speed, attackValue, gunner, _initialDirection);
+        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
+    }
+
+    public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 initialDirection)
+    {
+        _bulletData.Init(gameObject, speed, attackValue, gunner, initialDirection);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
     }
 
@@ -48,15 +56,4 @@ public class BulletController : MonoBehaviour
         Gizmos.color = old;
     }
 #endif
-}
-
-public enum BulletType
-{
-    Default,
-    /// <summary> 貫通 </summary>
-    Penetration,
-    Missile,
-    /// <summary> 追尾 </summary>
-    Tracking,
-    Bomb
 }

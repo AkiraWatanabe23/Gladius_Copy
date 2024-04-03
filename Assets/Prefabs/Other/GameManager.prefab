@@ -45,6 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
+  _enemyManager:
+    _enemyCorePrefab: {fileID: 1968044106956670669, guid: 79f783c16891f66428917aa12dfaf550, type: 3}
+    _enemySpawners: []
+    _enemies: []
+  _enemyMovementParams:
+    _straightMoveSec: 2
+    _diagonalMoveSec: 1
+    _jumpingHeight: 1
+    _semicircleAttackCount: 6
   _itemSpawner: {fileID: 0}
   _plusShots: 010000000300000006000000
   _bulletHolder:

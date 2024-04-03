@@ -142,7 +142,9 @@ public enum EnemyMovementType
     RightAngle,
     FigureEight,
     ZShapedMeandering,
-    FollowTerrain
+    FollowTerrain,
+    CrawlGround,
+    Jumping
 }
 
 public enum SpawnSearchDirection

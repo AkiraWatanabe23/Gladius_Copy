@@ -29,6 +29,8 @@ public class EnemyManager
         _assaultSystem = new AssaultSystem();
         _shotSystem = new ShotSystem();
         _bossSystem = new BossSystem();
+        _enemySystems = new EnemySystemBase[] { _assaultSystem, _shotSystem, _bossSystem };
+        for (int i = 0; i < _enemySystems.Length; i++) { _enemySystems[i].Initialize(this); }
 
         _enemies = new();
         foreach (var enemy in enemies)
@@ -43,9 +45,6 @@ public class EnemyManager
         {
             foreach (var spawner in _enemySpawners) { spawner.Initialize(this); }
         }
-
-        _enemySystems = new EnemySystemBase[] { _assaultSystem, _shotSystem, _bossSystem };
-        for (int i = 0; i < _enemySystems.Length; i++) { _enemySystems[i].Initialize(this); }
 
         yield return null;
     }

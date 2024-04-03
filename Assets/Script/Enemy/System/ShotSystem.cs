@@ -1,11 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ShotSystem : EnemySystemBase
 {
     private List<Shot> _shotEnemies = default;
+
+    private CrawlGround _crawlGround = default;
+    private Jumping _jumping = default;
 
     public override void Initialize(EnemyManager enemyManager)
     {
@@ -46,7 +48,16 @@ public class ShotSystem : EnemySystemBase
 
     private void Movement(Shot target)
     {
-
+        if (target.Controller.MovementType == EnemyMovementType.CrawlGround)
+        {
+            _crawlGround ??= new();
+            _crawlGround.Movement(target.Controller);
+        }
+        if (target.Controller.MovementType == EnemyMovementType.Jumping)
+        {
+            _jumping ??= new();
+            _jumping.Movement(target.Controller);
+        }
     }
 
     private async void AttackMeasuring(Shot target)
@@ -66,9 +77,7 @@ public class ShotSystem : EnemySystemBase
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
         go.transform.position = target.Transform.position;
         var bullet = go.GetComponent<BulletController>();
-        var moveVector = Vector2.right;
-        //var moveVector = new Vector2(1, -1);
 
-        bullet.Initialize(2f, target.Controller.AttackValue, target.Enemy.layer, moveVector);
+        bullet.Initialize(2f, target.Controller.AttackValue, target.Enemy.layer);
     }
 }

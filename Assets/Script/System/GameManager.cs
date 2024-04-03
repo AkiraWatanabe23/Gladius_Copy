@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private EnemyManager _enemyManager = new();
     [SerializeField]
+    private EnemyMovementParams _enemyMovementParams = new();
+    [SerializeField]
     private ItemSpawner _itemSpawner = default;
     [Tooltip("使用するプラスショット")]
     [SerializeField]
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
             return _playerTransform;
         }
     }
+    public EnemyMovementParams EnemyMovementParams => _enemyMovementParams;
     public BulletHolder BulletHolder => _bulletHolder;
     public int EnemyDeadCount
     {
