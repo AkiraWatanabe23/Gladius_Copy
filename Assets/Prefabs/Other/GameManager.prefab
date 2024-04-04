@@ -50,8 +50,8 @@ MonoBehaviour:
     _enemySpawners: []
     _enemies: []
   _enemyMovementParams:
-    _straightMoveSec: 2
-    _diagonalMoveSec: 1
+    _straightMoveDistance: 3
+    _diagonalMoveDistance: {x: 1, y: 1}
     _jumpingHeight: 1
     _semicircleAttackCount: 6
   _itemSpawner: {fileID: 0}

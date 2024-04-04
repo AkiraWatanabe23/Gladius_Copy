@@ -6,12 +6,12 @@ using UnityEngine;
 public class EnemyMovementParams
 {
     [Header("AssaultEnemy")]
-    [Tooltip("横移動時の移動時間")]
+    [Tooltip("横移動時の移動距離")]
     [SerializeField]
-    private float _straightMoveSec = 2f;
-    [Tooltip("斜め移動時の移動時間")]
+    private float _straightMoveDistance = 10f;
+    [Tooltip("斜め移動時の移動距離（x : 横、y : 縦）")]
     [SerializeField]
-    private float _diagonalMoveSec = 1f;
+    private Vector2 _diagonalMoveDistance = Vector2.zero;
 
     [Header("ShotEnemy")]
     [Tooltip("ジャンプする高さ")]
@@ -22,8 +22,8 @@ public class EnemyMovementParams
     [SerializeField]
     private int _semicircleAttackCount = 1;
 
-    public float StraightMoveSec => _straightMoveSec;
-    public float DiagonalMoveSec => _diagonalMoveSec;
+    public float StraightMoveDistance => _straightMoveDistance;
+    public Vector2 DiagonalMoveDistance => _diagonalMoveDistance;
     public float JumpingHeight => _jumpingHeight;
     public int SemicircleAttackCount => _semicircleAttackCount;
 }

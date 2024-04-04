@@ -3,13 +3,13 @@
 /// <summary> Z字蛇行 </summary>
 public class ZShapedMeandering : IEnemyGeneration
 {
-    private readonly float _straightMoveSec = 2f;
-    private readonly float _diagonalMoveSec = 1f;
+    private readonly float _straightMoveDistance = 10f;
+    private readonly Vector2 _diagonalMoveDistance = Vector2.zero;
 
     public ZShapedMeandering()
     {
-        _straightMoveSec = GameManager.Instance.EnemyMovementParams.StraightMoveSec;
-        _diagonalMoveSec = GameManager.Instance.EnemyMovementParams.DiagonalMoveSec;
+        _straightMoveDistance = GameManager.Instance.EnemyMovementParams.StraightMoveDistance;
+        _diagonalMoveDistance = GameManager.Instance.EnemyMovementParams.DiagonalMoveDistance;
     }
 
     public void Movement(EnemyController enemy)
@@ -19,28 +19,39 @@ public class ZShapedMeandering : IEnemyGeneration
         var assault = (Assault)enemy.EnemySystem;
         if (ZShaped(assault))
         {
-            if (assault.ZShaped == ZShapedMove.Straight)
+            if (assault.ZShaped == ZShapedMove.Straight && assault.IsMoveUp)
+            {
+                assault.MoveDirection = new Vector2(1, 1);
+                assault.ZShaped = ZShapedMove.Diagonal;
+                assault.TargetPos = assault.Transform.position + new Vector3(_diagonalMoveDistance.x, _diagonalMoveDistance.y, 0f);
+            }
+            else if (assault.ZShaped == ZShapedMove.Straight && !assault.IsMoveUp)
             {
                 assault.MoveDirection = new Vector2(1, -1);
                 assault.ZShaped = ZShapedMove.Diagonal;
+                assault.TargetPos = assault.Transform.position + new Vector3(_diagonalMoveDistance.x, -_diagonalMoveDistance.y, 0f);
             }
             else
             {
                 assault.MoveDirection = Vector2.left;
                 assault.ZShaped = ZShapedMove.Straight;
+                assault.TargetPos = assault.Transform.position - new Vector3(_straightMoveDistance, 0f, 0f);
             }
-            assault.MovementTimer = 0f;
         }
         assault.Rb2d.velocity = assault.MoveDirection * enemy.MoveSpeed;
     }
 
     private bool ZShaped(Assault assault)
     {
-        if (assault.MoveDirection == Vector2.zero) { assault.MoveDirection = Vector2.left; }
+        if (assault.MoveDirection == Vector2.zero)
+        {
+            assault.MoveDirection = Vector2.left;
+            assault.TargetPos = assault.Transform.position - new Vector3(_straightMoveDistance, 0f, 0f);
+        }
 
-        assault.MovementTimer += Time.deltaTime;
-        if (assault.ZShaped == ZShapedMove.Straight) { return assault.MovementTimer >= _straightMoveSec; }
-        else { return assault.MovementTimer >= _diagonalMoveSec; }
+        if (assault.ZShaped == ZShapedMove.Straight) { return assault.Transform.position.x <= assault.TargetPos.x; }
+        else { return assault.IsMoveUp ?
+                assault.Transform.position.y >= assault.TargetPos.y : assault.Transform.position.y <= assault.TargetPos.y; }
     }
 }
 

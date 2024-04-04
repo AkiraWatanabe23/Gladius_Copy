@@ -12,8 +12,9 @@ public class Assault : IEnemy
     public bool IsFindPlayer { get; set; }
     public bool IsFinishMoveUp { get; set; }
     public float Angle { get; set; }
-    public float MovementTimer { get; set; }
+    public Vector3 TargetPos { get; set; }
     public ZShapedMove ZShaped { get; set; } = ZShapedMove.Straight;
+    public bool IsMoveUp { get; set; }
     #endregion
 
     public void Init()
@@ -22,5 +23,6 @@ public class Assault : IEnemy
         else { Rb2d = Enemy.AddComponent<Rigidbody2D>(); }
 
         Rb2d.gravityScale = 0f;
+        if (Controller.MovementType == EnemyMovementType.ZShapedMeandering) { IsMoveUp = Transform.position.y <= 0f; }
     }
 }
