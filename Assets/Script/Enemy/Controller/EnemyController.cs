@@ -64,6 +64,10 @@ public class EnemyController : MonoBehaviour, IDamageable
             GameManager.Instance.EnemyDeadCount++;
             GameManager.Instance.ObjectPool.RemoveObject(gameObject);
         }
+        else
+        {
+            //ToDo : 点滅Animation
+        }
     }
 
 #if UNITY_EDITOR
