@@ -100,10 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 1
   _attackValue: 1
-  _moveSpeed: 1
+  _moveSpeed: 0.3
   _enemySystem:
     rid: 4576127351809638400
-  _movementType: 7
+  _movementType: 6
   references:
     version: 2
     RefIds:
@@ -112,6 +112,7 @@ MonoBehaviour:
       data:
         _searchAreaRadius: 1.5
         _attackInterval: 1
+        _shotMuzzle: {fileID: 0}
 --- !u!61 &6685621949255094281
 BoxCollider2D:
   m_ObjectHideFlags: 0

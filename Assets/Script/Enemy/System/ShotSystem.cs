@@ -1,6 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class ShotSystem : EnemySystemBase
 {
@@ -24,13 +22,10 @@ public class ShotSystem : EnemySystemBase
     public override void OnUpdate()
     {
         if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
-        foreach (var target in _shotEnemies)
+        for (int i = _shotEnemies.Count - 1; i >= 0; i--)
         {
-            Movement(target);
-
-            if (!target.IsEnterArea) { continue; }
-
-            AttackMeasuring(target);
+            if (_shotEnemies[i] == null) { continue; }
+            Movement(_shotEnemies[i]);
         }
     }
 
@@ -58,26 +53,5 @@ public class ShotSystem : EnemySystemBase
             _jumping ??= new();
             _jumping.Movement(target.Controller);
         }
-    }
-
-    private async void AttackMeasuring(Shot target)
-    {
-        if (target.IsMeasuring) { return; }
-
-        target.IsMeasuring = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(target.AttackInterval));
-
-        target.IsMeasuring = false;
-        Attack(target);
-    }
-
-    private void Attack(Shot target)
-    {
-        var go = GameManager.Instance.ObjectPool.SpawnObject(
-            GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
-        go.transform.position = target.Transform.position;
-        var bullet = go.GetComponent<BulletController>();
-
-        bullet.Initialize(2f, target.Controller.AttackValue, target.Enemy.layer);
     }
 }
