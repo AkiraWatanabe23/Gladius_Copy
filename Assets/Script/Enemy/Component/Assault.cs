@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Assault : IEnemy
 {
@@ -14,7 +15,8 @@ public class Assault : IEnemy
     public float Angle { get; set; }
     public Vector3 TargetPos { get; set; }
     public ZShapedMove ZShaped { get; set; } = ZShapedMove.Straight;
-    public bool IsMoveUp { get; set; }
+    public bool IsMoveUp { get; private set; }
+    public bool IsRotate { get; set; }
     #endregion
 
     public void Init()
