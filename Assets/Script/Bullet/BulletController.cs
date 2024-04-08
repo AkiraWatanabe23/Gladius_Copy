@@ -37,6 +37,15 @@ public class BulletController : MonoBehaviour
         _bulletData.Hit(collision);
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (_bulletData is ShotGun && collision.gameObject.TryGetComponent(out Fan _))
+        {
+            var shotGun = _bulletData as ShotGun;
+            shotGun.AreaExit();
+        }
+    }
+
     private void OnBecameInvisible()
     {
         GameManager.Instance.ObjectPool.RemoveObject(gameObject);

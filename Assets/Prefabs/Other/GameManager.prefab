@@ -66,9 +66,12 @@ MonoBehaviour:
       <BulletPrefab>k__BackingField: {fileID: 1549710928187148267, guid: e429ea24a45237e479cc3c81c9b86c62, type: 3}
     - <BulletType>k__BackingField: 4
       <BulletPrefab>k__BackingField: {fileID: 1122573615853774340, guid: 908cfbca67758124fbe708163d085898, type: 3}
+    - <BulletType>k__BackingField: 5
+      <BulletPrefab>k__BackingField: {fileID: 6720229220651003647, guid: 7988b693bca5b8643ba65775dd30deae, type: 3}
     - <BulletType>k__BackingField: 6
       <BulletPrefab>k__BackingField: {fileID: 161756299832445142, guid: ceb72691e9f650549abcb2f21c1c6611, type: 3}
     _plusShots:
     - <ShotType>k__BackingField: 1
       <BulletPrefab>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
+  _shotGunCount: 3
   _enemyDeadCount: 0

@@ -12,6 +12,9 @@ public class PlayerAttack : PlayerSystemBase
     private int _attackValue = 1;
     [SerializeField]
     private float _attackInterval = 1f;
+    [Tooltip("扇形の射出範囲")]
+    [SerializeField]
+    private Fan _fanCollider = default;
     [SerializeField]
     private LayerMask _playerLayer = default;
     [SerializeField]
@@ -64,6 +67,26 @@ public class PlayerAttack : PlayerSystemBase
     private void Attack()
     {
         Debug.Log("attack");
+        if (_initialBullets[_bulletIndex] == InitialBulletType.ShotGun)
+        {
+            var spawnBullet = GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.ShotGun];
+            var shotCount = GameManager.Instance.ShotGunCount;
+            for (int i = 0; i < shotCount; i++)
+            {
+                var bullet = GameManager.Instance.ObjectPool.SpawnObject(spawnBullet);
+                bullet.transform.position = _spawnMuzzles[0].position;
+
+                var randomAngle = UnityEngine.Random.Range((int)-_fanCollider.Angle, (int)_fanCollider.Angle);
+                var rotation = bullet.transform.localEulerAngles;
+                rotation.z = randomAngle - 90f;
+                bullet.transform.localEulerAngles = rotation;
+
+                var bulletData = bullet.GetComponent<BulletController>();
+                bulletData.Initialize(1f, _attackValue, _playerLayer, bullet.transform.up);
+            }
+            return;
+        }
+
         if (_spawnMuzzles == null || _spawnMuzzles.Count == 0) { return; }
         for (int i = 0; i < _spawnMuzzles.Count; i++)
         {
