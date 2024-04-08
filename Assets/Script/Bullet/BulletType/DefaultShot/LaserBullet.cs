@@ -5,9 +5,7 @@ public class LaserBullet : IBulletData
 {
     [Tooltip("貫通数")]
     [SerializeField]
-    private int _penetrationCount = 1;
-
-    private int _hitCount = 0;
+    private int _penetrationCount = 5;
 
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
@@ -27,11 +25,11 @@ public class LaserBullet : IBulletData
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
-        _hitCount++;
+        _penetrationCount--;
 
-        if (_hitCount == _penetrationCount)
+        if (_penetrationCount <= 0)
         {
-            _hitCount = 0;
+            _penetrationCount = 5;
             GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
         }
     }

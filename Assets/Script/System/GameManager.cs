@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("インゲームに出てくる弾やショットのリスト")]
     [SerializeField]
     private BulletHolder _bulletHolder = new();
+    [Tooltip("ショットガンを撃つときの一度に撃ちだす数")]
+    [SerializeField]
+    private int _shotGunCount = 3;
     [Tooltip("倒したEnemyの数")]
     [ReadOnly]
     [SerializeField]
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public EnemyMovementParams EnemyMovementParams => _enemyMovementParams;
     public BulletHolder BulletHolder => _bulletHolder;
+    public int ShotGunCount => _shotGunCount;
     public int EnemyDeadCount
     {
         get => _enemyDeadCount;
