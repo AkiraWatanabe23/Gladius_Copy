@@ -16,6 +16,8 @@ public class PlayerAttack : PlayerSystemBase
     [SerializeField]
     private Fan _fanCollider = default;
     [SerializeField]
+    private Diagonal _direction = Diagonal.Up;
+    [SerializeField]
     private LayerMask _playerLayer = default;
     [SerializeField]
     private PlusShotType _plusShotBullet = PlusShotType.None;
@@ -99,6 +101,7 @@ public class PlayerAttack : PlayerSystemBase
             {
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
+                if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzles[i].position); continue; }
             }
             bullet.transform.position = _spawnMuzzles[i].position;
             var bulletData = bullet.GetComponent<BulletController>();
@@ -112,5 +115,18 @@ public class PlayerAttack : PlayerSystemBase
         if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
 
         _bulletIndex += changeValue;
+    }
+
+    private void TwoWayBulletSetting(GameObject bullet,Vector3 spawnPos)
+    {
+        bullet.transform.position = spawnPos;
+
+        var angle = _direction == Diagonal.Up ? 45f : -45f;
+        var rotation = bullet.transform.localEulerAngles;
+        rotation.z = angle - 90f;
+        bullet.transform.localEulerAngles = rotation;
+
+        var bulletData = bullet.GetComponent<BulletController>();
+        bulletData.Initialize(1f, _attackValue, _playerLayer, bullet.transform.up);
     }
 }
