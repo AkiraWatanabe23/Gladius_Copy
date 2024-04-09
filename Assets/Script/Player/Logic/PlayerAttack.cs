@@ -15,6 +15,7 @@ public class PlayerAttack : PlayerSystemBase
     [Tooltip("扇形の射出範囲")]
     [SerializeField]
     private Fan _fanCollider = default;
+    [Tooltip("2wayを撃ちだすときにどっちに撃つか")]
     [SerializeField]
     private Diagonal _direction = Diagonal.Up;
     [SerializeField]
@@ -29,7 +30,7 @@ public class PlayerAttack : PlayerSystemBase
     private List<GameObject> _bullets = default;
     private GameObject _plusShot = default;
 
-    public int AttackValue => _attackValue;
+    public LayerMask Layer => _playerLayer;
     public PlusShotType PlusShotBullet
     {
         get => _plusShotBullet;
@@ -99,6 +100,8 @@ public class PlayerAttack : PlayerSystemBase
             }
             else if (i < 0 && _plusShotBullet != PlusShotType.None)
             {
+                if (_plusShotBullet == PlusShotType.SupportShot) { SupportShot(); return; }
+
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
                 if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzles[i].position); continue; }
@@ -115,6 +118,12 @@ public class PlayerAttack : PlayerSystemBase
         if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
 
         _bulletIndex += changeValue;
+    }
+
+    /// <summary> 補助兵装が弾を撃つ </summary>
+    private void SupportShot()
+    {
+
     }
 
     private void TwoWayBulletSetting(GameObject bullet,Vector3 spawnPos)
