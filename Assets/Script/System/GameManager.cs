@@ -19,13 +19,23 @@ public class GameManager : MonoBehaviour
     [Tooltip("インゲームに出てくる弾やショットのリスト")]
     [SerializeField]
     private BulletHolder _bulletHolder = new();
+    [ReadOnly]
+    [Tooltip("倒したEnemyの数")]
+    [SerializeField]
+    private int _enemyDeadCount = 0;
     [Tooltip("ショットガンを撃つときの一度に撃ちだす数")]
     [SerializeField]
     private int _shotGunCount = 3;
-    [Tooltip("倒したEnemyの数")]
-    [ReadOnly]
+    [Range(1f, 10f)]
+    [Tooltip("補助兵装が後続する距離")]
     [SerializeField]
-    private int _enemyDeadCount = 0;
+    private float _supportMoveDistance = 1f;
+    [SerializeField]
+    private int _maxSupportCount = 5;
+    [ReadOnly]
+    [Tooltip("補助兵装の数")]
+    [SerializeField]
+    private int _currentSupportCount = 0;
 
     private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
@@ -49,7 +59,6 @@ public class GameManager : MonoBehaviour
     }
     public EnemyMovementParams EnemyMovementParams => _enemyMovementParams;
     public BulletHolder BulletHolder => _bulletHolder;
-    public int ShotGunCount => _shotGunCount;
     public int EnemyDeadCount
     {
         get => _enemyDeadCount;
@@ -61,6 +70,10 @@ public class GameManager : MonoBehaviour
             if (remainder == 0) { _itemSpawner.Spawn(remainder); }
         }
     }
+    public int ShotGunCount => _shotGunCount;
+    public float SupportMoveSqrtDistance => _supportMoveDistance * _supportMoveDistance;
+    public int MaxSupportCount => _maxSupportCount;
+    public int CurrentSupportCount { get => _currentSupportCount; set => _currentSupportCount = value; }
     public ObjectPool ObjectPool { get; private set; }
 
     public static GameManager Instance { get; private set; }
