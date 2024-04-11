@@ -18,11 +18,14 @@ public class SpawnParameter
     [Tooltip("Enemy生成時に付与する生成後の動き")]
     [SerializeField]
     private EnemyMovementType _moveType = EnemyMovementType.None;
+    [SerializeField]
+    private PathDrawer _terrainPath = new();
 
     public float FirstSpawnInterval => _firstSpawnInterval;
     public float SpawnInterval => _spawnInterval;
     public int SpawnCount => _spawnCount;
     public EnemyMovementType MoveType => _moveType;
+    public PathDrawer TerrainPath => _terrainPath;
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -75,6 +78,8 @@ public class EnemySpawner : MonoBehaviour
     {
         _spawnMuzzle ??= transform;
         _enemyManager = enemyManager;
+
+        _spawnParam.TerrainPath.Initialize();
     }
 
     public void Measuring(float deltaTime)
@@ -107,6 +112,11 @@ public class EnemySpawner : MonoBehaviour
 
             var enemySystem = enemy.GetComponent<EnemyController>();
             enemySystem.MovementType = _spawnParam.MoveType;
+            if (enemySystem.MovementType == EnemyMovementType.FollowTerrain)
+            {
+                var assault = (Assault)enemySystem.EnemySystem;
+                assault.MoveRoute = _spawnParam.TerrainPath.PathPoints;
+            }
             _enemyManager.AddEnemy(enemySystem.EnemySystem);
             yield return new WaitForSeconds(0.3f);
         }
