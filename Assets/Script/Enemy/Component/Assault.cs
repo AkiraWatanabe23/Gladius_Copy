@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Assault : IEnemy
@@ -17,6 +17,10 @@ public class Assault : IEnemy
     public ZShapedMove ZShaped { get; set; } = ZShapedMove.Straight;
     public bool IsMoveUp { get; private set; }
     public bool IsRotate { get; set; }
+    public float InitialRotateValue { get; set; }
+    public float RotateAngle { get; set; }
+    public int CurrentRouteIndex { get; set; } = -1;
+    public List<Vector3> MoveRoute { get; set; }
     #endregion
 
     public void Init()
@@ -26,5 +30,10 @@ public class Assault : IEnemy
 
         Rb2d.gravityScale = 0f;
         if (Controller.MovementType == EnemyMovementType.ZShapedMeandering) { IsMoveUp = Transform.position.y <= 0f; }
+        else if (Controller.MovementType == EnemyMovementType.FollowTerrain)
+        {
+            Controller.PathDrawer.Initialize();
+            MoveRoute = Controller.PathDrawer.PathPoints;
+        }
     }
 }

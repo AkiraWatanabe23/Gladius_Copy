@@ -15,6 +15,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField]
     private EnemyMovementType _movementType = EnemyMovementType.None;
 
+    [Header("For Debug")]
+    [SerializeField]
+    private PathDrawer _pathDrawer = new();
+
+    public PathDrawer PathDrawer => _pathDrawer;
+
     private EnemyType _enemyType = EnemyType.None;
 
     public int HP { get => _hp; set => _hp = value; }
@@ -73,15 +79,35 @@ public class EnemyController : MonoBehaviour, IDamageable
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (_enemySystem is not Shot) { return; }
+        //if (_enemySystem is not Shot) { return; }
 
-        var shot = (Shot)_enemySystem;
+        //var shot = (Shot)_enemySystem;
 
-        var old = Gizmos.color;
-        Gizmos.color = Color.green;
+        //var old = Gizmos.color;
+        //Gizmos.color = Color.green;
 
-        Gizmos.DrawWireSphere(gameObject.transform.position, shot.SearchRadius);
-        Gizmos.color = old;
+        //Gizmos.DrawWireSphere(gameObject.transform.position, shot.SearchRadius);
+        //Gizmos.color = old;
+
+        if (_enemySystem is Assault assault)
+        {
+            if (_movementType != EnemyMovementType.FollowTerrain) { return; }
+            if (assault.MoveRoute == null || assault.MoveRoute.Count <= 0) { return; }
+
+            Gizmos.color = Color.green;
+            for (int i = 0; i < assault.MoveRoute.Count - 1; i++)
+            {
+                Gizmos.DrawLine(assault.MoveRoute[i], assault.MoveRoute[i + 1]);
+            }
+        }
+        else if (_enemySystem is Shot shot)
+        {
+            var old = Gizmos.color;
+            Gizmos.color = Color.green;
+
+            Gizmos.DrawWireSphere(gameObject.transform.position, shot.SearchRadius);
+            Gizmos.color = old;
+        }
     }
 #endif
 }
