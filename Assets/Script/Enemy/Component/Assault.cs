@@ -16,6 +16,7 @@ public class Assault : IEnemy
     public Vector3 TargetPos { get; set; }
     public ZShapedMove ZShaped { get; set; } = ZShapedMove.Straight;
     public bool IsMoveUp { get; private set; }
+    public bool IsChase { get; set; }
     public bool IsRotate { get; set; }
     public float InitialRotateValue { get; set; }
     public float RotateAngle { get; set; }
