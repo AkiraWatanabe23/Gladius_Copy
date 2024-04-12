@@ -9,17 +9,25 @@ public class FollowTerrain : IEnemyGeneration
         if (enemy.EnemySystem is not Assault) { return; }
 
         var assault = (Assault)enemy.EnemySystem;
-        if (assault.MoveRoute == null || assault.MoveRoute.Count <= 0) { Consts.Log("No route"); return; }
-
-        if (assault.IsRotate) { Rotate(assault); }
-        if (DirectionChange(assault))
+        if (!assault.IsChase && (GameManager.Instance.PlayerTransform.position - assault.Transform.position).sqrMagnitude <= 1f)
         {
-            assault.IsRotate = true;
-            assault.InitialRotateValue = assault.Transform.localEulerAngles.z;
-            assault.RotateAngle = GetRotateAngle(assault);
+            assault.IsChase = true;
+            assault.MoveDirection = (GameManager.Instance.PlayerTransform.position - assault.Transform.position).normalized;
+        }
+        else
+        {
+            if (assault.MoveRoute == null || assault.MoveRoute.Count <= 0) { Consts.Log("No route"); return; }
 
-            RouteSetting(assault);
-            assault.CurrentRouteIndex++;
+            if (assault.IsRotate) { Rotate(assault); }
+            if (DirectionChange(assault))
+            {
+                assault.IsRotate = true;
+                assault.InitialRotateValue = assault.Transform.localEulerAngles.z;
+                assault.RotateAngle = GetRotateAngle(assault);
+
+                RouteSetting(assault);
+                assault.CurrentRouteIndex++;
+            }
         }
 
         assault.Rb2d.velocity = assault.MoveDirection * enemy.MoveSpeed;
