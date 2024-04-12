@@ -123,7 +123,10 @@ public class PlayerAttack : PlayerSystemBase
     /// <summary> 補助兵装が弾を撃つ </summary>
     private void SupportShot()
     {
+        if (GameManager.Instance.CurrentSupportCount <= 0) { return; }
 
+        var supports = GameManager.Instance.Supports;
+        foreach (var support in supports) { support.Attack(); }
     }
 
     private void TwoWayBulletSetting(GameObject bullet,Vector3 spawnPos)
