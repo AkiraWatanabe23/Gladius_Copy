@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public float SupportMoveSqrtDistance => _supportMoveDistance * _supportMoveDistance;
     public int MaxSupportCount => _maxSupportCount;
     public int CurrentSupportCount { get => _currentSupportCount; set => _currentSupportCount = value; }
+    /// <summary> 補助兵装のList </summary>
+    public List<Support> Supports { get; set; }
     public ObjectPool ObjectPool { get; private set; }
 
     public static GameManager Instance { get; private set; }
