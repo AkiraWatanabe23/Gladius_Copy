@@ -11,6 +11,8 @@ public class BulletController : MonoBehaviour
     [SerializeReference]
     private IBulletData _bulletData = default;
 
+    public IBulletData BulletData => _bulletData;
+
     public void Initialize(float speed, int attackValue, LayerMask gunner)
     {
         _bulletData.Init(gameObject, speed, attackValue, gunner, _initialDirection);

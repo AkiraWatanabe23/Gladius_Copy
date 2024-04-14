@@ -239,12 +239,14 @@ MonoBehaviour:
     - {fileID: 1783640917}
     _attackValue: 1
     _attackInterval: 1
+    _chargeLimit: 1
     _fanCollider: {fileID: 1581020527}
+    _direction: 0
     _playerLayer:
       serializedVersion: 2
       m_Bits: 8
     _plusShotBullet: 0
-    _initialBullets: 050000000100000003000000
+    _initialBullets: 030000000100000005000000
   _health:
     _life: 1
     _maxLife: 1

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ public class PlayerAttack : PlayerSystemBase
     private int _attackValue = 1;
     [SerializeField]
     private float _attackInterval = 1f;
+    [Range(1, 5)]
+    [Min(1)]
+    [Tooltip("ChargeBeamの倍率上限（何倍までできるか）")]
+    [SerializeField]
+    private int _chargeLimit = 1;
     [Tooltip("扇形の射出範囲")]
     [SerializeField]
     private Fan _fanCollider = default;
@@ -29,6 +35,8 @@ public class PlayerAttack : PlayerSystemBase
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
     private GameObject _plusShot = default;
+    private bool _isCharging = false;
+    private float _chargeTimer = 0f;
 
     public LayerMask Layer => _playerLayer;
     public PlusShotType PlusShotBullet
@@ -57,12 +65,27 @@ public class PlayerAttack : PlayerSystemBase
         }
     }
     protected bool IsGetShootInput => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
+    protected bool IsGetChargeBeamInputUp => Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0);
     protected bool IsGetBulletChangeInputUp => Input.mouseScrollDelta.y >= 1f;
     protected bool IsGetBulletChangeInputDown => Input.mouseScrollDelta.y <= -1f;
 
     public override void OnUpdate()
     {
-        if (IsGetShootInput) { Attack(); }
+        if (_isCharging) { Charge(); }
+        //チャージ終了
+        if (_isCharging && IsGetChargeBeamInputUp)
+        {
+            ChargeBeam();
+            _isCharging = false;
+        }
+        //攻撃
+        if (IsGetShootInput)
+        {
+            if (!_isCharging && _initialBullets[_bulletIndex] == InitialBulletType.ChargeBeam) { _isCharging = true; }
+            else { Attack(); }
+        }
+
+        //弾切り替え
         if (IsGetBulletChangeInputUp) { BulletChange(1); }
         if (IsGetBulletChangeInputDown) { BulletChange(-1); }
     }
@@ -129,7 +152,7 @@ public class PlayerAttack : PlayerSystemBase
         foreach (var support in supports) { support.Attack(); }
     }
 
-    private void TwoWayBulletSetting(GameObject bullet,Vector3 spawnPos)
+    private void TwoWayBulletSetting(GameObject bullet, Vector3 spawnPos)
     {
         bullet.transform.position = spawnPos;
 
@@ -140,5 +163,28 @@ public class PlayerAttack : PlayerSystemBase
 
         var bulletData = bullet.GetComponent<BulletController>();
         bulletData.Initialize(1f, _attackValue, _playerLayer, bullet.transform.up);
+    }
+
+    private void Charge()
+    {
+        if (_chargeTimer > _chargeLimit) { return; }
+        _chargeTimer += Time.deltaTime;
+    }
+
+    private void ChargeBeam()
+    {
+        Consts.Log("shot");
+        var bullet = GameManager.Instance.ObjectPool.SpawnObject(
+            GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.ChargeBeam]);
+        bullet.transform.position = _spawnMuzzles[0].position;
+
+        var bulletData = bullet.GetComponent<BulletController>();
+        bulletData.Initialize(3f, _attackValue, _playerLayer, Vector2.right);
+        if (bulletData.BulletData is ChargeBeamBullet)
+        {
+            var chargeBeamData = bulletData.BulletData as ChargeBeamBullet;
+            chargeBeamData.BeamDataSetting(Mathf.FloorToInt(_chargeTimer));
+        }
+        _chargeTimer = 0f;
     }
 }
