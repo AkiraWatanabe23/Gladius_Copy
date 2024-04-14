@@ -387,7 +387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &523723989
 Transform:
   m_ObjectHideFlags: 0
@@ -752,6 +752,10 @@ PrefabInstance:
     - target: {fileID: 2888281413631758138, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
       propertyPath: m_Name
       value: AssaultEnemyFollowTerrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888281413631758138, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888281413631758142, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
       propertyPath: m_RootOrder
