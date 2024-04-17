@@ -1,48 +1,78 @@
-﻿using System;
+﻿using Constants;
+using System;
 using UnityEngine;
 
 [Serializable]
 public class PlayerHealth :  PlayerSystemBase
 {
     [SerializeField]
-    private int _life = 1;
+    private HealthType _healthType = HealthType.HP;
+    [Header("HP制の場合")]
+    [ReadOnly]
+    [SerializeField]
+    private int _currentLife = 1;
     [SerializeField]
     private int _maxLife = 1;
+    [Header("残規制の場合")]
     [Tooltip("残機数")]
     [SerializeField]
     private int _remainingAircraft = 5;
+    [SerializeField]
+    private int _maxRemainingAircraft = 5;
 
-    public int Life => _life;
+    public HealthType HealthType => _healthType;
+    public int Life => _currentLife;
     public int MaxLife => _maxLife;
+    public int RemainingAircraft => _remainingAircraft;
+    public int MaxRemainingAircraft => _maxRemainingAircraft;
 
     public override void Initialize(GameObject go)
     {
-        _life = _maxLife;
-        //最低1の残機を設定する
-        if (_remainingAircraft <= 0) { _remainingAircraft = 1; }
+        if (_healthType == HealthType.HP) { _currentLife = _maxLife; }
+        else if (_healthType == HealthType.RemainingAircraft)
+        {
+            //最低1の残機を設定する
+            if (_remainingAircraft <= 0) { _remainingAircraft = 1; }
+        }
     }
 
     public void ReceiveDamage(int value)
     {
-        _life -= value;
-        if (_life <= 0)
+        if (_healthType == HealthType.HP)
+        {
+            _currentLife -= value;
+            if (_currentLife <= 0)
+            {
+                Consts.Log("GameOver");
+            }
+        }
+        else if (_healthType == HealthType.RemainingAircraft)
         {
             _remainingAircraft--;
             if (_remainingAircraft <= 0) //GameOver
             {
-                Debug.Log("GameOver");
-            }
-            else //残機が減ってやり直し
-            {
-                _life = _maxLife;
-                Debug.Log($"RemainingAircraft Count Decreaced {_remainingAircraft}");
+                Consts.Log("GameOver");
             }
         }
     }
 
     public void Heal(int value)
     {
-        _life += value;
-        if (_life > _maxLife) { _life = _maxLife; }
+        if (_healthType == HealthType.HP)
+        {
+            _currentLife += value;
+            if (_currentLife > _maxLife) { _currentLife = _maxLife; }
+        }
+        else if (_healthType == HealthType.RemainingAircraft)
+        {
+            _remainingAircraft++;
+            if (_remainingAircraft > _maxRemainingAircraft) { _remainingAircraft = _maxRemainingAircraft; }
+        }
     }
+}
+
+public enum HealthType
+{
+    HP,
+    RemainingAircraft,
 }
