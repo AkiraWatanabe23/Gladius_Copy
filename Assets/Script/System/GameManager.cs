@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
     public int CurrentSupportCount { get => _currentSupportCount; set => _currentSupportCount = value; }
     /// <summary> 補助兵装のList </summary>
     public List<Support> Supports { get; set; }
+    /// <summary> メレー弾のList </summary>
+    public List<Melee> Melees { get; set; }
     public ObjectPool ObjectPool { get; private set; }
 
     public static GameManager Instance { get; private set; }
