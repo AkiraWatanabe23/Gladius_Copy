@@ -13,8 +13,8 @@ public class PlayerAttack : PlayerSystemBase
     private int _attackValue = 1;
     [SerializeField]
     private float _attackInterval = 1f;
-    [Range(1, 5)]
     [Min(1)]
+    [Range(1, 5)]
     [Tooltip("ChargeBeamの倍率上限（何倍までできるか）")]
     [SerializeField]
     private int _chargeLimit = 1;
@@ -31,6 +31,14 @@ public class PlayerAttack : PlayerSystemBase
     [Tooltip("初期ショット")]
     [SerializeField]
     private List<InitialBulletType> _initialBullets = default;
+
+    [SerializeField]
+    private bool _onDrawGizmos = false;
+    [Tooltip("Gizmo表示用")]
+    [Min(1f)]
+    [Range(1f, 10f)]
+    [SerializeField]
+    private float _squareSize = 1f;
 
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
@@ -186,5 +194,14 @@ public class PlayerAttack : PlayerSystemBase
             chargeBeamData.BeamDataSetting(Mathf.FloorToInt(_chargeTimer));
         }
         _chargeTimer = 0f;
+    }
+
+    /// <summary> For Editor </summary>
+    public void OnDrawGizmos(GameObject player)
+    {
+        if (!_onDrawGizmos || player == null) { return; }
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(player.transform.position, Vector2.one * _squareSize);
     }
 }

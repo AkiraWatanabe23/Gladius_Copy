@@ -871,6 +871,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: _attack._squareSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: _attack._onDrawGizmos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_RootOrder
       value: 2

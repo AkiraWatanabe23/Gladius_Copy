@@ -31,5 +31,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         _movement.OnTriggerEnter2D(collision);
     }
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        _attack.OnDrawGizmos(gameObject);
+    }
+#endif
+
     public void ReceiveDamage(int value) { _health.ReceiveDamage(value); }
 }
