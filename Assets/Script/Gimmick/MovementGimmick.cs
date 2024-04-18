@@ -16,7 +16,7 @@ public class MovementGimmick : MonoBehaviour
     [SerializeField]
     private int _attackValue = 1;
 
-    [Tooltip("For Gizmos")]
+    [Header("For Gizmos")]
     [SerializeField]
     private float _searchRadius = 1f;
 
