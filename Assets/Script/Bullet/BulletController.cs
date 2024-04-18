@@ -46,6 +46,10 @@ public class BulletController : MonoBehaviour
             var shotGun = _bulletData as ShotGun;
             shotGun.AreaExit();
         }
+        else if (collision.gameObject.TryGetComponent(out VolcanicBomb _))
+        {
+            GameManager.Instance.ObjectPool.RemoveObject(gameObject);
+        }
     }
 
     private void OnBecameInvisible()
