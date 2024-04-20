@@ -1,14 +1,12 @@
+﻿using UnityEngine;
+
+/// <summary> Boss撃破 </summary>
 public class DefeatBoss : IClearRule
 {
+    [SerializeField]
     private EnemyController _stageBoss = default;
 
-    public void Init(EnemyController boss)
-    {
-        _stageBoss = boss;
-    }
+    public void Init() { }
 
-    public bool ClearCondition()
-    {
-        return _stageBoss.HP <= 0;
-    }
+    public bool ClearCondition() => _stageBoss.HP <= 0;
 }
