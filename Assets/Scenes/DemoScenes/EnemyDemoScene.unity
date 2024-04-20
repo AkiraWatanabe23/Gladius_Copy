@@ -871,6 +871,90 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 4875325871131705159}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.data[0]
+      value: 5056580766795825160
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.data[1]
+      value: 5056580766795825159
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.data[2]
+      value: 5056580766795825157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825152]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825153]
+      value: Assembly-CSharp EnemyAnnihilated
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825154]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825155]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825156]
+      value: Assembly-CSharp DefeatBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825157]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825158]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825159]
+      value: Assembly-CSharp TimeAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825160]
+      value: Assembly-CSharp EnemyAnnihilated
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825152]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825154]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825155]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825157]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825158]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825156]._stageBoss
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[5056580766795825159]._clearTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2925223453046732365, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: m_RootOrder
       value: 3
