@@ -20,6 +20,7 @@ public class EnemyManager
 
     public GameObject EnemyCorePrefab => _enemyCorePrefab;
     public EnemySpawner[] EnemySpawners { get => _enemySpawners; private set => _enemySpawners = value; }
+    public List<EnemyController> Enemies => _enemies;
     public Transform PlayerTransform { get; private set; }
 
     public IEnumerator Initialize(EnemyController[] enemies, EnemySpawner[] spawners, Transform playerTransform)

@@ -1,10 +1,20 @@
 ﻿using Constants;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Tooltip("同じ条件を重複させないように")]
+    [SubclassSelector]
+    [SerializeReference]
+    private IClearRule[] _clearConditions = default;
+    [Tooltip("ゲームの経過時間（タイムがクリア条件にかかわる場合に使う）")]
+    [ReadOnly]
+    [SerializeField]
+    private float _timer = 0f;
     [SerializeField]
     private PlayerController _player = default;
     [SerializeField]
@@ -37,10 +47,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _currentSupportCount = 0;
 
+    private bool _isTimeMeasuring = false;
     private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
 
     #region public Properties
+    public float Timer => _timer = _inGameUpdate.Timer;
     public PlayerController Player
     {
         get
@@ -111,14 +123,35 @@ public class GameManager : MonoBehaviour
             FindObjectsOfType<EnemyController>(), FindObjectsOfType<EnemySpawner>(), _player.transform);
 
         ObjectPool = new();
-
         yield return null;
+
+        if (_clearConditions == null || _clearConditions.Length <= 0) { yield break; }
+        for (int i = 0; i < _clearConditions.Length; i++)
+        {
+            _clearConditions[i]?.Init();
+            if (_clearConditions[i] is EnemyAnnihilated)
+            {
+                var enemyAnnihilated = _clearConditions[i] as EnemyAnnihilated;
+                enemyAnnihilated.Init(_enemyManager);
+            }
+            else if (_clearConditions[i] is Survival || _clearConditions[i] is TimeAttack)
+            {
+                _isTimeMeasuring = true;
+            }
+        }
     }
 
     private void Loaded()
     {
         Consts.Log("Finish Initialized");
-        _inGameUpdate.Initialize(_enemyManager);
+        _inGameUpdate.Initialize(_enemyManager, GameClear, _isTimeMeasuring);
         _inGameUpdate.enabled = true;
+    }
+
+    private bool GameClear()
+    {
+        if (_clearConditions == null || _clearConditions.Length <= 0) { return false; }
+
+        return _clearConditions.All(condition => condition.ClearCondition());
     }
 }
