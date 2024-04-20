@@ -8,13 +8,16 @@ public class GameUpdate : MonoBehaviour
     private bool _isTimeMeasuring = false;
     private EnemyManager _enemyManager = default;
     private Func<bool> _clearCondition = default;
+    private Func<bool> _gameOverCondition = default;
 
     public float Timer => _timer;
 
-    public void Initialize(EnemyManager enemyManager, Func<bool> clearCondition, bool isTimeMeasuring = false)
+    public void Initialize(
+        EnemyManager enemyManager, Func<bool> clearCondition, Func<bool> gameOverCondition, bool isTimeMeasuring = false)
     {
         _enemyManager = enemyManager;
         _clearCondition = clearCondition;
+        _gameOverCondition = gameOverCondition;
         _isTimeMeasuring = isTimeMeasuring;
     }
 
@@ -22,6 +25,10 @@ public class GameUpdate : MonoBehaviour
     {
         _enemyManager.OnUpdate(Time.deltaTime);
         if (_isTimeMeasuring) { _timer += Time.deltaTime; }
+        if (_gameOverCondition != null && _gameOverCondition())
+        {
+            Consts.Log("game over");
+        }
         if (_clearCondition != null && _clearCondition())
         {
             Consts.Log("game clear");

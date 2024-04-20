@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _currentSupportCount = 0;
 
+    private readonly GameOver _gameOver = new();
+
     private bool _isTimeMeasuring = false;
     private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
@@ -125,6 +127,7 @@ public class GameManager : MonoBehaviour
         ObjectPool = new();
         yield return null;
 
+        _gameOver.Init();
         if (_clearConditions == null || _clearConditions.Length <= 0) { yield break; }
         for (int i = 0; i < _clearConditions.Length; i++)
         {
@@ -144,7 +147,8 @@ public class GameManager : MonoBehaviour
     private void Loaded()
     {
         Consts.Log("Finish Initialized");
-        _inGameUpdate.Initialize(_enemyManager, GameClear, _isTimeMeasuring);
+        _inGameUpdate.Initialize(
+            _enemyManager, GameClear, () => _gameOver.GameOverCondition(), _isTimeMeasuring);
         _inGameUpdate.enabled = true;
     }
 
