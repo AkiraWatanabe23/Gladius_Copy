@@ -45,4 +45,16 @@ public class ObjectPool
 
     /// <summary> 指定したオブジェクトを非表示にする </summary>
     public void RemoveObject(GameObject go) { go.SetActive(false); }
+
+    /// <summary> 指定されたオブジェクトのハッシュ値を取得する（プールに存在しなかったら登録する） </summary>
+    public int GetHashCode(GameObject prefab)
+    {
+        int hash = prefab.GetHashCode();
+        if (!_poolDict.ContainsKey(hash))
+        {
+            var poolList = new List<GameObject>() { prefab };
+            _poolDict.Add(hash, poolList);
+        }
+        return hash;
+    }
 }
