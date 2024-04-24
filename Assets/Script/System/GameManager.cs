@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     private bool _isTimeMeasuring = false;
     private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
+    private EnemyAnnihilated _enemyAnnihilated = default;
 
     #region public Properties
     public float Timer => _timer = _inGameUpdate.Timer;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
             return _playerTransform;
         }
     }
+    public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
     public EnemyMovementParams EnemyMovementParams => _enemyMovementParams;
     public BulletHolder BulletHolder => _bulletHolder;
     public int EnemyDeadCount
@@ -134,8 +136,8 @@ public class GameManager : MonoBehaviour
             _clearConditions[i]?.Init();
             if (_clearConditions[i] is EnemyAnnihilated)
             {
-                var enemyAnnihilated = _clearConditions[i] as EnemyAnnihilated;
-                enemyAnnihilated.Init(_enemyManager);
+                _enemyAnnihilated = _clearConditions[i] as EnemyAnnihilated;
+                _enemyAnnihilated.Init(_enemyManager);
             }
             else if (_clearConditions[i] is Survival || _clearConditions[i] is TimeAttack)
             {

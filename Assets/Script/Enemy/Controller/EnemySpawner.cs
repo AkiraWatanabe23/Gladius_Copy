@@ -107,18 +107,25 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _spawnParam.SpawnCount; i++)
         {
-            var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
-            enemy.transform.position = SpawnPos;
-
-            var enemySystem = enemy.GetComponent<EnemyController>();
-            enemySystem.MovementType = _spawnParam.MoveType;
-            if (enemySystem.MovementType == EnemyMovementType.FollowTerrain)
+            if (GameManager.Instance.EnemyAnnihilated != null && GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
-                var assault = (Assault)enemySystem.EnemySystem;
-                assault.MoveRoute = _spawnParam.TerrainPath.PathPoints;
+                var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
+                enemy.transform.position = SpawnPos;
+
+                var enemySystem = enemy.GetComponent<EnemyController>();
+                enemySystem.MovementType = _spawnParam.MoveType;
+                if (enemySystem.MovementType == EnemyMovementType.FollowTerrain)
+                {
+                    var assault = (Assault)enemySystem.EnemySystem;
+                    assault.MoveRoute = _spawnParam.TerrainPath.PathPoints;
+                }
+                _enemyManager.AddEnemy(enemySystem.EnemySystem);
+                yield return new WaitForSeconds(0.3f);
             }
-            _enemyManager.AddEnemy(enemySystem.EnemySystem);
-            yield return new WaitForSeconds(0.3f);
+            else
+            {
+                yield break;
+            }
         }
         yield return null;
         if (!_spawnInScreen) { Destroy(gameObject); }

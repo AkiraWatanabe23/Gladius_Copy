@@ -16,5 +16,6 @@ public class GameOver
         }
     }
 
+    /// <summary> ゲームオーバーの条件 -> 体力 or 残機が0 </summary>
     public bool GameOverCondition() => _life <= 0;
 }

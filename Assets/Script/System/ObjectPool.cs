@@ -44,7 +44,7 @@ public class ObjectPool
     }
 
     /// <summary> 指定したオブジェクトを非表示にする </summary>
-    public void RemoveObject(GameObject go) { go.SetActive(false); }
+    public void RemoveObject(GameObject go) => go.SetActive(false);
 
     /// <summary> 指定されたオブジェクトのハッシュ値を取得する（プールに存在しなかったら登録する） </summary>
     public int GetHashCode(GameObject prefab)
