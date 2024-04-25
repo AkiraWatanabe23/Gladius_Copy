@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Constants;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,9 +34,7 @@ public class UIController : MonoBehaviour
         if (_healthText != null) { _healthText.text = $"{_player.Health.Life} / {_player.Health.MaxLife}"; }
 
         yield return null;
-#if UNITY_EDITOR
-        Debug.Log("Finish Initialized UI System");
-#endif
+        Consts.Log("Finish Initialized UI System");
     }
 
     private void ReceiveDamage(float value)

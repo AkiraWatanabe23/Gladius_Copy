@@ -44,16 +44,46 @@ public enum BGMType
     None,
     TitleBGM,
     InGameBGM,
-    GameClearBGM,
-    GameOverBGM
+    BossBGM,
+    GameClear,
+    GameOver
 }
 
 public enum SEType
 {
     None,
+    //System
+    Select,
     Click,
-    Attack,
-    AttackHit,
-    PlayerCrash,
-    EnemyCrash
+    ChangeShot,
+    //Player, Shot
+    DefaultShot,
+    LaserShot,
+    Charge,
+    ChargeBeam,
+    ShotGun,
+    Bomb,
+    Missile,
+    Reflect,
+    MeleeMoving,
+    Barrier,
+    PlayerDamaged,
+    PlayerCrashed,
+    //Item
+    AddPlusShot,
+    EnemyAnnihilation,
+    SpeedUp,
+    Heal,
+    //Enemy
+    EnemyDamaged,
+    EnemyCrashed,
+    EnemyShot,
+    EnemyJump,
+    //Gimmick
+    SpeedDown,
+    WarpInitialized,
+    WarpDestroyed,
+    WarpEnterBullet,
+    WarpExitBullet,
+    Eruption,
 }
