@@ -12,6 +12,16 @@ public class SpeedDownGimmick : MonoBehaviour
 
     private Rigidbody2D _rb2d = default;
 
+    protected int GimmickLife
+    {
+        get => _gimmickLife;
+        private set
+        {
+            _gimmickLife = value;
+            if (_gimmickLife <= 0) { GameManager.Instance.ObjectPool.RemoveObject(gameObject); }
+        }
+    }
+
     private void Start()
     {
         if (!gameObject.TryGetComponent(out _rb2d)) { _rb2d = gameObject.AddComponent<Rigidbody2D>(); }
@@ -23,12 +33,11 @@ public class SpeedDownGimmick : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
             player.Movement.SpeedDown(_speedDownValue);
-            GameManager.Instance.ObjectPool.RemoveObject(gameObject);
+            GimmickLife = 0;
         }
         else if (collision.gameObject.TryGetComponent(out BulletController _))
         {
-            _gimmickLife--;
-            if (_gimmickLife < 0) { GameManager.Instance.ObjectPool.RemoveObject(gameObject); }
+            GimmickLife--;
         }
     }
 }
