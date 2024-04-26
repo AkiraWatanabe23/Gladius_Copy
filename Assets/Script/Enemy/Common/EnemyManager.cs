@@ -4,10 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class EnemyManager
+public class EnemyMovementData
+{
+    [field: SerializeField]
+    public EnemyMovementType MovementType { get; private set; }
+    [field: SerializeField]
+    public GameObject EnemyPrefab { get; private set; }
+}
+
+public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
+    private EnemyMovementParams _movementParam = new();
+    [SerializeField]
     private GameObject _enemyCorePrefab = default;
+    [SerializeField]
+    private EnemyMovementData[] _enemyPrefabs = default;
     [SerializeField]
     private EnemySpawner[] _enemySpawners = default;
     [SerializeField]
@@ -17,8 +29,22 @@ public class EnemyManager
     private ShotSystem _shotSystem = default;
     private BossSystem _bossSystem = default;
     private EnemySystemBase[] _enemySystems = default;
+    private Dictionary<EnemyMovementType, GameObject> _enemyPrefsDict = default;
 
+    public EnemyMovementParams MovementParam => _movementParam;
     public GameObject EnemyCorePrefab => _enemyCorePrefab;
+    public Dictionary<EnemyMovementType, GameObject> EnemyPrefabsDict
+    {
+        get
+        {
+            if (_enemyPrefsDict == null)
+            {
+                _enemyPrefsDict = new();
+                Array.ForEach(_enemyPrefabs, data => _enemyPrefsDict.Add(data.MovementType, data.EnemyPrefab));
+            }
+            return _enemyPrefsDict;
+        }
+    }
     public EnemySpawner[] EnemySpawners { get => _enemySpawners; private set => _enemySpawners = value; }
     public List<EnemyController> Enemies => _enemies;
     public Transform PlayerTransform { get; private set; }

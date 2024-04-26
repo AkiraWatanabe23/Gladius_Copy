@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &605815767475046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3164771058209462060}
+  - component: {fileID: 1236224998552563911}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3164771058209462060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605815767475046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1236224998552563911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605815767475046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b439e730cf76e014f9c91608adc7c20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementParam:
+    _straightMoveDistance: 5
+    _diagonalMoveDistance: {x: 1, y: 1}
+    _jumpingHeight: 1
+    _semicircleAttackCount: 1
+  _enemyCorePrefab: {fileID: 1968044106956670669, guid: 79f783c16891f66428917aa12dfaf550, type: 3}
+  _enemyPrefabs:
+  - <MovementType>k__BackingField: 1
+    <EnemyPrefab>k__BackingField: {fileID: 4231676158367370899, guid: 4f5841b7812dc694c8c0a76f8218b02f, type: 3}
+  - <MovementType>k__BackingField: 2
+    <EnemyPrefab>k__BackingField: {fileID: 7975795399654350853, guid: d3d06b6677d20a245a2084d3e39566fb, type: 3}
+  - <MovementType>k__BackingField: 3
+    <EnemyPrefab>k__BackingField: {fileID: 1653555800643878507, guid: 72a9bc03c91801247806d726ef68ea52, type: 3}
+  - <MovementType>k__BackingField: 4
+    <EnemyPrefab>k__BackingField: {fileID: 7357602142379354019, guid: 1dea3e84ef887d746b5d0000b2485b3f, type: 3}
+  - <MovementType>k__BackingField: 5
+    <EnemyPrefab>k__BackingField: {fileID: 2888281413631758138, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
+  - <MovementType>k__BackingField: 6
+    <EnemyPrefab>k__BackingField: {fileID: 4663879061027675782, guid: 58279b32b438d194f894d7a8df44983c, type: 3}
+  - <MovementType>k__BackingField: 7
+    <EnemyPrefab>k__BackingField: {fileID: 6321104828711791481, guid: af84fc7b1e6734746a525809b9b80d5f, type: 3}
+  _enemySpawners: []
+  _enemies: []

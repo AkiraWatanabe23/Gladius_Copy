@@ -5,6 +5,9 @@ using UnityEngine;
 [Serializable]
 public class SpawnParameter
 {
+    [Tooltip("Enemy生成時に付与する生成後の動き")]
+    [SerializeField]
+    private EnemyMovementType _moveType = EnemyMovementType.None;
     [Tooltip("初回生成間隔（sec）")]
     [SerializeField]
     private float _firstSpawnInterval = 1f;
@@ -15,24 +18,18 @@ public class SpawnParameter
     [Tooltip("一度に生成する数")]
     [SerializeField]
     private int _spawnCount = 1;
-    [Tooltip("Enemy生成時に付与する生成後の動き")]
-    [SerializeField]
-    private EnemyMovementType _moveType = EnemyMovementType.None;
     [SerializeField]
     private PathDrawer _terrainPath = new();
 
+    public EnemyMovementType MoveType => _moveType;
     public float FirstSpawnInterval => _firstSpawnInterval;
     public float SpawnInterval => _spawnInterval;
     public int SpawnCount => _spawnCount;
-    public EnemyMovementType MoveType => _moveType;
     public PathDrawer TerrainPath => _terrainPath;
 }
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Tooltip("生成するEnemyPrefab")]
-    [SerializeField]
-    private GameObject _enemyPrefab = default;
     [Tooltip("生成位置")]
     [SerializeField]
     private Transform _spawnMuzzle = default;
@@ -55,6 +52,7 @@ public class EnemySpawner : MonoBehaviour
     private SpawnSearchDirection _spawnDir = SpawnSearchDirection.Left;
 
     private EnemyManager _enemyManager = default;
+    private GameObject _enemyPrefab = default;
     private float _spawnTimer = 0f;
     /// <summary> 初回生成を行ったかどうか </summary>
     private bool _isFirstSpawning = false;
@@ -78,6 +76,7 @@ public class EnemySpawner : MonoBehaviour
     {
         _spawnMuzzle ??= transform;
         _enemyManager = enemyManager;
+        _enemyPrefab = _enemyManager.EnemyPrefabsDict[_spawnParam.MoveType];
 
         _spawnParam.TerrainPath.Initialize();
     }

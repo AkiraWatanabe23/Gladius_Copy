@@ -6,10 +6,10 @@ public class ZShapedMeandering : IEnemyGeneration
     private readonly float _straightMoveDistance = 10f;
     private readonly Vector2 _diagonalMoveDistance = Vector2.zero;
 
-    public ZShapedMeandering()
+    public ZShapedMeandering(EnemyManager enemyManager)
     {
-        _straightMoveDistance = GameManager.Instance.EnemyMovementParams.StraightMoveDistance;
-        _diagonalMoveDistance = GameManager.Instance.EnemyMovementParams.DiagonalMoveDistance;
+        _straightMoveDistance = enemyManager.MovementParam.StraightMoveDistance;
+        _diagonalMoveDistance = enemyManager.MovementParam.DiagonalMoveDistance;
     }
 
     public void Movement(EnemyController enemy)
