@@ -50,7 +50,7 @@ public class ShotSystem : EnemySystemBase
         }
         if (target.Controller.MovementType == EnemyMovementType.Jumping)
         {
-            _jumping ??= new();
+            _jumping ??= new(EnemyManager);
             _jumping.Movement(target.Controller);
         }
     }

@@ -5,10 +5,10 @@ public class Jumping : IEnemyGeneration
     private readonly float _moveRadius = 1f;
     private readonly int _semicircleAttackCount = 1;
 
-    public Jumping()
+    public Jumping(EnemyManager enemyManager)
     {
-        _moveRadius = GameManager.Instance.EnemyMovementParams.JumpingHeight;
-        _semicircleAttackCount = GameManager.Instance.EnemyMovementParams.SemicircleAttackCount;
+        _moveRadius = enemyManager.MovementParam.JumpingHeight;
+        _semicircleAttackCount = enemyManager.MovementParam.SemicircleAttackCount;
     }
 
     public void Movement(EnemyController enemy)

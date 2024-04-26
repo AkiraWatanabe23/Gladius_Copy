@@ -2,6 +2,13 @@
 
 public class Melee : IBulletData
 {
+    [Tooltip("何秒間生きてるか")]
+    [SerializeField]
+    private float _effectLife = 5f;
+    [Tooltip("回転するときのPlayerとの距離")]
+    [SerializeField]
+    private float _rotateDistance = 1f;
+
     private float _effectTimer = 0f;
     private Transform _rotateCenter = default;
 
@@ -15,8 +22,7 @@ public class Melee : IBulletData
 
     public void Movement()
     {
-        //todo : 効果時間は後で設定する
-        if (_effectTimer >= 5f) { Reset(); }
+        if (_effectTimer >= _effectLife) { Reset(); }
 
         GameManager.Instance.Melees ??= new();
         if (!GameManager.Instance.Melees.Contains(this)) { GameManager.Instance.Melees.Add(this); }
@@ -31,6 +37,7 @@ public class Melee : IBulletData
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
+        Reset();
     }
 
     private void Reset()
