@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
             return _playerTransform;
         }
     }
+    public GameUpdate InGameUpdate => _inGameUpdate;
     public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
     public BulletHolder BulletHolder => _bulletHolder;
     public int EnemyDeadCount
