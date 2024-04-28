@@ -27,11 +27,11 @@ public class UIController : MonoBehaviour
 
         if (_healthSlider != null)
         {
-            _healthSlider.maxValue = _player.Health.MaxLife;
-            _healthSlider.value = _player.Health.Life;
+            _healthSlider.maxValue = _player.Health.HP.MaxLife;
+            _healthSlider.value = _player.Health.HP.Life;
             _healthSlider.onValueChanged.AddListener(ReceiveDamage);
         }
-        if (_healthText != null) { _healthText.text = $"{_player.Health.Life} / {_player.Health.MaxLife}"; }
+        if (_healthText != null) { _healthText.text = $"{_player.Health.HP.Life} / {_player.Health.HP.MaxLife}"; }
 
         yield return null;
         Consts.Log("Finish Initialized UI System");

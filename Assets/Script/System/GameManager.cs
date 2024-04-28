@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     private EnemyManager _enemyManager = default;
     [SerializeField]
     private ItemSpawner _itemSpawner = default;
-    [Tooltip("使用するプラスショット")]
-    [SerializeField]
-    private List<PlusShotType> _plusShots = default;
     [Tooltip("インゲームに出てくる弾やショットのリスト")]
     [SerializeField]
     private BulletHolder _bulletHolder = new();

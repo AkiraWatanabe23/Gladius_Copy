@@ -4,11 +4,13 @@ using UnityEngine;
 [Serializable]
 public class PlayerMovement : PlayerSystemBase
 {
+    [Range(1f, 10f)]
     [SerializeField]
     private float _moveSpeed = 5f;
     [Tooltip("自機の移動最低速度（初期値からどれくらいまで下げるか\n例：0.5 -> MoveSpeed - 0.5が自機の最低移動速度）")]
+    [Range(0.1f, 10f)]
     [SerializeField]
-    private float _minSpeedValue = 0f;
+    private float _minSpeedValue = 1f;
 
     private Rigidbody2D _rb2d = default;
     /// <summary> 自機の移動速度の最低値 </summary>
