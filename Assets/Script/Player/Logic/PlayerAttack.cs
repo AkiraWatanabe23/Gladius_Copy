@@ -31,6 +31,9 @@ public class PlayerAttack : PlayerSystemBase
     [Tooltip("初期ショット")]
     [SerializeField]
     private List<InitialBulletType> _initialBullets = default;
+    [Tooltip("使用するプラスショット")]
+    [SerializeField]
+    private List<PlusShotType> _plusShots = default;
 
     [SerializeField]
     private bool _onDrawGizmos = false;
@@ -38,7 +41,7 @@ public class PlayerAttack : PlayerSystemBase
     [Min(1f)]
     [Range(1f, 10f)]
     [SerializeField]
-    private float _squareSize = 1f;
+    private float _gizmoSquareSize = 1f;
 
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
@@ -100,7 +103,7 @@ public class PlayerAttack : PlayerSystemBase
 
     private void Attack()
     {
-        Debug.Log("attack");
+        Consts.Log("attack");
         if (_initialBullets[_bulletIndex] == InitialBulletType.ShotGun)
         {
             var spawnBullet = GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.ShotGun];
@@ -202,6 +205,6 @@ public class PlayerAttack : PlayerSystemBase
         if (!_onDrawGizmos || player == null) { return; }
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(player.transform.position, Vector2.one * _squareSize);
+        Gizmos.DrawWireCube(player.transform.position, Vector2.one * _gizmoSquareSize);
     }
 }

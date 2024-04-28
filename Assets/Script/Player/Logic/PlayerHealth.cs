@@ -2,71 +2,100 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class PlayerHealth :  PlayerSystemBase
+#region Serialized Data
+public interface IHealth : ISerializableParam
 {
-    [SerializeField]
-    private HealthType _healthType = HealthType.HP;
-    [Header("HP制の場合")]
+    public HealthType HealthType { get; }
+}
+
+public class HP : IHealth
+{
     [ReadOnly]
     [SerializeField]
     private int _currentLife = 1;
     [SerializeField]
     private int _maxLife = 1;
-    [Header("残規制の場合")]
+
+    public int Life => _currentLife;
+    public int MaxLife => _maxLife;
+    public HealthType HealthType => HealthType.HP;
+
+    public void SettingLife(int maxLife) => _currentLife = maxLife;
+}
+
+public class RemainingAircraft : IHealth
+{
     [Tooltip("残機数")]
+    [ReadOnly]
     [SerializeField]
     private int _remainingAircraft = 5;
     [SerializeField]
     private int _maxRemainingAircraft = 5;
 
-    public HealthType HealthType => _healthType;
-    public int Life => _currentLife;
-    public int MaxLife => _maxLife;
-    public int RemainingAircraft => _remainingAircraft;
+    public int RemainingAircraftCount => _remainingAircraft;
     public int MaxRemainingAircraft => _maxRemainingAircraft;
+    public HealthType HealthType => HealthType.RemainingAircraft;
+
+    public void SettingRemainingAircraft(int count) => _remainingAircraft = count;
+}
+#endregion
+
+[Serializable]
+public class PlayerHealth :  PlayerSystemBase
+{
+    [SubclassSelector]
+    [SerializeReference]
+    private IHealth _healthData = default;
+
+    private HP _hpInstance = default;
+    private RemainingAircraft _aircraftInstance = default;
+
+    public HP HP => _hpInstance;
+    public RemainingAircraft Aircraft => _aircraftInstance;
+    public HealthType HealthType => _healthData.HealthType;
 
     public override void Initialize(GameObject go)
     {
-        if (_healthType == HealthType.HP) { _currentLife = _maxLife; }
-        else if (_healthType == HealthType.RemainingAircraft)
+        if (_healthData.HealthType == HealthType.HP)
         {
-            //最低1の残機を設定する
-            if (_remainingAircraft <= 0) { _remainingAircraft = 1; }
+            _hpInstance = _healthData as HP;
+            _hpInstance.SettingLife(_hpInstance.MaxLife);
+        }
+        else if (_healthData.HealthType == HealthType.RemainingAircraft)
+        {
+            _aircraftInstance = _healthData as RemainingAircraft;
+            if (_aircraftInstance.RemainingAircraftCount <= 0) { _aircraftInstance.SettingRemainingAircraft(1); }
         }
     }
 
     public void ReceiveDamage(int value)
     {
-        if (_healthType == HealthType.HP)
+        if (_healthData.HealthType == HealthType.HP)
         {
-            _currentLife -= value;
-            if (_currentLife <= 0)
-            {
-                Consts.Log("GameOver");
-            }
+            _hpInstance.SettingLife(_hpInstance.Life - value);
+            if (_hpInstance.Life <= 0) { Consts.Log("GameOver"); }
         }
-        else if (_healthType == HealthType.RemainingAircraft)
+        else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
-            _remainingAircraft--;
-            if (_remainingAircraft <= 0) //GameOver
-            {
-                Consts.Log("GameOver");
-            }
+            _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.RemainingAircraftCount - 1);
+            if (_aircraftInstance.RemainingAircraftCount <= 0) { Consts.Log("GameOver"); }
         }
     }
 
     public void Heal(int value)
     {
-        if (_healthType == HealthType.HP)
+        if (_healthData.HealthType == HealthType.HP)
         {
-            _currentLife += value;
-            if (_currentLife > _maxLife) { _currentLife = _maxLife; }
+            _hpInstance.SettingLife(_hpInstance.Life + value);
+            if (_hpInstance.Life > _hpInstance.MaxLife) { _hpInstance.SettingLife(_hpInstance.MaxLife); }
         }
-        else if (_healthType == HealthType.RemainingAircraft)
+        else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
-            _remainingAircraft++;
-            if (_remainingAircraft > _maxRemainingAircraft) { _remainingAircraft = _maxRemainingAircraft; }
+            _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.RemainingAircraftCount + 1);
+            if (_aircraftInstance.RemainingAircraftCount > _aircraftInstance.MaxRemainingAircraft)
+            {
+                _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.MaxRemainingAircraft);
+            }
         }
     }
 }

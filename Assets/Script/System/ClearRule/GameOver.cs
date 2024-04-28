@@ -8,11 +8,11 @@ public class GameOver
         var playerHealth = GameManager.Instance.Player.Health;
         if (playerHealth.HealthType == HealthType.HP)
         {
-            _life = playerHealth.Life;
+            _life = playerHealth.HP.Life;
         }
         else if (playerHealth.HealthType == HealthType.RemainingAircraft)
         {
-            _life = playerHealth.RemainingAircraft;
+            _life = playerHealth.Aircraft.RemainingAircraftCount;
         }
     }
 
