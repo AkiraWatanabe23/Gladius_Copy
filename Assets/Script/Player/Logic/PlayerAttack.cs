@@ -48,6 +48,7 @@ public class PlayerAttack : PlayerSystemBase
     private GameObject _plusShot = default;
     private bool _isCharging = false;
     private float _chargeTimer = 0f;
+    private bool _isPause = false;
 
     public LayerMask Layer => _playerLayer;
     public PlusShotType PlusShotBullet
@@ -82,6 +83,8 @@ public class PlayerAttack : PlayerSystemBase
 
     public override void OnUpdate()
     {
+        if (_isPause) { return; }
+
         if (_isCharging) { Charge(); }
         //チャージ終了
         if (_isCharging && IsGetChargeBeamInputUp)
@@ -198,6 +201,10 @@ public class PlayerAttack : PlayerSystemBase
         }
         _chargeTimer = 0f;
     }
+
+    public void Pause() => _isPause = true;
+
+    public void Resume() => _isPause = false;
 
     /// <summary> For Editor </summary>
     public void OnDrawGizmos(GameObject player)

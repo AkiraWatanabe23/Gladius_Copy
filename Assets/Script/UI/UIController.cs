@@ -1,44 +1,32 @@
-﻿using Constants;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+
+public interface ISceneUI : ISerializableParam
+{
+    public SceneName SceneName { get; }
+
+    public IEnumerator Initialize();
+}
 
 /// <summary> インゲームのUI管理 </summary>
-public class UIController : MonoBehaviour
+public class UIController : MonoBehaviour, IPause
 {
-    [SerializeField]
-    private PlayerController _player = default;
+    [SubclassSelector]
+    [SerializeReference]
+    private ISceneUI _sceneUI = default;
 
-    [SerializeField]
-    private Slider _healthSlider = default;
-    [SerializeField]
-    private Text _healthText = default;
+    public void Pause()
+    {
+        if (_sceneUI is GameSceneUI inGame) { inGame.Pause(); }
+    }
 
-    public Text HealthText => _healthText;
+    public void Resume()
+    {
+        if (_sceneUI is GameSceneUI inGame) { inGame.Resume(); }
+    }
 
     private void Start()
     {
-        StartCoroutine(Initialize());
-    }
-
-    private IEnumerator Initialize()
-    {
-        if (_player == null) { _player = FindObjectOfType<PlayerController>(); }
-
-        if (_healthSlider != null)
-        {
-            _healthSlider.maxValue = _player.Health.HP.MaxLife;
-            _healthSlider.value = _player.Health.HP.Life;
-            _healthSlider.onValueChanged.AddListener(ReceiveDamage);
-        }
-        if (_healthText != null) { _healthText.text = $"{_player.Health.HP.Life} / {_player.Health.HP.MaxLife}"; }
-
-        yield return null;
-        Consts.Log("Finish Initialized UI System");
-    }
-
-    private void ReceiveDamage(float value)
-    {
-        _healthSlider.value -= value;
+        StartCoroutine(_sceneUI.Initialize());
     }
 }
