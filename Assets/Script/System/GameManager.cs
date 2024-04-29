@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Serialized Members
     [Tooltip("同じ条件を重複させないように")]
     [SubclassSelector]
     [SerializeReference]
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("補助兵装の数")]
     [SerializeField]
     private int _currentSupportCount = 0;
+    #endregion
 
     private readonly GameOver _gameOver = new();
 

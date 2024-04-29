@@ -15,6 +15,11 @@ public class UIController : MonoBehaviour, IPause
     [SerializeReference]
     private ISceneUI _sceneUI = default;
 
+    private void Start()
+    {
+        StartCoroutine(_sceneUI.Initialize());
+    }
+
     public void Pause()
     {
         if (_sceneUI is GameSceneUI inGame) { inGame.Pause(); }
@@ -23,10 +28,5 @@ public class UIController : MonoBehaviour, IPause
     public void Resume()
     {
         if (_sceneUI is GameSceneUI inGame) { inGame.Resume(); }
-    }
-
-    private void Start()
-    {
-        StartCoroutine(_sceneUI.Initialize());
     }
 }
