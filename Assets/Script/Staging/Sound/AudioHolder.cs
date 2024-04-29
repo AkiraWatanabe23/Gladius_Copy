@@ -54,18 +54,23 @@ public enum SEType
     None,
     //System
     Select,
-    Click,
-    ChangeShot,
+    Decide,
+    SwitchShot,
     //Player, Shot
     DefaultShot,
     LaserShot,
-    Charge,
+    Charging,
     ChargeBeam,
+    Homing,
     ShotGun,
+    ShotFire,
     Bomb,
-    Missile,
+    MissileFire,
+    MissileHit,
+    ReflectFire,
     Reflect,
     MeleeMoving,
+    MeleeBomb,
     Barrier,
     PlayerDamaged,
     PlayerCrashed,
@@ -79,6 +84,7 @@ public enum SEType
     EnemyCrashed,
     EnemyShot,
     EnemyJump,
+    EnemyLaser,
     //Gimmick
     SpeedDown,
     WarpInitialized,
@@ -86,4 +92,6 @@ public enum SEType
     WarpEnterBullet,
     WarpExitBullet,
     Eruption,
+    EruptionFalled,
+    MovementGimmick
 }
