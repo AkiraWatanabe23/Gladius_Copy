@@ -287,15 +287,16 @@ MonoBehaviour:
       m_Bits: 8
     _plusShotBullet: 0
     _initialBullets: 030000000100000005000000
+    _plusShots: 
     _onDrawGizmos: 0
-    _squareSize: 1
+    _gizmoSquareSize: 1
   _health:
     _healthData:
-      rid: 3253762321547264003
+      rid: 3253762330999128071
   references:
     version: 2
     RefIds:
-    - rid: 3253762321547264003
+    - rid: 3253762330999128071
       type: {class: HP, ns: , asm: Assembly-CSharp}
       data:
         _currentLife: 1
