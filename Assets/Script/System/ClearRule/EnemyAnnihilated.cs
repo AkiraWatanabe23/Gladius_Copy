@@ -13,6 +13,7 @@ public class EnemyAnnihilated : IClearRule
 
     private EnemyManager _enemyManager = default;
 
+    public ClearConditionName Condition => ClearConditionName.EnemyAnnihilated;
     public int TotalEnemyCount => _totalEnemyCount;
     public int SpawnedEnemyCount => _spawnedEnemyCount;
 
