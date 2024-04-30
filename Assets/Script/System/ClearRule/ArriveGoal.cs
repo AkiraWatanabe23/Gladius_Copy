@@ -7,6 +7,7 @@ public class ArriveGoal : IClearRule
     private Transform _goalPos = default;
 
     private Transform _playerTransform = default;
+    public ClearConditionName Condition => ClearConditionName.ArriveGoal;
 
     public void Init()
     {

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     private EnemyAnnihilated _enemyAnnihilated = default;
 
     #region public Properties
+    public IClearRule[] ClearConditions => _clearConditions;
     public float Timer => _timer = _inGameUpdate.Timer;
     public PlayerController Player
     {

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +13,25 @@ public class TitleSceneUI : ISceneUI
 
     public IEnumerator Initialize()
     {
-        _startButton.onClick.AddListener(() =>
+        _startButton.onClick.AddListener(async () =>
         {
-            SceneLoader.FadeLoad(SceneName.StageSelect);
+            AudioManager.Instance.PlaySE(SEType.Decide);
+            await UniTask.WaitWhile(() => AudioManager.Instance.SeSource.isPlaying);
+
+            SceneLoader.FadeLoad(SceneName.InGame);
         });
         yield return null;
-        Fade.Instance.StartFadeIn();
+        Fade.Instance.StartFadeIn(() => AudioManager.Instance.PlayBGM(BGMType.TitleBGM));
+    }
+
+    public async void OnUpdate()
+    {
+        if (Input.anyKeyDown)
+        {
+            AudioManager.Instance.PlaySE(SEType.Decide);
+            await UniTask.WaitWhile(() => AudioManager.Instance.SeSource.isPlaying);
+
+            SceneLoader.FadeLoad(SceneName.InGame);
+        }
     }
 }

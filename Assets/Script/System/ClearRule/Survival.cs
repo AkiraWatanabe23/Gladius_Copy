@@ -7,6 +7,8 @@ public class Survival : IClearRule
     [SerializeField]
     private float _survivalTime = 100f;
 
+    public ClearConditionName Condition => ClearConditionName.Survival;
+
     public void Init() { }
 
     public bool ClearCondition() => GameManager.Instance.Timer >= _survivalTime;

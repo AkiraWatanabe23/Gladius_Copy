@@ -5,6 +5,7 @@ public class DefeatBoss : IClearRule
 {
     [SerializeField]
     private EnemyController _stageBoss = default;
+    public ClearConditionName Condition => ClearConditionName.DefeatBoss;
 
     public void Init() { }
 

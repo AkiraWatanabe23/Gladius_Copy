@@ -7,6 +7,8 @@ public class TimeAttack : IClearRule
     [SerializeField]
     private float _clearTime = 100f;
 
+    public ClearConditionName Condition => ClearConditionName.TimeAttack;
+
     public void Init() { }
 
     public bool ClearCondition() => GameManager.Instance.Timer < _clearTime;
