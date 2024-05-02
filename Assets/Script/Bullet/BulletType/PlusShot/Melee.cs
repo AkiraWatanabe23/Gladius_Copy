@@ -27,6 +27,7 @@ public class Melee : IBulletData
         GameManager.Instance.Melees ??= new();
         if (!GameManager.Instance.Melees.Contains(this)) { GameManager.Instance.Melees.Add(this); }
 
+        _effectTimer += Time.deltaTime;
         _rotateCenter ??= GameManager.Instance.PlayerTransform;
 
         Transform.RotateAround(_rotateCenter.position, Vector3.forward, 360f / 2f * Time.deltaTime);
