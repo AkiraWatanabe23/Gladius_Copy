@@ -32,6 +32,7 @@ public class SpeedDownGimmick : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
+            AudioManager.Instance.PlaySE(SEType.SpeedDown);
             player.Movement.SpeedDown(_speedDownValue);
             GimmickLife = 0;
         }

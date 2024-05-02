@@ -70,15 +70,16 @@ public class PlayerHealth :  PlayerSystemBase
 
     public void ReceiveDamage(int value)
     {
+        AudioManager.Instance.PlaySE(SEType.PlayerDamaged);
         if (_healthData.HealthType == HealthType.HP)
         {
             _hpInstance.SettingLife(_hpInstance.Life - value);
-            if (_hpInstance.Life <= 0) { Consts.Log("GameOver"); }
+            if (_hpInstance.Life <= 0) { Dead(); }
         }
         else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
             _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.RemainingAircraftCount - 1);
-            if (_aircraftInstance.RemainingAircraftCount <= 0) { Consts.Log("GameOver"); }
+            if (_aircraftInstance.RemainingAircraftCount <= 0) { Dead(); }
         }
     }
 
@@ -97,6 +98,12 @@ public class PlayerHealth :  PlayerSystemBase
                 _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.MaxRemainingAircraft);
             }
         }
+    }
+
+    private void Dead()
+    {
+        Consts.Log("GameOver");
+        AudioManager.Instance.PlaySE(SEType.PlayerCrashed);
     }
 }
 

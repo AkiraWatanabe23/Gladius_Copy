@@ -8,6 +8,7 @@ public class VolcanicBomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        AudioManager.Instance.PlaySE(SEType.EruptionFalled);
         if (collision.gameObject.TryGetComponent(out IDamageable target))
         {
             target.ReceiveDamage(_attackValue);

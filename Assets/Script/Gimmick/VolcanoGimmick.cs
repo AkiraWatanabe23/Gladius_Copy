@@ -62,6 +62,7 @@ public class VolcanoGimmick : MonoBehaviour
 
         for (int i = 0; i < _bombCount; i++)
         {
+            AudioManager.Instance.PlaySE(SEType.Eruption);
             var bomb = GameManager.Instance.ObjectPool.SpawnObject(_volcanicBomb);
             bomb.transform.position = _bombMuzzle.position;
             var rb = bomb.GetComponent<Rigidbody2D>();

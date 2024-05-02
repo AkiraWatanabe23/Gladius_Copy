@@ -16,6 +16,7 @@ public class HealLife : IGameItem
 
     public void PlayEffect()
     {
+        AudioManager.Instance.PlaySE(SEType.Heal);
         _player.Health.Heal(_healValue);
     }
 }

@@ -7,6 +7,7 @@ public class Annihilation : IGameItem
 
     public void PlayEffect()
     {
+        AudioManager.Instance.PlaySE(SEType.EnemyAnnihilation);
         var enemies = Object.FindObjectsOfType<EnemyController>();
         foreach (var enemy in enemies) { GameManager.Instance.ObjectPool.RemoveObject(enemy.gameObject); }
     }

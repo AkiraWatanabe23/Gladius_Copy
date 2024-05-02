@@ -12,6 +12,8 @@ public class WarpHoleGimmick : MonoBehaviour
     [SerializeField]
     private Transform[] _warpExit = new Transform[3];
 
+    private void Start() => AudioManager.Instance.PlaySE(SEType.WarpInitialized);
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out IDamageable target))
@@ -37,13 +39,17 @@ public class WarpHoleGimmick : MonoBehaviour
             }
         }
 
+        AudioManager.Instance.PlaySE(SEType.WarpEnterBullet);
         target.gameObject.SetActive(false);
 
         //ここで入口のワープが消えるようなAnimation
         yield return null;
         target.transform.position = exit.position;
         target.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySE(SEType.WarpExitBullet);
         //出口のワープが消えるAnimation
         yield return null;
     }
+
+    private void OnDestroy() => AudioManager.Instance.PlaySE(SEType.WarpDestroyed);
 }

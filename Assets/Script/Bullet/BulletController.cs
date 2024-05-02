@@ -27,12 +27,33 @@ public class BulletController : MonoBehaviour
     {
         _bulletData.Init(gameObject, speed, attackValue, gunner, _initialDirection);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
+
+        PlayInitAudio();
     }
 
     public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 initialDirection)
     {
         _bulletData.Init(gameObject, speed, attackValue, gunner, initialDirection);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
+
+        PlayInitAudio();
+    }
+
+    private void PlayInitAudio()
+    {
+        var bulletSE = SEType.None;
+        if (_bulletData is DefautBullet) { bulletSE = SEType.DefaultShot; }
+        else if (_bulletData is LaserBullet) { bulletSE = SEType.LaserShot; }
+        else if (_bulletData is ChargeBeamBullet) { bulletSE = SEType.ChargeBeam; }
+        else if (_bulletData is HomingBullet) { bulletSE = SEType.Homing; }
+        else if (_bulletData is ShotGun) { bulletSE = SEType.ShotGun; }
+        else if (_bulletData is BombBullet) { bulletSE = SEType.ShotFire; }
+        else if (_bulletData is MissileBullet) { bulletSE = SEType.MissileFire; }
+        else if (_bulletData is ReflectLaser) { bulletSE = SEType.ReflectFire; }
+        else if (_bulletData is Melee) { bulletSE = SEType.MeleeMoving; }
+        else if (_bulletData is Barrier) { bulletSE = SEType.Barrier; }
+
+        AudioManager.Instance.PlaySE(bulletSE);
     }
 
     private void Update()
