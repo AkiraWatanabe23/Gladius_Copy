@@ -64,16 +64,23 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void ReceiveDamage(int value)
     {
+        AudioManager.Instance.PlaySE(SEType.EnemyDamaged);
         _hp -= value;
         if (_hp <= 0)
         {
-            GameManager.Instance.EnemyDeadCount++;
-            GameManager.Instance.ObjectPool.RemoveObject(gameObject);
+            Dead();
         }
         else
         {
             //ToDo : 点滅Animation
         }
+    }
+
+    private void Dead()
+    {
+        AudioManager.Instance.PlaySE(SEType.EnemyCrashed);
+        GameManager.Instance.EnemyDeadCount++;
+        GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 
 #if UNITY_EDITOR

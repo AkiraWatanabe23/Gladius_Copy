@@ -60,6 +60,7 @@ public class MovementGimmick : MonoBehaviour
 
     private void Movement()
     {
+        AudioManager.Instance.PlaySE(SEType.MovementGimmick);
         if (_nextTargetIndex >= _route.Length)
         {
             _isMoving = false;

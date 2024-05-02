@@ -151,6 +151,7 @@ public class PlayerAttack : PlayerSystemBase
 
     private void BulletChange(int changeValue = 1)
     {
+        AudioManager.Instance.PlaySE(SEType.SwitchShot);
         if (_bulletIndex + changeValue >= Bullets.Count) { _bulletIndex = 0; return; }
         if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
 

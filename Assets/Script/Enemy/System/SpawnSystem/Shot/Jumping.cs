@@ -27,6 +27,7 @@ public class Jumping : IEnemyGeneration
             shot.MoveInitPos + new Vector3(Mathf.Cos(shot.Angle) - _moveRadius, Mathf.Sin(shot.Angle), shot.Transform.position.z);
         if (MovementForSemicircle(shot.Angle))
         {
+            AudioManager.Instance.PlaySE(SEType.EnemyJump);
             shot.Angle = 0f;
             shot.MoveInitPos = shot.Transform.position;
             Attack(shot);
@@ -39,6 +40,7 @@ public class Jumping : IEnemyGeneration
     /// <summary> 半円を描くように弾を撃ちだす </summary>
     private void Attack(Shot shot)
     {
+        AudioManager.Instance.PlaySE(SEType.EnemyShot);
         //半円を弾数分だけ分割したときの1つあたりの角度
         var splitAngle = 180f / (_semicircleAttackCount - 1);
         Debug.Log(splitAngle);

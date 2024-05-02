@@ -16,6 +16,7 @@ public class SpeedUp : IGameItem
 
     public void PlayEffect()
     {
+        AudioManager.Instance.PlaySE(SEType.SpeedUp);
         _player.Movement.SpeedUp(_speedUpValue);
     }
 }

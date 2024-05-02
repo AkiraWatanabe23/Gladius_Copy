@@ -16,6 +16,7 @@ public class PlusShotItem : IGameItem
 
     public void PlayEffect()
     {
+        AudioManager.Instance.PlaySE(SEType.AddPlusShot);
         //ショット追加
         GameManager.Instance.Player.Attack.PlusShotBullet = _plusShotType;
         if (_plusShotType == PlusShotType.SupportShot) { GenerateSupport(); }

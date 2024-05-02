@@ -61,8 +61,9 @@ public class BossSystem : EnemySystemBase
 
     private void Attack(Boss target)
     {
+        AudioManager.Instance.PlaySE(SEType.EnemyLaser);
         var bullet = GameManager.Instance.ObjectPool.SpawnObject(
-            GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default]);
+            GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Laser]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
             bulletData.Initialize(1f, target.Controller.AttackValue, target.Enemy.layer);
