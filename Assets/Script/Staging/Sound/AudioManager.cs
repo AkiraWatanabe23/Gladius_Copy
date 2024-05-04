@@ -11,9 +11,6 @@ public class AudioManager
 
     private static AudioManager _instance = default;
 
-    private static float _bgmVolume = 1f;
-    private static float _seVolume = 1f;
-
     private readonly Queue<AudioClip> _seQueue = new();
 
     public AudioSource BGMSource => _bgmSource;
@@ -45,9 +42,12 @@ public class AudioManager
 
         _soundHolder = Resources.Load<AudioHolder>("AudioHolder");
 
+        var defaultBGMVolume = GameManager.Instance.BGMVolume;
+        var defaultSEVolume = GameManager.Instance.SEVolume;
+
         //音量設定
-        _bgmSource.volume = _bgmVolume;
-        _seSource.volume = _seVolume;
+        _bgmSource.volume = defaultBGMVolume;
+        _seSource.volume = defaultSEVolume;
 
         Object.DontDestroyOnLoad(sound);
     }
@@ -109,17 +109,9 @@ public class AudioManager
 
     #region 以下Audio系パラメーター設定用の関数
     /// <summary> BGMの音量設定 </summary>
-    public void VolumeSettingBGM(float value)
-    {
-        _bgmSource.volume = value;
-        _bgmVolume = value;
-    }
+    public void VolumeSettingBGM(float value) => _bgmSource.volume = value;
 
     /// <summary> SEの音量設定 </summary>
-    public void VolumeSettingSE(float value)
-    {
-        _seSource.volume = value;
-        _seVolume = value;
-    }
+    public void VolumeSettingSE(float value) => _seSource.volume = value;
     #endregion
 }

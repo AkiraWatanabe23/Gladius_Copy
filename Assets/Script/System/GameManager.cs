@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private float _timer = 0f;
+    [Tooltip("BGMの音量")]
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float _bgmVolume = 0.5f;
+    [Tooltip("SEの音量")]
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float _seVolume = 0.5f;
     [SerializeField]
     private PlayerController _player = default;
     [SerializeField]
@@ -53,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     #region public Properties
     public IClearRule[] ClearConditions => _clearConditions;
+    public float BGMVolume => _bgmVolume;
+    public float SEVolume => _seVolume;
     public float Timer => _timer = _inGameUpdate.Timer;
     public PlayerController Player
     {
