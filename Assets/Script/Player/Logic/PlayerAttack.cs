@@ -43,6 +43,8 @@ public class PlayerAttack : PlayerSystemBase
     [SerializeField]
     private float _gizmoSquareSize = 1f;
 
+    private bool _isAttacked = false;
+    private float _attackIntervalTimer = 0f;
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
     private GameObject _plusShot = default;
@@ -61,6 +63,19 @@ public class PlayerAttack : PlayerSystemBase
         }
     }
 
+    protected float AttackIntervalTimer
+    {
+        get => _attackIntervalTimer;
+        private set
+        {
+            _attackIntervalTimer = value;
+            if (_attackIntervalTimer >= _attackInterval)
+            {
+                _isAttacked = false;
+                _attackIntervalTimer = 0f;
+            }
+        }
+    }
     protected List<GameObject> Bullets
     {
         get
@@ -85,11 +100,17 @@ public class PlayerAttack : PlayerSystemBase
     {
         if (_isPause) { return; }
 
+        if (_isAttacked)
+        {
+            AttackIntervalTimer += Time.deltaTime;
+            return;
+        }
+
         //攻撃
         if (IsGetShootInput)
         {
             if (!_isCharging && _initialBullets[_bulletIndex] == InitialBulletType.ChargeBeam) { _isCharging = true; }
-            else { Attack(); }
+            else if (!_isAttacked) { Attack(); }
         }
         else
         {
@@ -112,6 +133,7 @@ public class PlayerAttack : PlayerSystemBase
 
     private void Attack()
     {
+        _isAttacked = true;
         Consts.Log("attack");
         if (_initialBullets[_bulletIndex] == InitialBulletType.ShotGun)
         {
