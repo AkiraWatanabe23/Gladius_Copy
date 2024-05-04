@@ -6,42 +6,50 @@ using UnityEngine;
 [Serializable]
 public class PlayerAttack : PlayerSystemBase
 {
-    [Tooltip("弾を射出するMuzzle")]
+    [Header("弾を射出するMuzzle")]
     [SerializeField]
     private List<Transform> _spawnMuzzles = default;
+    [Header("攻撃力")]
     [SerializeField]
     private int _attackValue = 1;
+    [Header("攻撃のクールタイム")]
     [SerializeField]
-    private float _attackInterval = 1f;
+    private float _attackCoolTime = 1f;
     [Min(1)]
     [Range(1, 5)]
-    [Tooltip("ChargeBeam時の各倍率の攻撃力")]
+    [Header("ChargeBeam時の各倍率の攻撃力")]
     [SerializeField]
     private int[] _chargeBeamValue = default;
+    [ReadOnly]
     [Tooltip("扇形の射出範囲")]
     [SerializeField]
     private Fan _fanCollider = default;
-    [Tooltip("2wayを撃ちだすときにどっちに撃つか")]
-    [SerializeField]
-    private Diagonal _direction = Diagonal.Up;
+    [ReadOnly]
     [SerializeField]
     private LayerMask _playerLayer = default;
+    [Header("2way弾を撃ちだすときに上下どっちに撃つか")]
+    [SerializeField]
+    private Diagonal _direction = Diagonal.Up;
+    [Header("現在のプラスショット（確認用）")]
     [SerializeField]
     private PlusShotType _plusShotBullet = PlusShotType.None;
-    [Tooltip("初期ショット")]
+    [Header("初期ショット")]
     [SerializeField]
     private List<InitialBulletType> _initialBullets = default;
-    [Tooltip("使用するプラスショット")]
+    [Header("使用するプラスショット")]
     [SerializeField]
     private List<PlusShotType> _plusShots = default;
 
     [SerializeField]
     private bool _onDrawGizmos = false;
-    [Tooltip("Gizmo表示用")]
+    [Header("Gizmo表示用")]
     [Min(1f)]
     [Range(1f, 10f)]
     [SerializeField]
     private float _gizmoSquareSize = 1f;
+    [Header("反射弾を撃ち出す角度")]
+    [SerializeField]
+    private float _reflectShotAngle = 0f;
 
     private bool _isAttacked = false;
     private float _attackIntervalTimer = 0f;
@@ -69,7 +77,7 @@ public class PlayerAttack : PlayerSystemBase
         private set
         {
             _attackIntervalTimer = value;
-            if (_attackIntervalTimer >= _attackInterval)
+            if (_attackIntervalTimer >= _attackCoolTime)
             {
                 _isAttacked = false;
                 _attackIntervalTimer = 0f;
@@ -170,6 +178,7 @@ public class PlayerAttack : PlayerSystemBase
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
                 if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzles[i].position); continue; }
+                else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzles[i].position); continue; }
             }
             bullet.transform.position = _spawnMuzzles[i].position;
             var bulletData = bullet.GetComponent<BulletController>();
@@ -184,6 +193,7 @@ public class PlayerAttack : PlayerSystemBase
         if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
 
         _bulletIndex += changeValue;
+        Consts.Log($"Bullet Change {_bulletIndex}");
     }
 
     /// <summary> 補助兵装が弾を撃つ </summary>
@@ -193,6 +203,20 @@ public class PlayerAttack : PlayerSystemBase
 
         var supports = GameManager.Instance.Supports;
         foreach (var support in supports) { support.Attack(); }
+    }
+
+    private void ReflectShot(GameObject bullet, Vector3 spawnPos)
+    {
+        bullet.transform.position = spawnPos;
+
+        var direction =
+            spawnPos + new Vector3(MathF.Cos(_reflectShotAngle * Mathf.Deg2Rad), MathF.Sin(_reflectShotAngle * Mathf.Deg2Rad)) -
+            spawnPos;
+
+        bullet.transform.localEulerAngles = direction.normalized;
+
+        var bulletData = bullet.GetComponent<BulletController>();
+        bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.right);
     }
 
     private void TwoWayBulletSetting(GameObject bullet, Vector3 spawnPos)
@@ -245,6 +269,12 @@ public class PlayerAttack : PlayerSystemBase
     public void OnDrawGizmos(GameObject player)
     {
         if (!_onDrawGizmos || player == null) { return; }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(
+            player.transform.position,
+            player.transform.position +
+            new Vector3(MathF.Cos(_reflectShotAngle * Mathf.Deg2Rad), MathF.Sin(_reflectShotAngle * Mathf.Deg2Rad)));
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(player.transform.position, Vector2.one * _gizmoSquareSize);

@@ -10,9 +10,11 @@ public interface IHealth : ISerializableParam
 
 public class HP : IHealth
 {
+    [Header("現在の体力（確認用）")]
     [ReadOnly]
     [SerializeField]
     private int _currentLife = 1;
+    [Header("体力の最大値")]
     [SerializeField]
     private int _maxLife = 1;
 
@@ -25,10 +27,11 @@ public class HP : IHealth
 
 public class RemainingAircraft : IHealth
 {
-    [Tooltip("残機数")]
+    [Header("残機数")]
     [ReadOnly]
     [SerializeField]
     private int _remainingAircraft = 5;
+    [Header("最大の残機数")]
     [SerializeField]
     private int _maxRemainingAircraft = 5;
 

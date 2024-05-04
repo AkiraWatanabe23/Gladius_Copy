@@ -12,6 +12,7 @@ public interface IPlusShot : ISerializableParam
 
 public class BulletController : MonoBehaviour
 {
+    [Range(1f, 40f)]
     [SerializeField]
     private float _moveSpeed = 1f;
     [Tooltip("Playerの子オブジェクトに設定するか")]
