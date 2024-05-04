@@ -85,18 +85,24 @@ public class PlayerAttack : PlayerSystemBase
     {
         if (_isPause) { return; }
 
-        if (_isCharging) { Charge(); }
-        //チャージ終了
-        if (_isCharging && IsGetChargeBeamInputUp)
-        {
-            ChargeBeam();
-            _isCharging = false;
-        }
         //攻撃
         if (IsGetShootInput)
         {
             if (!_isCharging && _initialBullets[_bulletIndex] == InitialBulletType.ChargeBeam) { _isCharging = true; }
             else { Attack(); }
+        }
+        else
+        {
+            if (!_isCharging) { return; }
+
+            Charge();
+            //チャージ終了
+            if (_isCharging && IsGetChargeBeamInputUp)
+            {
+                if (_chargeTimer <= 0.5f) { ChargeReset(); return; }
+
+                ChargeBeam();
+            }
         }
 
         //弾切り替え
@@ -200,6 +206,12 @@ public class PlayerAttack : PlayerSystemBase
             var chargeBeamData = bulletData.BulletData as ChargeBeamBullet;
             chargeBeamData.BeamDataSetting(Mathf.FloorToInt(_chargeTimer));
         }
+        ChargeReset();
+    }
+
+    private void ChargeReset()
+    {
+        _isCharging = false;
         _chargeTimer = 0f;
     }
 

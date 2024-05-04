@@ -17,8 +17,6 @@ public class BulletController : MonoBehaviour
     [Tooltip("Playerの子オブジェクトに設定するか")]
     [SerializeField]
     private bool _isChildSetting = false;
-    [SerializeField]
-    private Vector2 _initialDirection = Vector2.zero;
     [SubclassSelector]
     [SerializeReference]
     private IBulletData _bulletData = default;
@@ -27,7 +25,7 @@ public class BulletController : MonoBehaviour
 
     public void Initialize(int attackValue, LayerMask gunner)
     {
-        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, _initialDirection);
+        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, Vector2.right);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
 
         PlayInitAudio();
