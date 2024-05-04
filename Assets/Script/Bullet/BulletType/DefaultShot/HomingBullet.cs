@@ -13,6 +13,7 @@ public class HomingBullet : IBulletData
 
     public void Movement()
     {
+        //enemyを追尾するように直す
         Vector2 direction = GameManager.Instance.PlayerTransform.position - Transform.position;
         direction.Normalize();
         MoveDirection = direction;

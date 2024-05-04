@@ -29,6 +29,8 @@ public class BulletHolder
     [Tooltip("プラスショットのList")]
     [SerializeField]
     private List<PlusShot> _plusShots = default;
+    [SerializeField]
+    private GameObject _enemyBullet = default;
 
     private Dictionary<InitialBulletType, GameObject> _bulletsDictionary = default;
     private Dictionary<PlusShotType, GameObject> _plusShotsDictionary = default;
@@ -57,6 +59,7 @@ public class BulletHolder
             return _plusShotsDictionary;
         }
     }
+    public GameObject EnemyBullet => _enemyBullet;
 }
 
 public interface IBulletData

@@ -10,6 +10,7 @@ public class MovementGimmick : MonoBehaviour
     [Tooltip("最終地点のみ別途設定")]
     [SerializeField]
     private Transform _goal = default;
+    [Range(1f, 15f)]
     [SerializeField]
     private float _moveSpeed = 1f;
     [Tooltip("自機衝突時に与えるダメージ")]
