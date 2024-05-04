@@ -12,6 +12,8 @@ public interface IPlusShot : ISerializableParam
 
 public class BulletController : MonoBehaviour
 {
+    [SerializeField]
+    private float _moveSpeed = 1f;
     [Tooltip("Playerの子オブジェクトに設定するか")]
     [SerializeField]
     private bool _isChildSetting = false;
@@ -23,17 +25,17 @@ public class BulletController : MonoBehaviour
 
     public IBulletData BulletData => _bulletData;
 
-    public void Initialize(float speed, int attackValue, LayerMask gunner)
+    public void Initialize(int attackValue, LayerMask gunner)
     {
-        _bulletData.Init(gameObject, speed, attackValue, gunner, _initialDirection);
+        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, _initialDirection);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
 
         PlayInitAudio();
     }
 
-    public void Initialize(float speed, int attackValue, LayerMask gunner, Vector2 initialDirection)
+    public void Initialize(int attackValue, LayerMask gunner, Vector2 initialDirection)
     {
-        _bulletData.Init(gameObject, speed, attackValue, gunner, initialDirection);
+        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, initialDirection);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
 
         PlayInitAudio();

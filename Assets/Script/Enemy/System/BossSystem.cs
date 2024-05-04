@@ -66,7 +66,7 @@ public class BossSystem : EnemySystemBase
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Laser]);
         if (bullet.TryGetComponent(out BulletController bulletData))
         {
-            bulletData.Initialize(1f, target.Controller.AttackValue, target.Enemy.layer);
+            bulletData.Initialize(target.Controller.AttackValue, target.Enemy.layer);
         }
         Debug.Log("attack!!");
     }

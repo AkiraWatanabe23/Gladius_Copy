@@ -38,6 +38,6 @@ public class CrawlGround : IEnemyGeneration
         go.transform.position = spawnPos;
 
         var bullet = go.GetComponent<BulletController>();
-        bullet.Initialize(2f, shot.Controller.AttackValue, shot.Enemy.layer);
+        bullet.Initialize(shot.Controller.AttackValue, shot.Enemy.layer);
     }
 }

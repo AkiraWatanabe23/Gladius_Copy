@@ -60,8 +60,7 @@ public class Jumping : IEnemyGeneration
             bullet.transform.position = shot.Transform.position + direction;
             if (bullet.TryGetComponent(out BulletController bulletData))
             {
-                bulletData.Initialize(
-                    shot.Controller.MoveSpeed, shot.Controller.AttackValue, shot.Enemy.layer, direction);
+                bulletData.Initialize(shot.Controller.AttackValue, shot.Enemy.layer, direction);
             }
         }
     }

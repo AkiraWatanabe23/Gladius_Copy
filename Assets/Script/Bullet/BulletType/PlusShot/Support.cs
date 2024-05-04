@@ -44,6 +44,6 @@ public class Support : IBulletData
 
         bullet.transform.position = _laserMuzzle.position;
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(3f, AttackValue, GunnerLayer, Vector2.right);
+        bulletData.Initialize(AttackValue, GunnerLayer, Vector2.right);
     }
 }
