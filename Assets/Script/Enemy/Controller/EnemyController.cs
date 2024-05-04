@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private int _hp = 1;
     [SerializeField]
     private int _attackValue = 1;
+    [Range(1f, 15f)]
     [SerializeField]
     private float _moveSpeed = 1f;
     [SubclassSelector]

@@ -43,7 +43,6 @@ public class Jumping : IEnemyGeneration
         AudioManager.Instance.PlaySE(SEType.EnemyShot);
         //半円を弾数分だけ分割したときの1つあたりの角度
         var splitAngle = 180f / (_semicircleAttackCount - 1);
-        Debug.Log(splitAngle);
         //半円を等分に割って弾を撃ちだす
         for (int i = 0; i < _semicircleAttackCount; i++)
         {
@@ -54,7 +53,7 @@ public class Jumping : IEnemyGeneration
             float angle = Mathf.Deg2Rad * (currentAngle);
             var direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f);
 
-            var spawnBullet = GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.Default];
+            var spawnBullet = GameManager.Instance.BulletHolder.EnemyBullet;
             var bullet =
                 GameManager.Instance.ObjectPool.SpawnObject(spawnBullet);
             bullet.transform.position = shot.Transform.position + direction;

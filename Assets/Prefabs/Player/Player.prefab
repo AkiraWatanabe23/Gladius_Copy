@@ -286,7 +286,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 8
     _plusShotBullet: 0
-    _initialBullets: 030000000100000005000000
+    _initialBullets: 010000000300000005000000
     _plusShots: 
     _onDrawGizmos: 0
     _gizmoSquareSize: 1

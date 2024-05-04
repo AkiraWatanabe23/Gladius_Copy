@@ -3,6 +3,7 @@
 /// <summary> 反射レーザー </summary>
 public class ReflectLaser : IBulletData
 {
+    [Range(45f, 180f)]
     [SerializeField]
     private float _reflectAngle = 45f;
 

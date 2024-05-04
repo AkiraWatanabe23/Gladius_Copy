@@ -3,6 +3,7 @@
 /// <summary> 移動速度上昇 </summary>
 public class SpeedUp : IGameItem
 {
+    [Range(1f, 5f)]
     [Tooltip("移動速度の上昇倍率")]
     [SerializeField]
     private float _speedUpValue = 1f;
