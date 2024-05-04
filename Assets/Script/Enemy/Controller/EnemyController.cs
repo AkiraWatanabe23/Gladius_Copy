@@ -9,9 +9,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField]
     private float _moveSpeed = 1f;
 
+    [ReadOnly]
     [SubclassSelector]
     [SerializeReference]
     private IEnemy _enemySystem = default;
+    [ReadOnly]
     [SerializeField]
     private EnemyMovementType _movementType = EnemyMovementType.None;
 
