@@ -8,8 +8,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     private int _attackValue = 1;
     [SerializeField]
     private float _moveSpeed = 1f;
-
-    [ReadOnly]
     [SubclassSelector]
     [SerializeReference]
     private IEnemy _enemySystem = default;
