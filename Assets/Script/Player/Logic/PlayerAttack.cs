@@ -15,9 +15,9 @@ public class PlayerAttack : PlayerSystemBase
     private float _attackInterval = 1f;
     [Min(1)]
     [Range(1, 5)]
-    [Tooltip("ChargeBeamの倍率上限（何倍までできるか）")]
+    [Tooltip("ChargeBeam時の各倍率の攻撃力")]
     [SerializeField]
-    private int _chargeLimit = 1;
+    private int[] _chargeBeamValue = default;
     [Tooltip("扇形の射出範囲")]
     [SerializeField]
     private Fan _fanCollider = default;
@@ -122,7 +122,7 @@ public class PlayerAttack : PlayerSystemBase
                 bullet.transform.localEulerAngles = rotation;
 
                 var bulletData = bullet.GetComponent<BulletController>();
-                bulletData.Initialize(1f, _attackValue, _playerLayer, bullet.transform.up);
+                bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.up);
             }
             return;
         }
@@ -145,7 +145,7 @@ public class PlayerAttack : PlayerSystemBase
             }
             bullet.transform.position = _spawnMuzzles[i].position;
             var bulletData = bullet.GetComponent<BulletController>();
-            bulletData.Initialize(1f, _attackValue, _playerLayer);
+            bulletData.Initialize(_attackValue, _playerLayer);
         }
     }
 
@@ -177,12 +177,12 @@ public class PlayerAttack : PlayerSystemBase
         bullet.transform.localEulerAngles = rotation;
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(1f, _attackValue, _playerLayer, bullet.transform.up);
+        bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.up);
     }
 
     private void Charge()
     {
-        if (_chargeTimer > _chargeLimit) { return; }
+        if (_chargeTimer > _chargeBeamValue.Length) { return; }
         _chargeTimer += Time.deltaTime;
     }
 
@@ -194,7 +194,7 @@ public class PlayerAttack : PlayerSystemBase
         bullet.transform.position = _spawnMuzzles[0].position;
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(3f, _attackValue, _playerLayer, Vector2.right);
+        bulletData.Initialize(_attackValue, _playerLayer, Vector2.right);
         if (bulletData.BulletData is ChargeBeamBullet)
         {
             var chargeBeamData = bulletData.BulletData as ChargeBeamBullet;

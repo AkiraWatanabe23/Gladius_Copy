@@ -279,7 +279,7 @@ MonoBehaviour:
     - {fileID: 1783640917}
     _attackValue: 1
     _attackInterval: 1
-    _chargeLimit: 1
+    _chargeBeamValue: 010000000500000005000000
     _fanCollider: {fileID: 1581020527}
     _direction: 0
     _playerLayer:

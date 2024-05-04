@@ -3,6 +3,9 @@
 /// <summary> 反射レーザー </summary>
 public class ReflectLaser : IBulletData
 {
+    [SerializeField]
+    private float _reflectAngle = 45f;
+
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
     public float Speed { get; set; }
@@ -20,8 +23,13 @@ public class ReflectLaser : IBulletData
     {
         if (collision.gameObject.TryGetComponent(out Ground _))
         {
-            var reflect = Vector2.Reflect(collision.gameObject.transform.position, Vector2.up);
-            MoveDirection = reflect;
+            var rotation = Transform.localEulerAngles;
+            rotation.z += _reflectAngle;
+
+            Transform.localEulerAngles = rotation;
+
+            //var reflect = Vector2.Reflect(collision.gameObject.transform.position, Vector2.up);
+            //MoveDirection = reflect;
         }
         else
         {
