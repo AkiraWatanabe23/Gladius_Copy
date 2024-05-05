@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _seVolume = 0.5f;
     [SerializeField]
+    private CameraController _cameraController = default;
+    [SerializeField]
     private PlayerController _player = default;
     [SerializeField]
     private EnemyManager _enemyManager = default;
@@ -130,6 +132,10 @@ public class GameManager : MonoBehaviour
         if (!TryGetComponent(out _inGameUpdate)) { _inGameUpdate = gameObject.AddComponent<GameUpdate>(); }
         _inGameUpdate.enabled = false;
 
+        if (_cameraController == null) { _cameraController = FindObjectOfType<CameraController>(); }
+        _cameraController.Initialize(_player.gameObject);
+        yield return null;
+
         //もしシーン上にEnemy, Spawnerが存在したら実行を管理するclassに渡す
         yield return _enemyManager.Initialize(
             FindObjectsOfType<EnemyController>(), FindObjectsOfType<EnemySpawner>(), _player.transform);
@@ -158,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         Consts.Log("Finish Initialized");
         _inGameUpdate.Initialize(
-            _enemyManager, GameClear, () => _gameOver.GameOverCondition(), _isTimeMeasuring);
+            _cameraController, _enemyManager, GameClear, () => _gameOver.GameOverCondition(), _isTimeMeasuring);
         _inGameUpdate.enabled = true;
     }
 
