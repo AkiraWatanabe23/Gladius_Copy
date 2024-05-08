@@ -7,20 +7,28 @@ public class CameraController : MonoBehaviour, IPause
     private float _cameraMoveSpeed = 1f;
     [SerializeField]
     private float _deadTime = 1f;
+    [SerializeField]
+    private Transform _leftDeadPoint = default;
+    [SerializeField]
+    private Transform _upperDeadPoint = default;
+    [SerializeField]
+    private Transform _lowerDeadPoint = default;
 
     private bool _isPause = false;
-    private GameObject _target = default;
-    private bool _isEnterDeadZone = false;
+    private Transform _targetTransform = default;
     private float _deadTimer = 0f;
     private Transform _transform = default;
 
     protected bool IsEnterDeadZone
     {
-        get => _isEnterDeadZone;
-        private set
+        get
         {
-            _isEnterDeadZone = value;
-            if (!_isEnterDeadZone) { _deadTimer = 0f; }
+            var positionFlag =
+                _targetTransform.position.x <= _leftDeadPoint.position.x ||
+                _targetTransform.position.y >= _upperDeadPoint.position.y ||
+                _targetTransform.position.y <= _lowerDeadPoint.position.y;
+
+            return positionFlag;
         }
     }
     protected float DeadTimer
@@ -31,17 +39,15 @@ public class CameraController : MonoBehaviour, IPause
             _deadTimer = value;
             if (_deadTimer >= _deadTime)
             {
-                if (_isEnterDeadZone) { Consts.Log("GameOver"); }
+                if (IsEnterDeadZone) { Consts.Log("GameOver"); }
             }
         }
     }
 
     public void Initialize(GameObject target)
     {
-        _target = target;
-        IsEnterDeadZone = false;
-
         _transform = transform;
+        _targetTransform = target.transform;
     }
 
     public void OnUpdate(float deltaTime)
@@ -61,22 +67,4 @@ public class CameraController : MonoBehaviour, IPause
     public void Pause() => _isPause = true;
 
     public void Resume() => _isPause = false;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (_isEnterDeadZone) { return; }
-
-        if (collision.gameObject == _target)
-        {
-            _isEnterDeadZone = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject == _target)
-        {
-            IsEnterDeadZone = false;
-        }
-    }
 }
