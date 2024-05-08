@@ -1,14 +1,18 @@
 ﻿using Constants;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IPause
 {
+    [SerializeField]
+    private float _cameraMoveSpeed = 1f;
     [SerializeField]
     private float _deadTime = 1f;
 
+    private bool _isPause = false;
     private GameObject _target = default;
     private bool _isEnterDeadZone = false;
     private float _deadTimer = 0f;
+    private Transform _transform = default;
 
     protected bool IsEnterDeadZone
     {
@@ -36,14 +40,27 @@ public class CameraController : MonoBehaviour
     {
         _target = target;
         IsEnterDeadZone = false;
+
+        _transform = transform;
     }
 
     public void OnUpdate(float deltaTime)
     {
-        if (!IsEnterDeadZone) { return; }
+        if (_isPause) { return; }
+        CameraMovement(deltaTime);
 
+        if (!IsEnterDeadZone) { return; }
         DeadTimer += deltaTime;
     }
+
+    private void CameraMovement(float deltaTime)
+    {
+        _transform.Translate(Vector2.right * _cameraMoveSpeed * deltaTime);
+    }
+
+    public void Pause() => _isPause = true;
+
+    public void Resume() => _isPause = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
