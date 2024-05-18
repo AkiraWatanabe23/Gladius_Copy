@@ -14,6 +14,8 @@ public class Fan : MonoBehaviour
 
     private PolygonCollider2D _triangleCollider = default;
 
+    protected float Radius => _radius * 0.2f;
+
     public float Angle => _angle;
 
     private void Start()
@@ -43,8 +45,8 @@ public class Fan : MonoBehaviour
 
         var vertices = collider.GetPath(0);
         vertices[0] = transform.localPosition;
-        vertices[1] = transform.localPosition + new Vector3(Mathf.Cos(radian), Mathf.Sin(radian)) * _radius;
-        vertices[2] = transform.localPosition + new Vector3(Mathf.Cos(radian), -Mathf.Sin(radian)) * _radius;
+        vertices[1] = transform.localPosition + new Vector3(Mathf.Cos(radian), Mathf.Sin(radian)) * Radius;
+        vertices[2] = transform.localPosition + new Vector3(Mathf.Cos(radian), -Mathf.Sin(radian)) * Radius;
 
         collider.SetPath(0, vertices);
     }
