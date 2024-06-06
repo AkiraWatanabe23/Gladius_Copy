@@ -218,6 +218,46 @@ PrefabInstance:
       propertyPath: _cameraController
       value: 
       objectReference: {fileID: 1689953599}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.data[0]
+      value: 520568320048234497
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _clearConditions.Array.data[1]
+      value: 520568320048234498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234496]
+      value: Assembly-CSharp DefeatBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234497]
+      value: Assembly-CSharp ArriveGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234498]
+      value: Assembly-CSharp TimeAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234497]._goalPos
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234496]._stageBoss
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: managedReferences[520568320048234498]._clearTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2925223453046732365, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
