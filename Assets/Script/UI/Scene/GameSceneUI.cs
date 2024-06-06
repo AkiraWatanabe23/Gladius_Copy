@@ -60,7 +60,11 @@ public class GameSceneUI : ISceneUI
 
     public IEnumerator Initialize()
     {
-        _continueGameButton.onClick.AddListener(() => GameManager.Instance.InGameUpdate.Resume());
+        _continueGameButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.InGameUpdate.Resume();
+            _pausePanel.gameObject.SetActive(false);
+        });
         _returnTitleButton.onClick.AddListener(() => SceneLoader.FadeLoad(SceneName.Title));
         _bgmSlider.onValueChanged.AddListener(AudioManager.Instance.VolumeSettingBGM);
         _seSlider.onValueChanged.AddListener(AudioManager.Instance.VolumeSettingSE);

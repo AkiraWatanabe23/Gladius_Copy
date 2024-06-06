@@ -38,7 +38,11 @@ public class GameUpdate : MonoBehaviour
         _camera.OnUpdate(Time.deltaTime);
         _enemyManager.OnUpdate(Time.deltaTime);
 
-        if (GetPauseInput) { Pause(); }
+        if (GetPauseInput)
+        {
+            if (_isPause) { Resume(); }
+            else if (!_isPause) { Pause(); }
+        }
         if (_isTimeMeasuring) { _timer += Time.deltaTime; }
 
         if (_gameOverCondition != null && _gameOverCondition()) { GameOver(); }
@@ -47,6 +51,7 @@ public class GameUpdate : MonoBehaviour
 
     public void Pause()
     {
+        Consts.Log("Pause");
         _isPause = true;
         foreach (var pausable in _pausableObjects)
         {
@@ -56,6 +61,7 @@ public class GameUpdate : MonoBehaviour
 
     public void Resume()
     {
+        Consts.Log("Resume");
         _isPause = false;
         foreach (var pausable in _pausableObjects)
         {
@@ -66,10 +72,12 @@ public class GameUpdate : MonoBehaviour
     private void GameClear()
     {
         Consts.Log("game clear");
+        SceneLoader.FadeLoad(SceneName.Result);
     }
 
     private void GameOver()
     {
         Consts.Log("game over");
+        SceneLoader.FadeLoad(SceneName.Result);
     }
 }

@@ -101,8 +101,8 @@ public class PlayerAttack : PlayerSystemBase
     }
     protected bool IsGetShootInput => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
     protected bool IsGetChargeBeamInputUp => Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0);
-    protected bool IsGetBulletChangeInputUp => Input.mouseScrollDelta.y >= 1f;
-    protected bool IsGetBulletChangeInputDown => Input.mouseScrollDelta.y <= -1f;
+    protected bool IsGetBulletChangeInputUp => Input.GetAxis("Mouse ScrollWheel") > 0.05f;
+    protected bool IsGetBulletChangeInputDown => Input.GetAxis("Mouse ScrollWheel") < -0.05f;
 
     public override void OnUpdate()
     {
@@ -114,6 +114,9 @@ public class PlayerAttack : PlayerSystemBase
             return;
         }
 
+        //弾切り替え
+        if (IsGetBulletChangeInputUp) { BulletChange(1); }
+        if (IsGetBulletChangeInputDown) { BulletChange(-1); }
         //攻撃
         if (IsGetShootInput)
         {
@@ -133,16 +136,12 @@ public class PlayerAttack : PlayerSystemBase
                 ChargeBeam();
             }
         }
-
-        //弾切り替え
-        if (IsGetBulletChangeInputUp) { BulletChange(1); }
-        if (IsGetBulletChangeInputDown) { BulletChange(-1); }
     }
 
     private void Attack()
     {
         _isAttacked = true;
-        Consts.Log("attack");
+        Consts.Log($"attack {_bulletIndex}");
         if (_initialBullets[_bulletIndex] == InitialBulletType.ShotGun)
         {
             var spawnBullet = GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.ShotGun];
@@ -188,6 +187,7 @@ public class PlayerAttack : PlayerSystemBase
 
     private void BulletChange(int changeValue = 1)
     {
+        Consts.Log("Change");
         AudioManager.Instance.PlaySE(SEType.SwitchShot);
         if (_bulletIndex + changeValue >= Bullets.Count) { _bulletIndex = 0; return; }
         if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
