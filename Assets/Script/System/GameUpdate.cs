@@ -35,8 +35,8 @@ public class GameUpdate : MonoBehaviour
     {
         if (_isPause) { return; }
 
-        _camera.OnUpdate(Time.deltaTime);
-        _enemyManager.OnUpdate(Time.deltaTime);
+        _camera?.OnUpdate(Time.deltaTime);
+        _enemyManager?.OnUpdate(Time.deltaTime);
 
         if (GetPauseInput)
         {
