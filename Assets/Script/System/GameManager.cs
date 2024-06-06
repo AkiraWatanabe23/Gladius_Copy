@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         _inGameUpdate.enabled = false;
 
         if (_cameraController == null) { _cameraController = FindObjectOfType<CameraController>(); }
-        _cameraController.Initialize(_player.gameObject);
+        _cameraController?.Initialize(_player.gameObject);
         yield return null;
 
         //もしシーン上にEnemy, Spawnerが存在したら実行を管理するclassに渡す
