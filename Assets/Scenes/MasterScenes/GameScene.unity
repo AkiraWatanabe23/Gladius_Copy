@@ -217,7 +217,7 @@ PrefabInstance:
     - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: _cameraController
       value: 
-      objectReference: {fileID: 1689953599}
+      objectReference: {fileID: 0}
     - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: managedReferences[-2]
       value: 
@@ -3058,25 +3058,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _attack._attackCoolTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _attack._initialBullets.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: managedReferences[4585279139155804162]._maxLife
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3113,10 +3101,6 @@ PrefabInstance:
     - target: {fileID: 4875325872631633657, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4875325872631633657, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3413,6 +3397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd23137aff0ccc946b97fbc960c2ef71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isCameraMove: 0
   _cameraMoveSpeed: 1
   _deadTime: 1
   _leftDeadPoint: {fileID: 285623176}

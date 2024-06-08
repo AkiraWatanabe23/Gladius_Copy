@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary> ゲーム内のサウンド管理クラス </summary>
@@ -42,8 +44,8 @@ public class AudioManager
 
         _soundHolder = Resources.Load<AudioHolder>("AudioHolder");
 
-        var defaultBGMVolume = GameManager.Instance.BGMVolume;
-        var defaultSEVolume = GameManager.Instance.SEVolume;
+        var defaultBGMVolume = 1f;
+        var defaultSEVolume = 1f;
 
         //音量設定
         _bgmSource.volume = defaultBGMVolume;
@@ -105,6 +107,26 @@ public class AudioManager
         }
 
         return _soundHolder.BGMClips[index].BGMClip;
+    }
+
+    public IEnumerator BGMPlayingWait()
+    {
+        yield return new WaitUntil(() => !_bgmSource.isPlaying);
+    }
+
+    public async Task BGMPlaying()
+    {
+        while (_bgmSource.isPlaying) { await Task.Yield(); }
+    }
+
+    public IEnumerator SEPlayingWait()
+    {
+        yield return new WaitUntil(() => !_seSource.isPlaying);
+    }
+
+    public async Task SEPlaying()
+    {
+        while (_seSource.isPlaying) { await Task.Yield(); }
     }
 
     #region 以下Audio系パラメーター設定用の関数

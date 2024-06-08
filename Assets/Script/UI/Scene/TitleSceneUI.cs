@@ -1,37 +1,29 @@
-﻿using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TitleSceneUI : ISceneUI
 {
-    [SerializeField]
-    private Button _startButton = default;
+    private bool _isLoad = false;
 
     public SceneName SceneName => SceneName.Title;
 
     public IEnumerator Initialize()
     {
-        _startButton.onClick.AddListener(async () =>
-        {
-            AudioManager.Instance.PlaySE(SEType.Decide);
-            await UniTask.WaitWhile(() => AudioManager.Instance.SeSource.isPlaying);
-
-            SceneLoader.FadeLoad(SceneName.InGame);
-        });
-        yield return null;
         Fade.Instance.StartFadeIn(() => AudioManager.Instance.PlayBGM(BGMType.TitleBGM));
+        yield return GameStartInputWait();
     }
 
-    public async void OnUpdate()
+    private IEnumerator GameStartInputWait()
     {
-        if (Input.anyKeyDown)
-        {
-            AudioManager.Instance.PlaySE(SEType.Decide);
-            await UniTask.WaitWhile(() => AudioManager.Instance.SeSource.isPlaying);
+        yield return new WaitUntil(() => Input.anyKeyDown && !_isLoad);
 
-            SceneLoader.FadeLoad(SceneName.InGame);
-        }
+        if (_isLoad) { yield break; }
+
+        _isLoad = true;
+        AudioManager.Instance.PlaySE(SEType.Decide);
+        yield return AudioManager.Instance.SEPlayingWait();
+
+        SceneLoader.FadeLoad(SceneName.InGame);
+        yield return null;
     }
 }
