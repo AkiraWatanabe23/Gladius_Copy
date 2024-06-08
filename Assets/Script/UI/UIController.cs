@@ -35,4 +35,9 @@ public class UIController : MonoBehaviour, IPause
     {
         if (_sceneUI is GameSceneUI inGame) { inGame.Resume(); }
     }
+
+    public void BulletChange(int index)
+    {
+        if (_sceneUI is GameSceneUI inGame) { inGame.BulletChange(index); }
+    }
 }
