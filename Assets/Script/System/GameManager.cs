@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private EnemyManager _enemyManager = default;
     [SerializeField]
     private ItemSpawner _itemSpawner = default;
+    [SerializeField]
+    private UIController _uiController = default;
     [Tooltip("インゲームに出てくる弾やショットのリスト")]
     [SerializeField]
     private BulletHolder _bulletHolder = new();
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour
             return _playerTransform;
         }
     }
+    public UIController UIController => _uiController;
     public GameUpdate InGameUpdate => _inGameUpdate;
     public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
     public BulletHolder BulletHolder => _bulletHolder;
@@ -135,6 +138,8 @@ public class GameManager : MonoBehaviour
         if (_cameraController == null) { _cameraController = FindObjectOfType<CameraController>(); }
         _cameraController?.Initialize(_player.gameObject);
         yield return null;
+
+        if (_uiController == null) { _uiController = FindObjectOfType<UIController>(); }
 
         //もしシーン上にEnemy, Spawnerが存在したら実行を管理するclassに渡す
         yield return _enemyManager.Initialize(

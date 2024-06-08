@@ -1,15 +1,5 @@
 ﻿using UnityEngine;
 
-public interface IInitialBullet : ISerializableParam
-{
-    public InitialBulletType BulletType { get; }
-}
-
-public interface IPlusShot : ISerializableParam
-{
-    public PlusShotType PlusShotType { get; }
-}
-
 public class BulletController : MonoBehaviour
 {
     [Range(1f, 40f)]

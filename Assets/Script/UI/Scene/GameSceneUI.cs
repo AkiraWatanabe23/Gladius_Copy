@@ -25,53 +25,60 @@ public class GameSceneUI : ISceneUI
     [SerializeField]
     private Text _healthText = default;
     [SerializeField]
+    private Image[] _shotKindImages = new Image[3];
+    [SerializeField]
     private GameObject _pausePanel = default;
     [SerializeField]
     private Button _continueGameButton = default;
     [SerializeField]
     private Button _returnTitleButton = default;
-    [SerializeField]
-    private Slider _bgmSlider = default;
-    [SerializeField]
-    private Slider _seSlider = default;
 
+    private Text[] _shotTexts = new Text[3];
+    private PlayerAttack _attackData = default;
     private PlayerHealth _healthData = default;
     private Dictionary<ClearConditionName, Canvas[]> _canvasDict = default;
 
-    protected Dictionary<ClearConditionName, Canvas[]> CanvasDict
+    private readonly Dictionary<InitialBulletType, string> _bulletNameDict = new()
     {
-        get
-        {
-            if (_canvasDict == null)
-            {
-                _canvasDict = new();
-                for (int i = 0; i < _sceneCanvases.Length; i++)
-                {
-                    var canvasData = _sceneCanvases[i];
-                    if (!_canvasDict.ContainsKey(canvasData.Condition)) { _canvasDict.Add(canvasData.Condition, canvasData.Canvases); }
-                    else { continue; }
-                }
-            }
-            return _canvasDict;
-        }
-    }
+        { InitialBulletType.Default, "Default" },
+        { InitialBulletType.Bomb, "Bomb" },
+        {InitialBulletType.ChargeBeam, "ChargeBeam" },
+        { InitialBulletType.Homing, "Homing" },
+        { InitialBulletType.Laser, "Laser" },
+        { InitialBulletType.ShotGun, "ShotGun" },
+    };
 
     public SceneName SceneName => SceneName.InGame;
 
     public IEnumerator Initialize()
     {
+        _canvasDict = new();
+        for (int i = 0; i < _sceneCanvases.Length; i++)
+        {
+            var canvasData = _sceneCanvases[i];
+            if (!_canvasDict.ContainsKey(canvasData.Condition)) { _canvasDict.Add(canvasData.Condition, canvasData.Canvases); }
+            else { continue; }
+        }
+
         _continueGameButton.onClick.AddListener(() =>
         {
             GameManager.Instance.InGameUpdate.Resume();
             _pausePanel.gameObject.SetActive(false);
         });
         _returnTitleButton.onClick.AddListener(() => SceneLoader.FadeLoad(SceneName.Title));
-        _bgmSlider.onValueChanged.AddListener(AudioManager.Instance.VolumeSettingBGM);
-        _seSlider.onValueChanged.AddListener(AudioManager.Instance.VolumeSettingSE);
 
         yield return CanvasSetting();
 
-        _healthData = UnityEngine.Object.FindObjectOfType<PlayerController>().Health;
+        var player = UnityEngine.Object.FindObjectOfType<PlayerController>();
+        _attackData = player.Attack;
+        for (int i = 0; i < _shotKindImages.Length; i++)
+        {
+            _shotTexts[i] = _shotKindImages[i].transform.GetChild(0).gameObject.GetComponent<Text>();
+            _shotTexts[i].text = _attackData.InitialBullets[i].ToString();
+        }
+        _shotKindImages[0].color = Color.gray;
+
+        _healthData = player.Health;
         yield return null;
 
         if (_healthData.HealthType == HealthType.HP)
@@ -93,11 +100,6 @@ public class GameSceneUI : ISceneUI
         AudioManager.Instance.PlayBGM(BGMType.InGameBGM);
     }
 
-    public void OnUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !_pausePanel.activeSelf) { _pausePanel.SetActive(true); }
-    }
-
     private IEnumerator CanvasSetting()
     {
         try
@@ -105,13 +107,13 @@ public class GameSceneUI : ISceneUI
             var consitions = GameManager.Instance.ClearConditions;
             for (int i = 0; i < consitions.Length; i++)
             {
-                var canvases = CanvasDict[GetClearCondition(consitions[i])];
+                var canvases = _canvasDict[GetClearCondition(consitions[i])];
                 foreach (var canvas in canvases) { canvas.gameObject.SetActive(true); }
             }
         }
         catch (Exception)
         {
-            var canvases = CanvasDict[ClearConditionName.None];
+            var canvases = _canvasDict[ClearConditionName.None];
             foreach (var canvas in canvases) { canvas.gameObject.SetActive(true); }
         }
 
@@ -131,4 +133,13 @@ public class GameSceneUI : ISceneUI
     public void Pause() => _pausePanel.SetActive(true);
 
     public void Resume() => _pausePanel.SetActive(false);
+
+    public void BulletChange(int index)
+    {
+        for (int i = 0; i < _shotKindImages.Length; i++)
+        {
+            _shotKindImages[i].color = Color.white;
+        }
+        _shotKindImages[index].color = Color.gray;
+    }
 }

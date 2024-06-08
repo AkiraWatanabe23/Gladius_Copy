@@ -67,6 +67,7 @@ public class PlayerAttack : PlayerSystemBase
             _plusShot = GameManager.Instance.BulletHolder.PlusShotsDictionary[value];
         }
     }
+    public List<InitialBulletType> InitialBullets => _initialBullets;
 
     protected float AttackIntervalTimer
     {
@@ -107,8 +108,8 @@ public class PlayerAttack : PlayerSystemBase
         }
 
         //弾切り替え
-        if (IsGetBulletChangeInputUp) { BulletChange(1); }
-        if (IsGetBulletChangeInputDown) { BulletChange(-1); }
+        if (IsGetBulletChangeInputUp) { BulletChange(-1); }
+        if (IsGetBulletChangeInputDown) { BulletChange(1); }
         //攻撃
         if (IsGetShootInput)
         {
@@ -177,15 +178,14 @@ public class PlayerAttack : PlayerSystemBase
         }
     }
 
-    private void BulletChange(int changeValue = 1)
+    private void BulletChange(int changeValue)
     {
-        Consts.Log("Change");
         AudioManager.Instance.PlaySE(SEType.SwitchShot);
-        if (_bulletIndex + changeValue >= _bullets.Count) { _bulletIndex = 0; return; }
-        if (_bulletIndex + changeValue < 0) { _bulletIndex = _bullets.Count - 1; return; }
+        if (_bulletIndex + changeValue >= _bullets.Count) { _bulletIndex = 0; }
+        else if (_bulletIndex + changeValue < 0) { _bulletIndex = _bullets.Count - 1; }
+        else { _bulletIndex += changeValue; }
 
-        _bulletIndex += changeValue;
-        Consts.Log($"Bullet Change {_bulletIndex}");
+        GameManager.Instance.UIController.BulletChange(_bulletIndex);
     }
 
     /// <summary> 補助兵装が弾を撃つ </summary>

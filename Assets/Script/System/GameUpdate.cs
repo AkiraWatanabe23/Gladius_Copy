@@ -22,6 +22,10 @@ public class GameUpdate : MonoBehaviour
         CameraController camera, EnemyManager enemyManager,
         Func<bool> clearCondition, Func<bool> gameOverCondition, bool isTimeMeasuring = false)
     {
+        _timer = 0f;
+        _isTimeMeasuring = false;
+        _isPause = false;
+
         _camera = camera;
         _enemyManager = enemyManager;
         _clearCondition = clearCondition;
