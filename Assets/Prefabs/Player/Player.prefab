@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 4875325872631633542}
   - component: {fileID: 4875325872631633541}
   - component: {fileID: 4875325872631633540}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,12 +278,9 @@ MonoBehaviour:
     _spawnMuzzles:
     - {fileID: 1783640917}
     _attackValue: 1
-    _attackCoolTime: 1
+    _attackCoolTime: 0.5
     _chargeBeamValue: 010000000500000005000000
     _fanCollider: {fileID: 1581020527}
-    _playerLayer:
-      serializedVersion: 2
-      m_Bits: 8
     _direction: 0
     _plusShotBullet: 0
     _initialBullets: 010000000300000005000000
@@ -301,4 +298,4 @@ MonoBehaviour:
       type: {class: HP, ns: , asm: Assembly-CSharp}
       data:
         _currentLife: 1
-        _maxLife: 1
+        _maxLife: 1000

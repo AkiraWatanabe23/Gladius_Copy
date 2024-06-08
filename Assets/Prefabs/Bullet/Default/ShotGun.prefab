@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6713e5fc6e7f33049b4d81602eb3dfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 1
+  _moveSpeed: 10
   _isChildSetting: 0
   _bulletData:
     rid: 5056580496090464256

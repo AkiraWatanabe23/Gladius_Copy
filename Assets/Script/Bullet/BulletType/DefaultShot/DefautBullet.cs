@@ -7,7 +7,7 @@ public class DefautBullet : IBulletData
     public Transform Transform { get; set; }
     public float Speed { get; set; }
     public int AttackValue { get; set; }
-    public LayerMask GunnerLayer { get; set; }
+    public int GunnerLayer { get; set; }
     public Vector2 MoveDirection { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
@@ -21,6 +21,7 @@ public class DefautBullet : IBulletData
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
+        Debug.Log("receive");
         GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
     }
 }
