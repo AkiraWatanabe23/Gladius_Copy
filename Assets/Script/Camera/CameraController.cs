@@ -4,6 +4,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour, IPause
 {
     [SerializeField]
+    private bool _isCameraMove = false;
+    [SerializeField]
     private float _cameraMoveSpeed = 1f;
     [SerializeField]
     private float _deadTime = 1f;
@@ -52,7 +54,7 @@ public class CameraController : MonoBehaviour, IPause
 
     public void OnUpdate(float deltaTime)
     {
-        if (_isPause) { return; }
+        if (_isPause || !_isCameraMove) { return; }
         CameraMovement(deltaTime);
 
         if (!IsEnterDeadZone) { return; }

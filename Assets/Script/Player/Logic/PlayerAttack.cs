@@ -24,9 +24,6 @@ public class PlayerAttack : PlayerSystemBase
     [Tooltip("扇形の射出範囲")]
     [SerializeField]
     private Fan _fanCollider = default;
-    [ReadOnly]
-    [SerializeField]
-    private LayerMask _playerLayer = default;
     [Header("2way弾を撃ちだすときに上下どっちに撃つか")]
     [SerializeField]
     private Diagonal _direction = Diagonal.Up;
@@ -56,11 +53,11 @@ public class PlayerAttack : PlayerSystemBase
     private int _bulletIndex = 0;
     private List<GameObject> _bullets = default;
     private GameObject _plusShot = default;
+    private GameObject _player = default;
     private bool _isCharging = false;
     private float _chargeTimer = 0f;
     private bool _isPause = false;
 
-    public LayerMask Layer => _playerLayer;
     public PlusShotType PlusShotBullet
     {
         get => _plusShotBullet;
@@ -84,25 +81,20 @@ public class PlayerAttack : PlayerSystemBase
             }
         }
     }
-    protected List<GameObject> Bullets
-    {
-        get
-        {
-            if (_bullets == null)
-            {
-                _bullets = new();
-                foreach (var bullet in _initialBullets)
-                {
-                    _bullets.Add(GameManager.Instance.BulletHolder.BulletsDictionary[bullet]);
-                }
-            }
-            return _bullets;
-        }
-    }
     protected bool IsGetShootInput => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
     protected bool IsGetChargeBeamInputUp => Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0);
     protected bool IsGetBulletChangeInputUp => Input.GetAxis("Mouse ScrollWheel") > 0.05f;
     protected bool IsGetBulletChangeInputDown => Input.GetAxis("Mouse ScrollWheel") < -0.05f;
+
+    public override void Initialize(GameObject go)
+    {
+        _player = go;
+        _bullets = new();
+        foreach (var bullet in _initialBullets)
+        {
+            _bullets.Add(GameManager.Instance.BulletHolder.BulletsDictionary[bullet]);
+        }
+    }
 
     public override void OnUpdate()
     {
@@ -157,7 +149,7 @@ public class PlayerAttack : PlayerSystemBase
                 bullet.transform.localEulerAngles = rotation;
 
                 var bulletData = bullet.GetComponent<BulletController>();
-                bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.up);
+                bulletData.Initialize(_attackValue, _player.layer, bullet.transform.up);
             }
             return;
         }
@@ -168,7 +160,7 @@ public class PlayerAttack : PlayerSystemBase
             GameObject bullet = null;
             if (i == 0)
             {
-                bullet = GameManager.Instance.ObjectPool.SpawnObject(Bullets[_bulletIndex]);
+                bullet = GameManager.Instance.ObjectPool.SpawnObject(_bullets[_bulletIndex]);
             }
             else if (i < 0 && _plusShotBullet != PlusShotType.None)
             {
@@ -181,7 +173,7 @@ public class PlayerAttack : PlayerSystemBase
             }
             bullet.transform.position = _spawnMuzzles[i].position;
             var bulletData = bullet.GetComponent<BulletController>();
-            bulletData.Initialize(_attackValue, _playerLayer);
+            bulletData.Initialize(_attackValue, _player.layer);
         }
     }
 
@@ -189,8 +181,8 @@ public class PlayerAttack : PlayerSystemBase
     {
         Consts.Log("Change");
         AudioManager.Instance.PlaySE(SEType.SwitchShot);
-        if (_bulletIndex + changeValue >= Bullets.Count) { _bulletIndex = 0; return; }
-        if (_bulletIndex + changeValue < 0) { _bulletIndex = Bullets.Count - 1; return; }
+        if (_bulletIndex + changeValue >= _bullets.Count) { _bulletIndex = 0; return; }
+        if (_bulletIndex + changeValue < 0) { _bulletIndex = _bullets.Count - 1; return; }
 
         _bulletIndex += changeValue;
         Consts.Log($"Bullet Change {_bulletIndex}");
@@ -216,7 +208,7 @@ public class PlayerAttack : PlayerSystemBase
         bullet.transform.localEulerAngles = direction.normalized;
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.right);
+        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.right);
     }
 
     private void TwoWayBulletSetting(GameObject bullet, Vector3 spawnPos)
@@ -229,7 +221,7 @@ public class PlayerAttack : PlayerSystemBase
         bullet.transform.localEulerAngles = rotation;
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(_attackValue, _playerLayer, bullet.transform.up);
+        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.up);
     }
 
     private void Charge()
@@ -246,7 +238,7 @@ public class PlayerAttack : PlayerSystemBase
         bullet.transform.position = _spawnMuzzles[0].position;
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(_attackValue, _playerLayer, Vector2.right);
+        bulletData.Initialize(_attackValue, _player.layer, Vector2.right);
         if (bulletData.BulletData is ChargeBeamBullet)
         {
             var chargeBeamData = bulletData.BulletData as ChargeBeamBullet;

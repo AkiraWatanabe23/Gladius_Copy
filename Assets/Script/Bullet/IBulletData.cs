@@ -69,7 +69,7 @@ public interface IBulletData
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     /// <summary> 自身を撃ったオブジェクトのLayer </summary>
-    public LayerMask GunnerLayer { get; set; }
+    public int GunnerLayer { get; set; }
     public Vector2 MoveDirection { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
@@ -103,7 +103,7 @@ public interface IBulletData
     public void Movement();
 
     /// <summary> オブジェクトとの衝突時に実行される関数 </summary>
-    public void Hit(Collider2D collision);
+    public void Hit(Collider2D collision) { }
 }
 
 /// <summary> 初期ショットに設定可能な弾の種類 </summary>
