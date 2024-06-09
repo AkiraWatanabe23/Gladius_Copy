@@ -25,7 +25,7 @@ public class PathDrawer
     {
         if (_startPoint == null || _goalPoint == null)
         {
-            Consts.LogError("Start point or end point not assigned.");
+            Consts.LogWarning("Start point or end point not assigned.");
             return;
         }
 

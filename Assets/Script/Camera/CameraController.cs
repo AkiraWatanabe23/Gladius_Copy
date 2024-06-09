@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour, IPause
     private Transform _upperDeadPoint = default;
     [SerializeField]
     private Transform _lowerDeadPoint = default;
+    [SerializeField]
+    private Transform _rightSpawnPoint = default;
 
     private bool _isPause = false;
     private Transform _targetTransform = default;
@@ -45,6 +47,8 @@ public class CameraController : MonoBehaviour, IPause
             }
         }
     }
+
+    public Transform RightSpawnPoint => _rightSpawnPoint;
 
     public void Initialize(GameObject target)
     {

@@ -79,10 +79,11 @@ public class EnemySpawner : MonoBehaviour
 
     public void Initialize(EnemyManager enemyManager)
     {
-        _spawnMuzzle ??= transform;
+        if (_spawnMuzzle == null) { _spawnMuzzle = transform; }
+        
         _enemyManager = enemyManager;
         _enemyPrefab = _enemyManager.EnemyPrefabsDict[_spawnParam.MoveType];
-        _cameraRightSide = GameObject.Find("Main Camera").transform;
+        _cameraRightSide = GameObject.Find("Main Camera").GetComponent<CameraController>().RightSpawnPoint;
 
         _spawnParam.TerrainPath.Initialize();
     }
@@ -112,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _spawnParam.SpawnCount; i++)
         {
-            if (GameManager.Instance.EnemyAnnihilated != null && GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
+            if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
                 enemy.transform.position = SpawnPos;
@@ -124,13 +125,11 @@ public class EnemySpawner : MonoBehaviour
                     var assault = (Assault)enemySystem.EnemySystem;
                     assault.MoveRoute = _spawnParam.TerrainPath.PathPoints;
                 }
+                enemySystem.Initialize();
                 _enemyManager.AddEnemy(enemySystem.EnemySystem);
                 yield return new WaitForSeconds(0.3f);
             }
-            else
-            {
-                yield break;
-            }
+            else { yield break; }
         }
         yield return null;
         if (!_spawnInScreen) { Destroy(gameObject); }
