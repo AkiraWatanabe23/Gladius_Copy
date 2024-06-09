@@ -56,15 +56,20 @@ public class EnemySpawner : MonoBehaviour
     private float _spawnTimer = 0f;
     /// <summary> 初回生成を行ったかどうか </summary>
     private bool _isFirstSpawning = false;
+    private Transform _cameraRightSide = default;
 
     protected Vector2 SpawnPos => _spawnMuzzle.position;
     protected bool IsEnterArea
     {
         get
         {
-            var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
+            if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
+            {
+                var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
 
-            return sqrDistance <= _spawnSearchRadius * _spawnSearchRadius;
+                return sqrDistance <= _spawnSearchRadius * _spawnSearchRadius;
+            }
+            else { return transform.position.x <= _cameraRightSide.position.x; }
         }
     }
     protected float SpawnInterval => _isFirstSpawning ? _spawnParam.SpawnInterval : _spawnParam.FirstSpawnInterval;
@@ -77,6 +82,7 @@ public class EnemySpawner : MonoBehaviour
         _spawnMuzzle ??= transform;
         _enemyManager = enemyManager;
         _enemyPrefab = _enemyManager.EnemyPrefabsDict[_spawnParam.MoveType];
+        _cameraRightSide = GameObject.Find("Main Camera").transform;
 
         _spawnParam.TerrainPath.Initialize();
     }
