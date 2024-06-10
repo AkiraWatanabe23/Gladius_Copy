@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     public GameUpdate InGameUpdate => _inGameUpdate;
     public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
     public BulletHolder BulletHolder => _bulletHolder;
+    public Transform EnemyDeadPos { get; set; }
     public int EnemyDeadCount
     {
         get => _enemyDeadCount;
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
             _enemyDeadCount = value;
             var remainder = _enemyDeadCount % _itemSpawner.ItemSpawnMultiple;
 
-            if (remainder == 0) { _itemSpawner.Spawn(remainder); }
+            if (remainder == 0) { _itemSpawner.Spawn(remainder, EnemyDeadPos); }
         }
     }
     public int ShotGunCount => _shotGunCount;

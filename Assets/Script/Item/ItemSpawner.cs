@@ -14,12 +14,12 @@ public class ItemSpawner : MonoBehaviour
 
     public int ItemSpawnMultiple => _itemSpawnMultiple;
 
-    public void Spawn(int index)
+    public void Spawn(int index, Transform spawnPos)
     {
         if (_itemPrefabs == null) { Debug.Log("no item settings"); return; }
         if (index + 1 >= _itemPrefabs.Count) { index = 0; }
 
-        var spawnItem = Instantiate(_itemPrefabs[index]);
+        var spawnItem = Instantiate(_itemPrefabs[index], spawnPos.position, spawnPos.rotation);
         if (spawnItem.TryGetComponent(out ItemController item)) { item.ItemSystem.Initialize(); }
     }
 }
