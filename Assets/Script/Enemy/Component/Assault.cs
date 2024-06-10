@@ -34,7 +34,6 @@ public class Assault : IEnemy
         else if (Controller.MovementType == EnemyMovementType.FollowTerrain)
         {
             Controller.PathDrawer.Initialize();
-            MoveRoute = Controller.PathDrawer.PathPoints;
         }
     }
 }

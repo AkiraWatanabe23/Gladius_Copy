@@ -87,16 +87,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        //if (_enemySystem is not Shot) { return; }
-
-        //var shot = (Shot)_enemySystem;
-
-        //var old = Gizmos.color;
-        //Gizmos.color = Color.green;
-
-        //Gizmos.DrawWireSphere(gameObject.transform.position, shot.SearchRadius);
-        //Gizmos.color = old;
-
         if (_enemySystem is Assault assault)
         {
             if (_movementType != EnemyMovementType.FollowTerrain) { return; }
