@@ -87,7 +87,7 @@ public class AudioManager
         _seQueue.Enqueue(_soundHolder.SEClips[index].SEClip);
 
         //再生するSEがあれば、最後に追加したSEを再生
-        if (_seQueue.Count > 0 && !_seSource.isPlaying) { _seSource.PlayOneShot(_seQueue.Peek()); }
+        if (_seQueue.Count > 0 && !_seSource.isPlaying) { _seSource.PlayOneShot(_seQueue.Dequeue()); }
     }
 
     /// <summary> BGMの再生を止める </summary>
