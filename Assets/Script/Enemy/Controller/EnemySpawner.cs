@@ -61,23 +61,11 @@ public class EnemySpawner : MonoBehaviour
     private float _spawnTimer = 0f;
     /// <summary> 初回生成を行ったかどうか </summary>
     private bool _isFirstSpawning = false;
+    private bool _isEnterArea = false;
     private Transform _cameraRightSide = default;
     private int _spawnCounter = 0;
 
     protected Vector2 SpawnPos => _spawnMuzzle.position;
-    protected bool IsEnterArea
-    {
-        get
-        {
-            if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
-            {
-                var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
-
-                return sqrDistance <= _spawnSearchRadius * _spawnSearchRadius;
-            }
-            else { return transform.position.x <= _cameraRightSide.position.x; }
-        }
-    }
     protected float SpawnInterval => _isFirstSpawning ? _spawnParam.SpawnInterval : _spawnParam.FirstSpawnInterval;
 
     /// <summary> 計測中 </summary>
@@ -97,8 +85,16 @@ public class EnemySpawner : MonoBehaviour
     public void Measuring(float deltaTime)
     {
         if (!_spawnInScreen) { return; }
-        if (!IsEnterArea) { return; }
 
+        if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
+        {
+            var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
+
+            if (sqrDistance <= _spawnSearchRadius * _spawnSearchRadius) { _isEnterArea = true; }
+        }
+        else if (transform.position.x <= _cameraRightSide.position.x) { _isEnterArea = true; }
+
+        if (!_isEnterArea) { return; }
         _spawnTimer += deltaTime;
         if (IsMeasuring) { return; }
 
@@ -160,7 +156,7 @@ public class EnemySpawner : MonoBehaviour
         if (!_spawnInScreen) { return; }
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(gameObject.transform.position, _spawnSearchRadius);
+        Gizmos.DrawWireSphere(gameObject.transform.position, _spawnSearchRadius / 2f);
     }
 #endif
 }
