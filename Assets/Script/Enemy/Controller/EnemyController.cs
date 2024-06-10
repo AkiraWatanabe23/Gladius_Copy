@@ -80,6 +80,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void Dead()
     {
         AudioManager.Instance.PlaySE(SEType.EnemyCrashed);
+        GameManager.Instance.EnemyDeadPos = transform;
         GameManager.Instance.EnemyDeadCount++;
         GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
