@@ -24,7 +24,7 @@ public class ShotSystem : EnemySystemBase
         if (_shotEnemies == null || _shotEnemies.Count <= 0) { return; }
         for (int i = _shotEnemies.Count - 1; i >= 0; i--)
         {
-            if (_shotEnemies[i] == null) { continue; }
+            if (_shotEnemies[i] == null || !_shotEnemies[i].Enemy.activeSelf) { continue; }
             Movement(_shotEnemies[i]);
         }
     }

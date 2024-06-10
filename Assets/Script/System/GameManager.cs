@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         set
         {
             _enemyDeadCount = value;
-            var remainder = _enemyDeadCount % 5;
+            var remainder = _enemyDeadCount % _itemSpawner.ItemSpawnMultiple;
 
             if (remainder == 0) { _itemSpawner.Spawn(remainder); }
         }

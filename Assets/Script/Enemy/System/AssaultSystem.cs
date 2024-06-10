@@ -30,7 +30,7 @@ public class AssaultSystem : EnemySystemBase
         if (_assaultEnemies == null || _assaultEnemies.Count == 0) { return; }
         for (int i = _assaultEnemies.Count - 1; i >= 0; i--)
         {
-            if (_assaultEnemies[i] == null) { continue; }
+            if (_assaultEnemies[i] == null || !_assaultEnemies[i].Enemy.activeSelf) { continue; }
             Movement(_assaultEnemies[i]);
         }
     }

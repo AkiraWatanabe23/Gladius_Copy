@@ -12,6 +12,8 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> _itemPrefabs = default;
 
+    public int ItemSpawnMultiple => _itemSpawnMultiple;
+
     public void Spawn(int index)
     {
         if (_itemPrefabs == null) { Debug.Log("no item settings"); return; }
