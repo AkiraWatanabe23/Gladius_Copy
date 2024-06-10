@@ -18,6 +18,10 @@ public class SpawnParameter
     [Tooltip("一度に生成する数")]
     [SerializeField]
     private int _spawnCount = 1;
+    [Min(1)]
+    [Tooltip("このSpawnerが生成できる最大数")]
+    [SerializeField]
+    private int _maxSpawnCount = 5;
     [SerializeField]
     private PathDrawer _terrainPath = new();
 
@@ -25,6 +29,7 @@ public class SpawnParameter
     public float FirstSpawnInterval => _firstSpawnInterval;
     public float SpawnInterval => _spawnInterval;
     public int SpawnCount => _spawnCount;
+    public int MaxSpawnCount => _maxSpawnCount;
     public PathDrawer TerrainPath => _terrainPath;
 }
 
@@ -57,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
     /// <summary> 初回生成を行ったかどうか </summary>
     private bool _isFirstSpawning = false;
     private Transform _cameraRightSide = default;
+    private int _spawnCounter = 0;
 
     protected Vector2 SpawnPos => _spawnMuzzle.position;
     protected bool IsEnterArea
@@ -113,6 +119,8 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _spawnParam.SpawnCount; i++)
         {
+            if (_spawnCounter >= _spawnParam.MaxSpawnCount) { yield break; }
+
             if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
@@ -127,6 +135,7 @@ public class EnemySpawner : MonoBehaviour
                 }
                 enemySystem.Initialize();
                 _enemyManager.AddEnemy(enemySystem.EnemySystem);
+                _spawnCounter++;
                 yield return new WaitForSeconds(0.3f);
             }
             else { yield break; }
