@@ -29,7 +29,7 @@ public class BossSystem : EnemySystemBase
 
     public override void OnUpdate()
     {
-        if (_bossEnemy == null) { return; }
+        if (_bossEnemy == null || !_bossEnemy.Enemy.activeSelf) { return; }
 
         //縦方向のみPlayerに合わせて移動
         var velocity = _bossEnemy.Transform.position;
