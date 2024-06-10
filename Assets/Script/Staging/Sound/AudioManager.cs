@@ -94,6 +94,7 @@ public class AudioManager
 
             var newSource = new GameObject("SE");
             _seSources.Add(newSource.AddComponent<AudioSource>());
+            newSource.transform.parent = _audioObject.transform;
 
             _seSources[^1].PlayOneShot(_seQueue.Dequeue());
         }
@@ -134,12 +135,18 @@ public class AudioManager
 
     public IEnumerator SEPlayingWait()
     {
-        yield return new WaitUntil(() => !_seSources.isPlaying);
+        foreach (var source in _seSources)
+        {
+            yield return new WaitUntil(() => !source.isPlaying);
+        }
     }
 
     public async Task SEPlaying()
     {
-        while (_seSources.isPlaying) { await Task.Yield(); }
+        foreach (var source in _seSources)
+        {
+            while (source.isPlaying) { await Task.Yield(); }
+        }
     }
 
     #region 以下Audio系パラメーター設定用の関数
@@ -147,6 +154,9 @@ public class AudioManager
     public void VolumeSettingBGM(float value) => _bgmSource.volume = value;
 
     /// <summary> SEの音量設定 </summary>
-    public void VolumeSettingSE(float value) => _seSources.volume = value;
+    public void VolumeSettingSE(float value)
+    {
+        foreach (var source in _seSources) { source.volume = value; }
+    }
     #endregion
 }
