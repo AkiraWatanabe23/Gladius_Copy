@@ -108,6 +108,11 @@ public class PlayerHealth :  PlayerSystemBase
         Consts.Log("GameOver");
         AudioManager.Instance.PlaySE(SEType.PlayerCrashed);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Ground _)) { Dead(); }
+    }
 }
 
 public enum HealthType
