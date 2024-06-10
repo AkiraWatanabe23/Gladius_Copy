@@ -2072,7 +2072,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._moveType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217652, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: m_Name
