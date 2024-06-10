@@ -9,10 +9,12 @@ public class FigureEight : IEnemyGeneration
 
         var assault = (Assault)enemy.EnemySystem;
 
-        assault.Angle += Time.deltaTime * enemy.MoveSpeed;
+        assault.Angle += Time.deltaTime;
 
         assault.Transform.position = new Vector3(
-            assault.Transform.position.x, Mathf.Sin(assault.Angle), assault.Transform.position.z
+            assault.Transform.position.x,
+            Mathf.Sin(assault.Angle * (1 / enemy.MoveSpeed) * 2 * Mathf.PI),
+            assault.Transform.position.z
         );
         assault.Rb2d.velocity = Vector2.left * enemy.MoveSpeed;
     }
