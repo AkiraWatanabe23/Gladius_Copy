@@ -30,6 +30,7 @@ public class Assault : IEnemy
         else { Rb2d = Enemy.AddComponent<Rigidbody2D>(); }
 
         Rb2d.gravityScale = 0f;
+        Angle = 0f;
         if (Controller.MovementType == EnemyMovementType.ZShapedMeandering) { IsMoveUp = Transform.position.y <= 0f; }
         else if (Controller.MovementType == EnemyMovementType.FollowTerrain)
         {
