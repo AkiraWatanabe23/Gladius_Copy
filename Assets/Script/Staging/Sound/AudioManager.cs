@@ -6,8 +6,9 @@ using UnityEngine;
 /// <summary> ゲーム内のサウンド管理クラス </summary>
 public class AudioManager
 {
+    private static GameObject _audioObject = default;
     private static AudioSource _bgmSource = default;
-    private static AudioSource _seSource = default;
+    private static List<AudioSource> _seSources = default;
 
     private static AudioHolder _soundHolder = default;
 
@@ -16,7 +17,7 @@ public class AudioManager
     private readonly Queue<AudioClip> _seQueue = new();
 
     public AudioSource BGMSource => _bgmSource;
-    public AudioSource SeSource => _seSource;
+    public List<AudioSource> SeSource => _seSources;
 
     public static AudioManager Instance
     {
@@ -31,27 +32,24 @@ public class AudioManager
     /// <summary> AudioManagerの初期化処理 </summary>
     private static void Init()
     {
-        var sound = new GameObject("AudioManager");
+        _audioObject = new GameObject("AudioManager");
         _instance = new();
 
         var bgm = new GameObject("BGM");
         _bgmSource = bgm.AddComponent<AudioSource>();
-        bgm.transform.parent = sound.transform;
+        bgm.transform.parent = _audioObject.transform;
 
         var se = new GameObject("SE");
-        _seSource = se.AddComponent<AudioSource>();
-        se.transform.parent = sound.transform;
+        _seSources = new() { se.AddComponent<AudioSource>() };
+        se.transform.parent = _audioObject.transform;
 
         _soundHolder = Resources.Load<AudioHolder>("AudioHolder");
 
-        var defaultBGMVolume = 1f;
-        var defaultSEVolume = 1f;
-
         //音量設定
-        _bgmSource.volume = defaultBGMVolume;
-        _seSource.volume = defaultSEVolume;
+        _bgmSource.volume = 1f;
+        _seSources[0].volume = 1f;
 
-        Object.DontDestroyOnLoad(sound);
+        Object.DontDestroyOnLoad(_audioObject);
     }
 
     /// <summary> BGM再生 </summary>
@@ -87,14 +85,29 @@ public class AudioManager
         _seQueue.Enqueue(_soundHolder.SEClips[index].SEClip);
 
         //再生するSEがあれば、最後に追加したSEを再生
-        if (_seQueue.Count > 0 && !_seSource.isPlaying) { _seSource.PlayOneShot(_seQueue.Dequeue()); }
+        if (_seQueue.Count > 0)
+        {
+            for (int i = 0; i < _seSources.Count; i++)
+            {
+                if (!_seSources[i].isPlaying) { _seSources[i].PlayOneShot(_seQueue.Dequeue()); return; }
+            }
+
+            var newSource = new GameObject("SE");
+            _seSources.Add(newSource.AddComponent<AudioSource>());
+
+            _seSources[^1].PlayOneShot(_seQueue.Dequeue());
+        }
     }
 
     /// <summary> BGMの再生を止める </summary>
     public void StopBGM() => _bgmSource.Stop();
 
     /// <summary> SEの再生を止める </summary>
-    public void StopSE() { _seSource.Stop(); _seQueue.Clear(); }
+    public void StopSE()
+    {
+        foreach (var source in _seSources) { source.Stop(); }
+        _seQueue.Clear();
+    }
 
     /// <summary> 指定したシーンのBGMを取得する </summary>
     public AudioClip GetBGMClip(BGMType bgm)
@@ -121,12 +134,12 @@ public class AudioManager
 
     public IEnumerator SEPlayingWait()
     {
-        yield return new WaitUntil(() => !_seSource.isPlaying);
+        yield return new WaitUntil(() => !_seSources.isPlaying);
     }
 
     public async Task SEPlaying()
     {
-        while (_seSource.isPlaying) { await Task.Yield(); }
+        while (_seSources.isPlaying) { await Task.Yield(); }
     }
 
     #region 以下Audio系パラメーター設定用の関数
@@ -134,6 +147,6 @@ public class AudioManager
     public void VolumeSettingBGM(float value) => _bgmSource.volume = value;
 
     /// <summary> SEの音量設定 </summary>
-    public void VolumeSettingSE(float value) => _seSource.volume = value;
+    public void VolumeSettingSE(float value) => _seSources.volume = value;
     #endregion
 }
