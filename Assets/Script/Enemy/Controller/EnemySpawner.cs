@@ -35,9 +35,6 @@ public class SpawnParameter
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Tooltip("生成位置")]
-    [SerializeField]
-    private Transform _spawnMuzzle = default;
     [Tooltip("画面内で生成するか")]
     [SerializeField]
     private bool _spawnInScreen = true;
@@ -65,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
     private Transform _cameraRightSide = default;
     private int _spawnCounter = 0;
 
-    protected Vector2 SpawnPos => _spawnMuzzle.position;
     protected float SpawnInterval => _isFirstSpawning ? _spawnParam.SpawnInterval : _spawnParam.FirstSpawnInterval;
 
     /// <summary> 計測中 </summary>
@@ -73,8 +69,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void Initialize(EnemyManager enemyManager)
     {
-        if (_spawnMuzzle == null) { _spawnMuzzle = transform; }
-        
         _enemyManager = enemyManager;
         _enemyPrefab = _enemyManager.EnemyPrefabsDict[_spawnParam.MoveType];
         _cameraRightSide = GameObject.Find("Main Camera").GetComponent<CameraController>().RightSpawnPoint;
@@ -86,12 +80,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!_spawnInScreen) { return; }
 
-        if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
-        {
-            var sqrDistance = (GameManager.Instance.PlayerTransform.position - transform.position).sqrMagnitude;
-            if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
-        }
-        else if (transform.position.x <= _cameraRightSide.position.x) { _isEnterArea = true; }
+        var targetPos =
+            _spawnParam.MoveType != EnemyMovementType.RightAngle ?
+            _cameraRightSide.position : GameManager.Instance.PlayerTransform.position;
+
+        var sqrDistance = (targetPos - transform.position).sqrMagnitude;
+        if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
 
         if (!_isEnterArea) { return; }
         _spawnTimer += deltaTime;
@@ -119,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
             if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
-                enemy.transform.position = SpawnPos;
+                enemy.transform.position = transform.position;
 
                 var enemySystem = enemy.GetComponent<EnemyController>();
                 enemySystem.MovementType = _spawnParam.MoveType;
