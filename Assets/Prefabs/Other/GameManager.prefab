@@ -46,11 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clearConditions: []
   _timer: 0
-  _bgmVolume: 0.5
-  _seVolume: 0.5
+  _cameraController: {fileID: 0}
   _player: {fileID: 0}
   _enemyManager: {fileID: 0}
   _itemSpawner: {fileID: 0}
+  _uiController: {fileID: 0}
   _bulletHolder:
     _initialBullets:
     - <BulletType>k__BackingField: 1
@@ -68,6 +68,16 @@ MonoBehaviour:
     _plusShots:
     - <ShotType>k__BackingField: 1
       <BulletPrefab>k__BackingField: {fileID: 7397408549838936520, guid: 6ad33d2a37d45b64a8b8b215cfdc53ce, type: 3}
+    - <ShotType>k__BackingField: 2
+      <BulletPrefab>k__BackingField: {fileID: 8960056890178546664, guid: f3be8d4197c5b354e8557e57898a6b22, type: 3}
+    - <ShotType>k__BackingField: 3
+      <BulletPrefab>k__BackingField: {fileID: 2352230199886100691, guid: 574880b1cf316a946b6b1442b0a787a2, type: 3}
+    - <ShotType>k__BackingField: 4
+      <BulletPrefab>k__BackingField: {fileID: 4711684954309567067, guid: 4b66b7bfaa14c4448872e1919101b759, type: 3}
+    - <ShotType>k__BackingField: 5
+      <BulletPrefab>k__BackingField: {fileID: 5921464289701798954, guid: 6644b648f295e5b4f912cb002bf263a9, type: 3}
+    - <ShotType>k__BackingField: 6
+      <BulletPrefab>k__BackingField: {fileID: 3532635984654770327, guid: 5fa8bedceddd5de4ba7d8b11637ab118, type: 3}
     _enemyBullet: {fileID: 4270151735557775222, guid: 870e9abc34d99994e96425c2c7b28180, type: 3}
   _enemyDeadCount: 0
   _shotGunCount: 3
