@@ -42,6 +42,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         _enemySystem.Controller = this;
         _enemySystem.Enemy = gameObject;
         _enemySystem.Transform = gameObject.transform;
+
+        if (_enemyType == EnemyType.Boss) { GameManager.Instance.CameraController.AppearBoss(); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

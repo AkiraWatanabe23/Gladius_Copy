@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
             return _playerTransform;
         }
     }
+    public CameraController CameraController => _cameraController;
     public UIController UIController => _uiController;
     public GameUpdate InGameUpdate => _inGameUpdate;
     public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
@@ -105,12 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else { Destroy(gameObject); }
+        if (Instance == null) { Instance = this; }
     }
 
     private IEnumerator Start()

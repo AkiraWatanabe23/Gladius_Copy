@@ -72,6 +72,8 @@ public class CameraController : MonoBehaviour, IPause
         _transform.Translate(Vector2.right * _cameraMoveSpeed * deltaTime);
     }
 
+    public void AppearBoss() => _isAppearedBoss = true;
+
     public void Pause() => _isPause = true;
 
     public void Resume() => _isPause = false;
