@@ -91,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 var targetPos = _cameraRightSide.position;
-                _isEnterArea = targetPos.x >= transform.position.x;
+                _isEnterArea = targetPos.x >= transform.position.x - _spawnSearchRadius;
             }
             return;
         }
