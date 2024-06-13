@@ -2076,7 +2076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._moveType
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._spawnCount
