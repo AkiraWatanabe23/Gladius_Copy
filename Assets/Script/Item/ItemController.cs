@@ -11,6 +11,6 @@ public class ItemController : MonoBehaviour
     /// <summary> 画面外に出たら削除 </summary>
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 }
