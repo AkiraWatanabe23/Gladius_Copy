@@ -20,12 +20,9 @@ public class RightAngle : IEnemyGeneration
             assault.Rb2d.velocity = Vector2.up * enemy.MoveSpeed;
             assault.IsFinishMoveUp = MovementSearch(assault);
         }
-        else
-        {
-            assault.Rb2d.velocity = Vector2.left * enemy.MoveSpeed;
-        }
+        else { assault.Rb2d.velocity = Vector2.left * enemy.MoveSpeed; }
     }
 
     private bool MovementSearch(Assault assault)
-        => Mathf.Abs(assault.Transform.position.y - EnemyManager.PlayerTransform.position.y) < 0.1f;
+        => Mathf.Abs(assault.Transform.position.y - EnemyManager.PlayerTransform.position.y) < 0.05f;
 }
