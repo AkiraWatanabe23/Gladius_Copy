@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour, IPause
     private Transform _targetTransform = default;
     private float _deadTimer = 0f;
     private Transform _transform = default;
+    private bool _isAppearedBoss = false;
 
     protected bool IsEnterDeadZone
     {
@@ -58,6 +59,7 @@ public class CameraController : MonoBehaviour, IPause
 
     public void OnUpdate(float deltaTime)
     {
+        if (_isAppearedBoss) { return; }
         if (_isPause || !_isCameraMove) { return; }
         CameraMovement(deltaTime);
 
