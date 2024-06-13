@@ -65,5 +65,7 @@ MonoBehaviour:
     <EnemyPrefab>k__BackingField: {fileID: 4663879061027675782, guid: 58279b32b438d194f894d7a8df44983c, type: 3}
   - <MovementType>k__BackingField: 7
     <EnemyPrefab>k__BackingField: {fileID: 6321104828711791481, guid: af84fc7b1e6734746a525809b9b80d5f, type: 3}
+  - <MovementType>k__BackingField: 8
+    <EnemyPrefab>k__BackingField: {fileID: 1351310110263445583, guid: af1f25c493dfff441a16716e29c6309f, type: 3}
   _enemySpawners: []
   _enemies: []
