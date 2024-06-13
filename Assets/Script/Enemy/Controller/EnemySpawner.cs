@@ -119,7 +119,7 @@ public class EnemySpawner : MonoBehaviour
             if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
-                enemy.transform.position = new(_cameraRightSide.position.x - 1.5f, transform.position.y, 0f);
+                enemy.transform.position = new(_cameraRightSide.position.x - 0.2f, transform.position.y, 0f);
 
                 var enemySystem = enemy.GetComponent<EnemyController>();
                 enemySystem.MovementType = _spawnParam.MoveType;
