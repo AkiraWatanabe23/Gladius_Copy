@@ -84,17 +84,16 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
             {
-                Debug.Log("asdf");
                 var targetPos = GameManager.Instance.PlayerTransform.position;
                 var sqrDistance = (targetPos - transform.position).sqrMagnitude;
                 if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
             }
             else
             {
-                Debug.Log("qwerty");
                 var targetPos = _cameraRightSide.position;
                 _isEnterArea = targetPos.x >= transform.position.x;
             }
+            return;
         }
         _spawnTimer += deltaTime;
         if (IsMeasuring) { return; }
@@ -121,7 +120,8 @@ public class EnemySpawner : MonoBehaviour
             if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
-                enemy.transform.position = new(_cameraRightSide.position.x - 0.2f, transform.position.y, 0f);
+                enemy.transform.position = _spawnParam.MoveType == EnemyMovementType.RightAngle ?
+                    transform.position : new(_cameraRightSide.position.x - 0.2f, transform.position.y, 0f);
 
                 var enemySystem = enemy.GetComponent<EnemyController>();
                 enemySystem.MovementType = _spawnParam.MoveType;
