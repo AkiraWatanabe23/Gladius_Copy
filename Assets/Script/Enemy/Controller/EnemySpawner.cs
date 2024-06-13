@@ -80,14 +80,20 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!_spawnInScreen) { return; }
 
-        var targetPos =
-            _spawnParam.MoveType != EnemyMovementType.RightAngle ?
-            _cameraRightSide.position : GameManager.Instance.PlayerTransform.position;
-
-        var sqrDistance = (targetPos - transform.position).sqrMagnitude;
-        if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
-
-        if (!_isEnterArea) { return; }
+        if (!_isEnterArea)
+        {
+            if (_spawnParam.MoveType != EnemyMovementType.RightAngle)
+            {
+                var targetPos = _cameraRightSide.position;
+                _isEnterArea = targetPos.x >= transform.position.x;
+            }
+            else
+            {
+                var targetPos = GameManager.Instance.PlayerTransform.position;
+                var sqrDistance = (targetPos - transform.position).sqrMagnitude;
+                if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
+            }
+        }
         _spawnTimer += deltaTime;
         if (IsMeasuring) { return; }
 
@@ -113,7 +119,12 @@ public class EnemySpawner : MonoBehaviour
             if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
-                enemy.transform.position = transform.position;
+
+                var spawnPos = _cameraRightSide.position;
+                //位置調整用に1.5f
+                spawnPos.x -= 1.5f;
+                spawnPos.y = transform.position.y;
+                enemy.transform.position = spawnPos;
 
                 var enemySystem = enemy.GetComponent<EnemyController>();
                 enemySystem.MovementType = _spawnParam.MoveType;
