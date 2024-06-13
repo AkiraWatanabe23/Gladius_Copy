@@ -82,16 +82,16 @@ public class EnemySpawner : MonoBehaviour
 
         if (!_isEnterArea)
         {
-            if (_spawnParam.MoveType != EnemyMovementType.RightAngle)
-            {
-                var targetPos = _cameraRightSide.position;
-                _isEnterArea = targetPos.x >= transform.position.x;
-            }
-            else
+            if (_spawnParam.MoveType == EnemyMovementType.RightAngle)
             {
                 var targetPos = GameManager.Instance.PlayerTransform.position;
                 var sqrDistance = (targetPos - transform.position).sqrMagnitude;
                 if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
+            }
+            else
+            {
+                var targetPos = _cameraRightSide.position;
+                _isEnterArea = targetPos.x >= transform.position.x;
             }
         }
         _spawnTimer += deltaTime;
