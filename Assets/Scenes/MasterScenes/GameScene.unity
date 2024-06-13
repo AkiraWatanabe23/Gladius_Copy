@@ -3198,6 +3198,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1236224998552563911, guid: 3ac78fa09e63126469ca2dba779c7651, type: 3}
+      propertyPath: _enemyPrefabs.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236224998552563911, guid: 3ac78fa09e63126469ca2dba779c7651, type: 3}
+      propertyPath: _enemyPrefabs.Array.data[7].<EnemyPrefab>k__BackingField
+      value: 
+      objectReference: {fileID: 1351310110263445583, guid: af1f25c493dfff441a16716e29c6309f, type: 3}
+    - target: {fileID: 1236224998552563911, guid: 3ac78fa09e63126469ca2dba779c7651, type: 3}
+      propertyPath: _enemyPrefabs.Array.data[7].<MovementType>k__BackingField
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3164771058209462060, guid: 3ac78fa09e63126469ca2dba779c7651, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

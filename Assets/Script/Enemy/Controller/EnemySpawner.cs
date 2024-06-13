@@ -31,6 +31,8 @@ public class SpawnParameter
     public int SpawnCount => _spawnCount;
     public int MaxSpawnCount => _maxSpawnCount;
     public PathDrawer TerrainPath => _terrainPath;
+
+    public void SetMaxSpawnCount(int maxSpawnCount) => _maxSpawnCount = maxSpawnCount;
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -74,6 +76,7 @@ public class EnemySpawner : MonoBehaviour
         _cameraRightSide = GameObject.Find("Main Camera").GetComponent<CameraController>().RightSpawnPoint;
 
         _spawnParam.TerrainPath.Initialize();
+        if (_spawnParam.MoveType == EnemyMovementType.Boss) { _spawnParam.SetMaxSpawnCount(1); }
     }
 
     public void Measuring(float deltaTime)
@@ -171,7 +174,8 @@ public enum EnemyMovementType
     ZShapedMeandering,
     FollowTerrain,
     CrawlGround,
-    Jumping
+    Jumping,
+    Boss
 }
 
 public enum SpawnSearchDirection
