@@ -30,10 +30,21 @@ public class Assault : IEnemy
         else { Rb2d = Enemy.AddComponent<Rigidbody2D>(); }
 
         Rb2d.gravityScale = 0f;
+        FlagParamReset();
+
         if (Controller.MovementType == EnemyMovementType.ZShapedMeandering) { IsMoveUp = Transform.position.y <= 0f; }
         else if (Controller.MovementType == EnemyMovementType.FollowTerrain)
         {
             Controller.PathDrawer.Initialize();
         }
+    }
+
+    private void FlagParamReset()
+    {
+        IsFindPlayer = false;
+        IsFinishMoveUp = false;
+        IsMoveUp = false;
+        IsChase = false;
+        IsRotate = false;
     }
 }
