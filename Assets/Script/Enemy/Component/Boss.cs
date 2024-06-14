@@ -4,8 +4,11 @@ public class Boss : IEnemy
 {
     [SerializeField]
     private float _attackInterval = 1f;
+    [SerializeField]
+    private Transform _muzzle = default;
 
     public float AttackInterval => _attackInterval;
+    public Transform Muzzle => _muzzle;
 
     public bool IsMeasuring { get; set; }
     public Transform PlayerTransform { get; set; }
