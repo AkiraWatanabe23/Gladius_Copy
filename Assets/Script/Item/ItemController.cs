@@ -13,4 +13,14 @@ public class ItemController : MonoBehaviour
     {
         GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Fan _)) { return; }
+        else if (collision.gameObject.TryGetComponent(out PlayerController _))
+        {
+            _itemSystem.PlayEffect();
+            GameManager.Instance.ObjectPool.RemoveObject(gameObject);
+        }
+    }
 }
