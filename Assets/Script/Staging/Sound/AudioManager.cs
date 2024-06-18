@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using Debug = UnityEngine.Debug;
+#endif
+
 /// <summary> ゲーム内のサウンド管理クラス </summary>
 public class AudioManager
 {
@@ -54,7 +58,7 @@ public class AudioManager
 
     /// <summary> BGM再生 </summary>
     /// <param name="bgm"> どのBGMか </param>
-    /// <param name="isLoop"> ループ再生するか </param>
+    /// <param name="isLoop"> ループ再生するか（基本的にループする） </param>
     public void PlayBGM(BGMType bgm, bool isLoop = true)
     {
         var index = -1;
@@ -63,6 +67,7 @@ public class AudioManager
             index++;
             if (clip.BGMType == bgm) { break; }
         }
+        if (index >= _soundHolder.BGMClips.Length) { Debug.LogError("指定したBGMが見つかりませんでした"); return; }
 
         _bgmSource.Stop();
 
@@ -81,6 +86,7 @@ public class AudioManager
             index++;
             if (clip.SEType == se) { break; }
         }
+        if (index >= _soundHolder.SEClips.Length) { Debug.LogError("指定したSEが見つかりませんでした"); return; }
         //再生するSEを追加
         _seQueue.Enqueue(_soundHolder.SEClips[index].SEClip);
 
