@@ -21,7 +21,8 @@ public class CrawlGround : IEnemyGeneration
     private IEnumerator Aiming(Shot shot)
     {
         var muzzleDirection = (shot.PlayerTransform.position - shot.Transform.position).normalized;
-        shot.Transform.forward = muzzleDirection;
+        shot.ShotMuzzle.position = shot.Transform.position;
+        shot.ShotMuzzle.forward = muzzleDirection;
         shot.AimingTimer += Time.deltaTime;
 
         yield return new WaitUntil(() => shot.AimingTimer >= shot.AttackInterval);
