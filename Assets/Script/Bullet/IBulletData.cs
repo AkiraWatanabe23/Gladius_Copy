@@ -70,34 +70,25 @@ public interface IBulletData
     public int AttackValue { get; set; }
     /// <summary> 自身を撃ったオブジェクトのLayer </summary>
     public int GunnerLayer { get; set; }
-    public Vector2 MoveDirection { get; set; }
+    public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
     /// <summary> 初期化関数 </summary>
-    public void Init(GameObject go, float speed, int attackValue, LayerMask gunner, Vector2 direction)
+    public void Init(GameObject go, float speed, int attackValue, LayerMask gunner, Vector2 forward)
     {
         BulletObj = go;
         Transform = BulletObj.transform;
+        Transform.forward = forward;
         Speed = speed;
         AttackValue = attackValue;
         GunnerLayer = gunner;
-        MoveDirection = direction;
+        MoveForward = forward;
 
         if (go.TryGetComponent(out Rigidbody2D rb2d)) { Rb2d = rb2d; }
         else { Rb2d = go.AddComponent<Rigidbody2D>(); }
 
         Rb2d.isKinematic = true;
         Rb2d.gravityScale = 0f;
-
-        if (MoveDirection == Vector2.zero)
-        {
-            Vector2 initialDirection = GameManager.Instance.PlayerTransform.position - Transform.position;
-            initialDirection.Normalize();
-            MoveDirection = initialDirection;
-
-            float angle = Mathf.Atan2(initialDirection.y, initialDirection.x) * Mathf.Rad2Deg;
-            Transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
-        }
     }
 
     public void Movement();

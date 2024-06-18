@@ -174,7 +174,7 @@ public class PlayerAttack : PlayerSystemBase
             }
             bullet.transform.position = _spawnMuzzles[i].position;
             var bulletData = bullet.GetComponent<BulletController>();
-            bulletData.Initialize(_attackValue, _player.layer);
+            bulletData.Initialize(_attackValue, _player.layer, _spawnMuzzles[i].forward);
         }
     }
 
