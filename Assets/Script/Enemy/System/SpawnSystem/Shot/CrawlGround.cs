@@ -34,10 +34,10 @@ public class CrawlGround : IEnemyGeneration
         var bulletPrefab
             = GameManager.Instance.ObjectPool.SpawnObject(GameManager.Instance.BulletHolder.EnemyBullet);
 
-        var spawnPos = shot.ShotMuzzle == null ? shot.Transform.position : shot.ShotMuzzle.position;
-        bulletPrefab.transform.position = spawnPos;
+        var spawnTransform = shot.ShotMuzzle == null ? shot.Transform : shot.ShotMuzzle;
+        bulletPrefab.transform.position = spawnTransform.position;
 
         var bulletData = bulletPrefab.GetComponent<BulletController>();
-        bulletData.Initialize(shot.Controller.AttackValue, shot.Enemy.layer);
+        bulletData.Initialize(shot.Controller.AttackValue, shot.Enemy.layer, spawnTransform.forward);
     }
 }

@@ -14,7 +14,7 @@ public class Support : IBulletData
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public int GunnerLayer { get; set; }
-    public Vector2 MoveDirection { get; set; }
+    public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
     public void Movement()
@@ -29,10 +29,10 @@ public class Support : IBulletData
 
         var offset = _player.position - Transform.position;
         //playerとの位置差が一定以上離れたら動く
-        MoveDirection =
+        MoveForward =
             offset.sqrMagnitude >= GameManager.Instance.SupportMoveSqrtDistance * _supportIndex ?
             offset : Vector2.zero;
-        Rb2d.velocity = MoveDirection * Speed;
+        Rb2d.velocity = MoveForward * Speed;
     }
 
     public void Hit(Collider2D collision) { }

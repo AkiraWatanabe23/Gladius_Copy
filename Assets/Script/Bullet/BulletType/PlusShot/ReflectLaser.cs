@@ -12,12 +12,12 @@ public class ReflectLaser : IBulletData
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public int GunnerLayer { get; set; }
-    public Vector2 MoveDirection { get; set; }
+    public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
     public void Movement()
     {
-        Rb2d.velocity = MoveDirection * Speed;
+        Rb2d.velocity = MoveForward * Speed;
     }
 
     public void Hit(Collider2D collision)
@@ -25,7 +25,7 @@ public class ReflectLaser : IBulletData
         if (collision.gameObject.TryGetComponent(out Ground _))
         {
             var reflect = Vector2.Reflect(collision.gameObject.transform.position, Vector2.up);
-            MoveDirection = reflect;
+            MoveForward = reflect;
         }
         else
         {

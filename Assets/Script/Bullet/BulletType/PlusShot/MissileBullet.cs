@@ -8,12 +8,12 @@ public class MissileBullet : IBulletData
     public float Speed { get; set; }
     public int AttackValue { get; set; }
     public int GunnerLayer { get; set; }
-    public Vector2 MoveDirection { get; set; }
+    public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
     public void Movement()
     {
-        Rb2d.velocity = MoveDirection * Speed;
+        Rb2d.velocity = MoveForward * Speed;
     }
 
     public void Hit(Collider2D collision)
@@ -44,6 +44,6 @@ public class MissileBullet : IBulletData
         Transform.localEulerAngles = bulletRot;
 
         //弾の移動方向を更新
-        MoveDirection = hitTarget.transform.right;
+        MoveForward = hitTarget.transform.right;
     }
 }

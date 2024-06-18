@@ -14,17 +14,11 @@ public class BulletController : MonoBehaviour
 
     public IBulletData BulletData => _bulletData;
 
-    public void Initialize(int attackValue, LayerMask gunner)
+    public void Initialize(int attackValue, LayerMask gunner, Vector2 forward)
     {
-        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, Vector2.right);
-        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
+        if (forward == Vector2.zero) { forward = Vector2.right; }
 
-        PlayInitAudio();
-    }
-
-    public void Initialize(int attackValue, LayerMask gunner, Vector2 initialDirection)
-    {
-        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, initialDirection);
+        _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, forward);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
 
         PlayInitAudio();
@@ -32,17 +26,20 @@ public class BulletController : MonoBehaviour
 
     private void PlayInitAudio()
     {
-        var bulletSE = SEType.None;
-        if (_bulletData is DefautBullet) { bulletSE = SEType.DefaultShot; }
-        else if (_bulletData is LaserBullet) { bulletSE = SEType.LaserShot; }
-        else if (_bulletData is ChargeBeamBullet) { bulletSE = SEType.ChargeBeam; }
-        else if (_bulletData is HomingBullet) { bulletSE = SEType.Homing; }
-        else if (_bulletData is ShotGun) { bulletSE = SEType.ShotGun; }
-        else if (_bulletData is BombBullet) { bulletSE = SEType.ShotFire; }
-        else if (_bulletData is MissileBullet) { bulletSE = SEType.MissileFire; }
-        else if (_bulletData is ReflectLaser) { bulletSE = SEType.ReflectFire; }
-        else if (_bulletData is Melee) { bulletSE = SEType.MeleeMoving; }
-        else if (_bulletData is Barrier) { bulletSE = SEType.Barrier; }
+        var bulletSE = _bulletData switch
+        {
+            DefautBullet => SEType.DefaultShot,
+            LaserBullet => SEType.LaserShot,
+            ChargeBeamBullet => SEType.ChargeBeam,
+            HomingBullet => SEType.Homing,
+            ShotGun => SEType.ShotGun,
+            BombBullet => SEType.ShotFire,
+            MissileBullet => SEType.MissileFire,
+            ReflectLaser => SEType.ReflectFire,
+            Melee => SEType.MeleeMoving,
+            Barrier => SEType.Barrier,
+            _ => SEType.None
+        };
 
         AudioManager.Instance.PlaySE(bulletSE);
     }

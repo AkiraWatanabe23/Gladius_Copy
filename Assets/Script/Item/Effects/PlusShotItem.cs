@@ -37,6 +37,6 @@ public class PlusShotItem : IGameItem
         support.transform.position = GameManager.Instance.PlayerTransform.position;
 
         var bulletData = support.GetComponent<BulletController>();
-        bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer);
+        bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer, Vector2.zero);
     }
 }
