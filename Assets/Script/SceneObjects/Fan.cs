@@ -3,11 +3,11 @@
 public class Fan : MonoBehaviour
 {
     [Header("以下自機の赤色の枠に関するデータ")]
-    [Header("扇の角度")]
+    [Header("扇の半径")]
     [Min(1f)]
     [SerializeField]
     private float _radius = 1f;
-    [Header("扇の半径")]
+    [Header("扇の角度")]
     [Range(0f, 90f)]
     [SerializeField]
     private float _angle = 0f;
