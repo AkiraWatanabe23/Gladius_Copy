@@ -59,6 +59,22 @@ public class CameraController : MonoBehaviour, IPause
 
     public void OnUpdate(float deltaTime)
     {
+        if (_targetTransform.position.y >= _upperDeadPoint.position.y)
+        {
+            var position = _targetTransform.position;
+            position.y = _upperDeadPoint.position.y;
+
+            _targetTransform.position = position;
+        }
+        else if (_targetTransform.position.y <= _lowerDeadPoint.position.y)
+        {
+            var position = _targetTransform.position;
+            position.y = _lowerDeadPoint.position.y;
+
+            _targetTransform.position = position;
+        }
+
+
         if (_isAppearedBoss) { return; }
         if (_isPause || !_isCameraMove) { return; }
         CameraMovement(deltaTime);

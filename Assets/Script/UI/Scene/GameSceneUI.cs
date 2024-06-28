@@ -84,7 +84,7 @@ public class GameSceneUI : ISceneUI
         if (_healthData.HealthType == HealthType.HP)
         {
             _lifeTexts.SetActive(true);
-            if (_healthText != null) { _healthText.text = $"{_healthData.HP.Life} / {_healthData.HP.MaxLife}"; }
+            if (_healthText != null) { OnUpdateHealthText($"{_healthData.HP.Life} / {_healthData.HP.MaxLife}"); }
 
             _aircraftImages.SetActive(false);
         }
@@ -142,4 +142,6 @@ public class GameSceneUI : ISceneUI
         }
         _shotKindImages[index].color = Color.gray;
     }
+
+    public void OnUpdateHealthText(string text) { _healthText.text = text; }
 }

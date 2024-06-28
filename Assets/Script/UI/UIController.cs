@@ -40,4 +40,9 @@ public class UIController : MonoBehaviour, IPause
     {
         if (_sceneUI is GameSceneUI inGame) { inGame.BulletChange(index); }
     }
+
+    public void OnUpdateHealth(string text)
+    {
+        if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateHealthText(text); }
+    }
 }
