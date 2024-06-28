@@ -77,6 +77,8 @@ public class PlayerHealth :  PlayerSystemBase
         if (_healthData.HealthType == HealthType.HP)
         {
             _hpInstance.SettingLife(_hpInstance.Life - value);
+            GameManager.Instance.UIController.OnUpdateHealth($"{_hpInstance.Life} / {_hpInstance.MaxLife}");
+
             if (_hpInstance.Life <= 0) { Dead(); }
         }
         else if (_healthData.HealthType == HealthType.RemainingAircraft)

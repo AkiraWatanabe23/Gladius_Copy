@@ -51,7 +51,6 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"{collision.gameObject.layer}, {_bulletData.GunnerLayer}");
         //衝突対象が攻撃対象でなければ無視
         if (collision.gameObject == null) { return; }
         if (collision.gameObject.TryGetComponent(out Fan _)) { return; }

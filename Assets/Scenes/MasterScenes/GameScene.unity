@@ -607,7 +607,7 @@ Transform:
   m_GameObject: {fileID: 281283971}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3200,7 +3200,7 @@ Transform:
   m_GameObject: {fileID: 1318728604}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3333,26 +3333,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: _health._healthData
-      value: 520568378699022336
+      value: 520568829755523074
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[520568378699022336]
       value: Assembly-CSharp RemainingAircraft
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523072]
+      value: Assembly-CSharp HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523073]
+      value: Assembly-CSharp RemainingAircraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523074]
+      value: Assembly-CSharp HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[520568378699022336].IsValid
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523072]._maxLife
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523074]._maxLife
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[4585279139155804162]._maxLife
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523072]._currentLife
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523074]._currentLife
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[520568378699022336]._remainingAircraft
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523073]._remainingAircraft
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[520568378699022336]._maxRemainingAircraft
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: managedReferences[520568829755523073]._maxRemainingAircraft
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633543, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
