@@ -8,7 +8,7 @@ public class PlayerAttack : PlayerSystemBase
 {
     [Header("弾を射出するMuzzle")]
     [SerializeField]
-    private List<Transform> _spawnMuzzles = default;
+    private Transform _spawnMuzzle = default;
     [Header("攻撃力")]
     [SerializeField]
     private int _attackValue = 1;
@@ -142,7 +142,7 @@ public class PlayerAttack : PlayerSystemBase
             for (int i = 0; i < shotCount; i++)
             {
                 var bullet = GameManager.Instance.ObjectPool.SpawnObject(spawnBullet);
-                bullet.transform.position = _spawnMuzzles[0].position;
+                bullet.transform.position = _spawnMuzzle.position;
 
                 var randomAngle = UnityEngine.Random.Range((int)-_fanCollider.Angle, (int)_fanCollider.Angle);
                 var rotation = bullet.transform.localEulerAngles;
@@ -155,26 +155,31 @@ public class PlayerAttack : PlayerSystemBase
             return;
         }
 
-        if (_spawnMuzzles == null || _spawnMuzzles.Count == 0) { return; }
-        for (int i = 0; i < _spawnMuzzles.Count; i++)
+        if (_spawnMuzzle == null) { return; }
+        var attackCount = _plusShotBullet != PlusShotType.None ? 2 : 1;
+        for (int i = 0; i < attackCount; i++)
         {
             GameObject bullet = null;
             if (i == 0)
             {
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_bullets[_bulletIndex]);
             }
-            else if (i < 0 && _plusShotBullet != PlusShotType.None)
+            else if (_plusShotBullet != PlusShotType.None)
             {
                 if (_plusShotBullet == PlusShotType.SupportShot) { SupportShot(); return; }
 
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
-                if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzles[i].position); continue; }
-                else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzles[i].position); continue; }
+                if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzle.position); }
+                else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzle.position); }
             }
-            bullet.transform.position = _spawnMuzzles[i].position;
+            bullet.transform.position = _spawnMuzzle.position;
             var bulletData = bullet.GetComponent<BulletController>();
-            bulletData.Initialize(_attackValue, _player.layer, _spawnMuzzles[i].forward);
+            bulletData.Initialize(_attackValue, _player.layer, _spawnMuzzle.forward);
+
+            if (attackCount == 1) { break; }
+            //WaitForSec的なもの
+            for (float interval = 0f; interval <= 0.3f; interval += Time.deltaTime) { }
         }
     }
 
@@ -235,7 +240,7 @@ public class PlayerAttack : PlayerSystemBase
         Consts.Log("shot");
         var bullet = GameManager.Instance.ObjectPool.SpawnObject(
             GameManager.Instance.BulletHolder.BulletsDictionary[InitialBulletType.ChargeBeam]);
-        bullet.transform.position = _spawnMuzzles[0].position;
+        bullet.transform.position = _spawnMuzzle.position;
 
         var bulletData = bullet.GetComponent<BulletController>();
         bulletData.Initialize(_attackValue, _player.layer, Vector2.right);

@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
     private EnemyAnnihilated _enemyAnnihilated = default;
+    private DefeatBoss _defeatBoss = default;
 
     #region public Properties
     public IClearRule[] ClearConditions => _clearConditions;
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
     public UIController UIController => _uiController;
     public GameUpdate InGameUpdate => _inGameUpdate;
     public EnemyAnnihilated EnemyAnnihilated => _enemyAnnihilated;
+    public DefeatBoss DefeatBoss => _defeatBoss;
     public BulletHolder BulletHolder => _bulletHolder;
     public Transform EnemyDeadPos { get; set; }
     public int EnemyDeadCount
@@ -88,7 +90,7 @@ public class GameManager : MonoBehaviour
             _enemyDeadCount = value;
             var remainder = _enemyDeadCount % _itemSpawner.ItemSpawnMultiple;
 
-            if (remainder == 0) { _itemSpawner.Spawn(remainder, EnemyDeadPos); }
+            if (remainder == 0) { _itemSpawner.Spawn(EnemyDeadPos); }
         }
     }
     public int ShotGunCount => _shotGunCount;
@@ -148,6 +150,10 @@ public class GameManager : MonoBehaviour
             else if (_clearConditions[i] is Survival || _clearConditions[i] is TimeAttack)
             {
                 _isTimeMeasuring = true;
+            }
+            else if (_clearConditions[i] is DefeatBoss)
+            {
+                _defeatBoss = _clearConditions[i] as DefeatBoss;
             }
         }
     }

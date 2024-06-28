@@ -9,5 +9,7 @@ public class DefeatBoss : IClearRule
 
     public void Init() { }
 
-    public bool ClearCondition() => _stageBoss.HP <= 0;
+    public bool ClearCondition() => _stageBoss != null && _stageBoss.HP <= 0;
+
+    public void SettingBoss(EnemyController boss) => _stageBoss = boss;
 }

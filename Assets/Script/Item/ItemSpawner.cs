@@ -12,14 +12,17 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> _itemPrefabs = default;
 
+    private int _spawnCounter = 0;
+
     public int ItemSpawnMultiple => _itemSpawnMultiple;
 
-    public void Spawn(int index, Transform spawnPos)
+    public void Spawn(Transform spawnPos)
     {
         if (_itemPrefabs == null) { Debug.Log("no item settings"); return; }
-        if (index + 1 >= _itemPrefabs.Count) { index = 0; }
+        if (_spawnCounter + 1 >= _itemPrefabs.Count) { _spawnCounter = 0; }
 
-        var spawnItem = Instantiate(_itemPrefabs[index], spawnPos.position, spawnPos.rotation);
+        _spawnCounter++;
+        var spawnItem = Instantiate(_itemPrefabs[_spawnCounter - 1], spawnPos.position, spawnPos.rotation);
         if (spawnItem.TryGetComponent(out ItemController item)) { item.ItemSystem.Initialize(); }
     }
 }

@@ -32,10 +32,13 @@ public class BossSystem : EnemySystemBase
         if (_bossEnemy == null || !_bossEnemy.Enemy.activeSelf) { return; }
 
         //縦方向のみPlayerに合わせて移動
-        var velocity = _bossEnemy.Transform.position;
-        velocity.y = _bossEnemy.PlayerTransform.position.y;
+        if (_bossEnemy.IsMove)
+        {
+            var velocity = _bossEnemy.Transform.position;
+            velocity.y = _bossEnemy.PlayerTransform.position.y;
 
-        _bossEnemy.Transform.position = velocity;
+            _bossEnemy.Transform.position = velocity;
+        }
 
         AttackMeasuring(_bossEnemy);
     }
