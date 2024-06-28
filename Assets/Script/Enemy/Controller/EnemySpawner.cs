@@ -120,7 +120,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_spawnCounter >= _spawnParam.MaxSpawnCount) { yield break; }
 
-            if (/*GameManager.Instance.EnemyAnnihilated != null &&*/ GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
+            if (GameManager.Instance.EnemyAnnihilated == null || GameManager.Instance.EnemyAnnihilated.SpawnedEnemy(1))
             {
                 var enemy = GameManager.Instance.ObjectPool.SpawnObject(_enemyPrefab);
                 enemy.transform.position = _spawnParam.MoveType == EnemyMovementType.RightAngle ?
@@ -133,6 +133,11 @@ public class EnemySpawner : MonoBehaviour
                     var assault = (Assault)enemySystem.EnemySystem;
                     assault.MoveRoute = _spawnParam.TerrainPath.PathPoints;
                 }
+                else if (enemySystem.MovementType == EnemyMovementType.Boss)
+                {
+                    GameManager.Instance.DefeatBoss.SettingBoss(enemySystem);
+                }
+
                 enemySystem.Initialize();
                 _enemyManager.AddEnemy(enemySystem.EnemySystem);
                 _spawnCounter++;

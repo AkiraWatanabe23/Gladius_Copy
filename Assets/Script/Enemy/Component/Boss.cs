@@ -2,11 +2,15 @@
 
 public class Boss : IEnemy
 {
+    [Tooltip("プレイヤーの動きに合わせて動くか")]
+    [SerializeField]
+    private bool _isMove = false;
     [SerializeField]
     private float _attackInterval = 1f;
     [SerializeField]
     private Transform _muzzle = default;
 
+    public bool IsMove => _isMove;
     public float AttackInterval => _attackInterval;
     public Transform Muzzle => _muzzle;
 
