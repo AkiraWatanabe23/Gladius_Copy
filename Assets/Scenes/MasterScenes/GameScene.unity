@@ -3387,7 +3387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[520568829755523074]._maxLife
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4875325872631633540, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: managedReferences[4585279139155804162]._maxLife
