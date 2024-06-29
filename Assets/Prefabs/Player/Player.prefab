@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55fb57f3c77ace4d8c27711b122c701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 5
-  _angle: 30
+  _radius: 5.48
+  _angle: 18.9
 --- !u!60 &4875325871131705161
 PolygonCollider2D:
   m_ObjectHideFlags: 0

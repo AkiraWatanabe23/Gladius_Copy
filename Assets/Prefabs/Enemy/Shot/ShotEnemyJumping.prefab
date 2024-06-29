@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6321104828264764956}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -1.02, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6321104828711791485}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &6321104828711791481
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8140f208d8652b4cb1923a901d7b840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 1
+  _hp: 10
   _attackValue: 1
   _moveSpeed: 0.3
   _enemySystem:
@@ -146,7 +146,7 @@ MonoBehaviour:
     - rid: 4576127351809638400
       type: {class: Shot, ns: , asm: Assembly-CSharp}
       data:
-        _searchAreaRadius: 1.5
+        _searchAreaRadius: 4.1
         _attackInterval: 1
         _shotMuzzle: {fileID: 6321104828264764963}
 --- !u!61 &6321104828711791480

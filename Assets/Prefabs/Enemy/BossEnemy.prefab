@@ -115,6 +115,7 @@ MonoBehaviour:
     - rid: 4576127351809638401
       type: {class: Boss, ns: , asm: Assembly-CSharp}
       data:
+        _isMove: 0
         _attackInterval: 1
         _muzzle: {fileID: 4445467869034671587}
 --- !u!61 &1351310110263445578

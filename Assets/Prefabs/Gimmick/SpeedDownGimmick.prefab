@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gimmickLife: 1
-  _speedDownValue: 1
+  _speedDownValue: 2
 --- !u!61 &9137504071441539005
 BoxCollider2D:
   m_ObjectHideFlags: 0
