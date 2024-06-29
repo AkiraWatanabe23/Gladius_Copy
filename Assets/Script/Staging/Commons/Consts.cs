@@ -15,7 +15,9 @@ namespace Constants
             { SceneName.Title, "TitleScene" },
             { SceneName.StageSelect, "StageSelectScene" },
             { SceneName.InGame, "GameScene" },
-            { SceneName.Result, "ResultScene" }
+            { SceneName.Result, "ResultScene" },
+            { SceneName.Tanaka, "tanakaStage" },
+            { SceneName.Watanabe, "New Scene" }
         };
 
         /// <summary> 指定したシーンのシーン名を取得する </summary>
@@ -51,5 +53,8 @@ public enum SceneName
     Title,
     StageSelect,
     InGame,
-    Result
+    Result,
+
+    Tanaka,
+    Watanabe,
 }

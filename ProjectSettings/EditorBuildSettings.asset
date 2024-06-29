@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MasterScenes/ResultScene.unity
     guid: 1ace59f672df01841bd35533a1646f0e
+  - enabled: 1
+    path: Assets/Personal/Tanaka/tanakaStage.unity
+    guid: 98362b2190b46f340ba5aae32d33ac68
+  - enabled: 1
+    path: Assets/Personal/Wakana/New Scene.unity
+    guid: fea8dfa59269f4b4881cf59b47d345b0
   m_configObjects: {}
