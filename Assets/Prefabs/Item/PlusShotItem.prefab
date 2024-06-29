@@ -107,7 +107,7 @@ MonoBehaviour:
     - rid: 3756759237048139777
       type: {class: PlusShotItem, ns: , asm: Assembly-CSharp}
       data:
-        _plusShotType: 1
+        _plusShotType: 4
         _isEffectPermanent: 0
         _effectDuration: 1
 --- !u!61 &7480547648222761774
