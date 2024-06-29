@@ -13,6 +13,7 @@ public class MissileBullet : IBulletData
 
     public void Movement()
     {
+        Debug.Log(MoveForward);
         Rb2d.velocity = MoveForward * Speed;
     }
 
