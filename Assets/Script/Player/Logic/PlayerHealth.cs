@@ -107,6 +107,14 @@ public class PlayerHealth :  PlayerSystemBase
 
     private void Dead()
     {
+        if (_healthData.HealthType == HealthType.HP)
+        {
+            _hpInstance.SettingLife(0);
+        }
+        else if (_healthData.HealthType == HealthType.RemainingAircraft)
+        {
+            _aircraftInstance.SettingRemainingAircraft(0);
+        }
         Consts.Log("GameOver");
         AudioManager.Instance.PlaySE(SEType.PlayerCrashed);
     }
