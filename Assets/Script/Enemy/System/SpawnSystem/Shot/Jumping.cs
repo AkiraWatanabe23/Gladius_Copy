@@ -16,15 +16,23 @@ public class Jumping : IEnemyGeneration
         if (enemy.EnemySystem is not Shot) { return; }
 
         var shot = (Shot)enemy.EnemySystem;
-        //以下の式だと、1周あたり1秒かかる（経過時間 * 単位円の直径）
-        //shot.Angle += Time.deltaTime * (2 * Mathf.PI);
 
-        //移動速度を掛けることで、1周あたりにかける時間を短くしている（「1 / moveSpeed」秒になる）
-        shot.Angle += Time.deltaTime * (2 * Mathf.PI) * enemy.MoveSpeed;
+        // フレームレートの影響を軽減するための補正
+        float deltaTime = Mathf.Clamp(Time.deltaTime, 0f, 0.02f);
 
-        //Cos(0) = 1 により座標がずれるのを -1 で防ぐ
+        // 移動速度の上限を設定（例: 1.0f）
+        float moveSpeed = Mathf.Clamp(enemy.MoveSpeed, 0f, 1.0f);
+
+        // 以下の式だと、1周あたり1秒かかる（経過時間 * 単位円の直径）
+        // shot.Angle += deltaTime * (2 * Mathf.PI);
+
+        // 移動速度を掛けることで、1周あたりにかける時間を短くしている（「1 / moveSpeed」秒になる）
+        shot.Angle += deltaTime * (2 * Mathf.PI) * moveSpeed;
+
+        // Cos(0) = 1 により座標がずれるのを -1 で防ぐ
         shot.Transform.position =
             shot.MoveInitPos + new Vector3(Mathf.Cos(shot.Angle) - _moveRadius, Mathf.Sin(shot.Angle), shot.Transform.position.z);
+
         if (MovementForSemicircle(shot.Angle))
         {
             AudioManager.Instance.PlaySE(SEType.EnemyJump);
