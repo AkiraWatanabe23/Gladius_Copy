@@ -4,6 +4,8 @@
 public class BombBullet : IBulletData
 {
     [SerializeField]
+    private float _throwPower = 1f;
+    [SerializeField]
     private float _bombAreaRadius = 1f;
     [SerializeField]
     private GameObject _bombEffect = default;
@@ -33,10 +35,7 @@ public class BombBullet : IBulletData
         Rb2d.isKinematic = false;
         Rb2d.gravityScale = 1f;
 
-        Vector2 direction = GameManager.Instance.PlayerTransform.position - Transform.position;
-        direction.Normalize();
-
-        Rb2d.AddForce(direction * 5f, ForceMode2D.Impulse);
+        Rb2d.AddForce(Vector2.right * _throwPower, ForceMode2D.Impulse);
     }
 
     public void Hit(Collider2D collision)
