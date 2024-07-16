@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 1
   _attackValue: 1
-  _moveSpeed: 0.3
+  _moveSpeed: 3
   _enemySystem:
     rid: 4576127351809638400
   _movementType: 7

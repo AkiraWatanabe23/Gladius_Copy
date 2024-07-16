@@ -35,6 +35,7 @@ public class Shot : IEnemy
             var isEnter = _renderer.isVisible && sqrDistance <= _searchAreaRadius * _searchAreaRadius;
 
             if (isEnter) { _isEnterArea = true; }
+            else { _isEnterArea = false; }
 
             return _isEnterArea;
         }
