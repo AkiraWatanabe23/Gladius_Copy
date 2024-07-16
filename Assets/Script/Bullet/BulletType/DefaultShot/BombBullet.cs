@@ -22,6 +22,8 @@ public class BombBullet : IBulletData
     public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
+    public void Init() => _isThrew = false;
+
     public void Movement()
     {
         if (_isThrew) { return; }
