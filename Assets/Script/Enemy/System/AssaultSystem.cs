@@ -7,7 +7,8 @@ public class AssaultSystem : EnemySystemBase
 
     private Straight _straightMovement = default;
     private RightAngle _rightAngle = default;
-    private FigureEight _figureEight = default;
+    private FigureEightUp _figureEightUp = default;
+    private FigureEightDown _figureEightDown = default;
     private ZShapedMeandering _zShapedMeandering = default;
     private FollowTerrain _followTerrain = default;
 
@@ -50,11 +51,13 @@ public class AssaultSystem : EnemySystemBase
         switch (enemy.Controller.MovementType)
         {
             case EnemyMovementType.Straight:
-                _straightMovement ??= new(EnemyManager); _straightMovement.Movement(enemy.Controller); break; 
+                _straightMovement ??= new(EnemyManager); _straightMovement.Movement(enemy.Controller); break;
             case EnemyMovementType.RightAngle:
                 _rightAngle ??= new(EnemyManager); _rightAngle.Movement(enemy.Controller); break;
-            case EnemyMovementType.FigureEight:
-                _figureEight ??= new(); _figureEight.Movement(enemy.Controller); break;
+            case EnemyMovementType.FigureEightUp:
+                _figureEightUp ??= new(); _figureEightUp.Movement(enemy.Controller); break;
+            case EnemyMovementType.FigureEightDown:
+                _figureEightDown ??= new(); _figureEightDown.Movement(enemy.Controller); break;
             case EnemyMovementType.ZShapedMeandering:
                 _zShapedMeandering ??= new(EnemyManager); _zShapedMeandering.Movement(enemy.Controller); break;
             case EnemyMovementType.FollowTerrain:

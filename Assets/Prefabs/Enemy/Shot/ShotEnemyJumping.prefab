@@ -135,7 +135,7 @@ MonoBehaviour:
   _moveSpeed: 0.3
   _enemySystem:
     rid: 4576127351809638400
-  _movementType: 7
+  _movementType: 8
   _pathDrawer:
     _startPoint: {fileID: 0}
     _goalPoint: {fileID: 0}

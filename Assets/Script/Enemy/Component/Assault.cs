@@ -22,6 +22,8 @@ public class Assault : IEnemy
     public float RotateAngle { get; set; }
     public int CurrentRouteIndex { get; set; } = -1;
     public List<Vector3> MoveRoute { get; set; }
+
+    public float InitialYPosition { get; set; }
     #endregion
 
     public void Init()
@@ -37,6 +39,8 @@ public class Assault : IEnemy
         {
             Controller.PathDrawer.Initialize();
         }
+
+        InitialYPosition = Transform.position.y;
     }
 
     private void FlagParamReset()

@@ -58,14 +58,16 @@ MonoBehaviour:
   - <MovementType>k__BackingField: 3
     <EnemyPrefab>k__BackingField: {fileID: 1653555800643878507, guid: 72a9bc03c91801247806d726ef68ea52, type: 3}
   - <MovementType>k__BackingField: 4
-    <EnemyPrefab>k__BackingField: {fileID: 7357602142379354019, guid: 1dea3e84ef887d746b5d0000b2485b3f, type: 3}
+    <EnemyPrefab>k__BackingField: {fileID: 1653555800643878507, guid: 450775c011d4511439f9fa55b3689373, type: 3}
   - <MovementType>k__BackingField: 5
-    <EnemyPrefab>k__BackingField: {fileID: 2888281413631758138, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
+    <EnemyPrefab>k__BackingField: {fileID: 7357602142379354019, guid: 1dea3e84ef887d746b5d0000b2485b3f, type: 3}
   - <MovementType>k__BackingField: 6
-    <EnemyPrefab>k__BackingField: {fileID: 4663879061027675782, guid: 58279b32b438d194f894d7a8df44983c, type: 3}
+    <EnemyPrefab>k__BackingField: {fileID: 2888281413631758138, guid: bc0d28449bdbc02408c1cdf2d64bfd12, type: 3}
   - <MovementType>k__BackingField: 7
-    <EnemyPrefab>k__BackingField: {fileID: 6321104828711791481, guid: af84fc7b1e6734746a525809b9b80d5f, type: 3}
+    <EnemyPrefab>k__BackingField: {fileID: 4663879061027675782, guid: 58279b32b438d194f894d7a8df44983c, type: 3}
   - <MovementType>k__BackingField: 8
+    <EnemyPrefab>k__BackingField: {fileID: 6321104828711791481, guid: af84fc7b1e6734746a525809b9b80d5f, type: 3}
+  - <MovementType>k__BackingField: 9
     <EnemyPrefab>k__BackingField: {fileID: 1351310110263445583, guid: af1f25c493dfff441a16716e29c6309f, type: 3}
   _enemySpawners: []
   _enemies: []

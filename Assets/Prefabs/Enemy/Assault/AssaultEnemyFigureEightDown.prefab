@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1653555800643878505}
   - component: {fileID: 1653555800643878504}
   m_Layer: 6
-  m_Name: AssaultEnemyFigureEight
+  m_Name: AssaultEnemyFigureEightDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,8 +102,8 @@ MonoBehaviour:
   _attackValue: 1
   _moveSpeed: 3
   _enemySystem:
-    rid: 4576127283257147393
-  _movementType: 3
+    rid: 97434690804252673
+  _movementType: 4
   _pathDrawer:
     _startPoint: {fileID: 0}
     _goalPoint: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4576127283257147393
+    - rid: 97434690804252673
       type: {class: Assault, ns: , asm: Assembly-CSharp}
       data: 
 --- !u!61 &1653555800643878504

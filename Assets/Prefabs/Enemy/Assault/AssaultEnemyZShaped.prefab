@@ -103,8 +103,8 @@ MonoBehaviour:
   _attackValue: 1
   _moveSpeed: 3
   _enemySystem:
-    rid: 4576127283257147393
-  _movementType: 4
+    rid: 97434690804252674
+  _movementType: 5
   _pathDrawer:
     _startPoint: {fileID: 0}
     _goalPoint: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4576127283257147393
+    - rid: 97434690804252674
       type: {class: Assault, ns: , asm: Assembly-CSharp}
       data: 
 --- !u!61 &7357602142379354018
