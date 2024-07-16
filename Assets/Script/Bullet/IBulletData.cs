@@ -78,7 +78,6 @@ public interface IBulletData
     {
         BulletObj = go;
         Transform = BulletObj.transform;
-        //Transform.right = forward;
         Speed = speed;
         AttackValue = attackValue;
         GunnerLayer = gunner;
