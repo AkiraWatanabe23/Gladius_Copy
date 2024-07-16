@@ -84,6 +84,7 @@ public class PlayerHealth :  PlayerSystemBase
         else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
             _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.RemainingAircraftCount - 1);
+            GameManager.Instance.UIController.OnUpdateAircraft();
             if (_aircraftInstance.RemainingAircraftCount <= 0) { Dead(); }
         }
     }
