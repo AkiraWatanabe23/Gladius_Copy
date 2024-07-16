@@ -1,5 +1,6 @@
 ﻿using Constants;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,6 +49,7 @@ public class PlayerAttack : PlayerSystemBase
     [SerializeField]
     private float _reflectShotAngle = 0f;
 
+    private IEnumerator _waitSec = default;
     private bool _isAttacked = false;
     private float _attackIntervalTimer = 0f;
     private int _bulletIndex = 0;
@@ -177,10 +179,16 @@ public class PlayerAttack : PlayerSystemBase
             var bulletData = bullet.GetComponent<BulletController>();
             bulletData.Initialize(_attackValue, _player.layer, _spawnMuzzle.forward);
 
+            _waitSec = WaitSec(0.5f);
             if (attackCount == 1) { break; }
             //WaitForSec的なもの
-            for (float interval = 0f; interval <= 0.3f; interval += Time.deltaTime) { }
+            if (_waitSec != null && !_waitSec.MoveNext()) { _waitSec = null; }
         }
+    }
+
+    private IEnumerator WaitSec(float time)
+    {
+        for (float interval = 0f; interval <= time; interval += Time.deltaTime) { yield return null; }
     }
 
     private void BulletChange(int changeValue)

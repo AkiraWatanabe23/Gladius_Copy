@@ -26,7 +26,7 @@ public class ObjectPool
             }
 
             //全部表示済みだったら新規に生成し、そのオブジェクトを返す
-            var go = Object.Instantiate(prefab);
+            var go = Object.Instantiate(prefab, prefab.transform.position, prefab.transform.rotation);
 
             targetPool.Add(go);
             go.SetActive(true);
