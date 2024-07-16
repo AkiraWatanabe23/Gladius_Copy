@@ -129,6 +129,7 @@ public class PlayerAttack : PlayerSystemBase
                 if (_chargeTimer <= 0.5f) { ChargeReset(); return; }
 
                 ChargeBeam();
+                PlusShotAttack();
             }
         }
     }
@@ -158,6 +159,11 @@ public class PlayerAttack : PlayerSystemBase
         }
 
         if (_spawnMuzzle == null) { return; }
+        PlusShotAttack();
+    }
+
+    private void PlusShotAttack()
+    {
         var attackCount = _plusShotBullet != PlusShotType.None ? 2 : 1;
         for (int i = 0; i < attackCount; i++)
         {
