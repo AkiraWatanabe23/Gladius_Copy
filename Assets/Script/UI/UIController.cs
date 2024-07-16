@@ -45,4 +45,9 @@ public class UIController : MonoBehaviour, IPause
     {
         if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateHealthText(text); }
     }
+
+    public void OnUpdateAircraft()
+    {
+        if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateAircraft(); }
+    }
 }

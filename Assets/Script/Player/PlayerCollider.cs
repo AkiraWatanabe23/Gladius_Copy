@@ -7,7 +7,6 @@ public class PlayerCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"HIt {collision.gameObject.name}");
         _player.HitTrigger(collision);
     }
 }

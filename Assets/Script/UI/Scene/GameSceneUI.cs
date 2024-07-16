@@ -144,4 +144,18 @@ public class GameSceneUI : ISceneUI
     }
 
     public void OnUpdateHealthText(string text) { _healthText.text = text; }
+
+    public void OnUpdateAircraft()
+    {
+        var aircraftCount = _aircraftImages.transform.childCount;
+        for (int i = 0; i < aircraftCount; i++)
+        {
+            if (!_aircraftImages.transform.GetChild(i).gameObject.activeSelf)
+            {
+                continue;
+            }
+            _aircraftImages.transform.GetChild(i).gameObject.SetActive(false);
+            break;
+        }
+    }
 }
