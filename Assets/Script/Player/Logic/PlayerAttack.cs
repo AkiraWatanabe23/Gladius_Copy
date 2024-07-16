@@ -129,6 +129,7 @@ public class PlayerAttack : PlayerSystemBase
                 if (_chargeTimer <= 0.5f) { ChargeReset(); return; }
 
                 ChargeBeam();
+                PlusShotAttack();
             }
         }
     }
@@ -158,6 +159,11 @@ public class PlayerAttack : PlayerSystemBase
         }
 
         if (_spawnMuzzle == null) { return; }
+        PlusShotAttack();
+    }
+
+    private void PlusShotAttack()
+    {
         var attackCount = _plusShotBullet != PlusShotType.None ? 2 : 1;
         for (int i = 0; i < attackCount; i++)
         {
@@ -172,16 +178,15 @@ public class PlayerAttack : PlayerSystemBase
 
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
-                if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzle.position); }
-                else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzle.position); }
-                else if (_plusShotBullet == PlusShotType.Missile) { MissileShot(bullet, _spawnMuzzle.position); }
+                if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzle.position); break; }
+                else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzle.position); break; }
+                else if (_plusShotBullet == PlusShotType.Missile) { MissileShot(bullet, _spawnMuzzle.position); break; }
             }
             bullet.transform.position = _spawnMuzzle.position;
             var bulletData = bullet.GetComponent<BulletController>();
             bulletData.Initialize(_attackValue, _player.layer, _spawnMuzzle.forward);
 
             _waitSec = WaitSec(0.5f);
-            if (attackCount == 1) { break; }
             //WaitForSec的なもの
             if (_waitSec != null && !_waitSec.MoveNext()) { _waitSec = null; }
         }
@@ -241,10 +246,10 @@ public class PlayerAttack : PlayerSystemBase
     private void MissileShot(GameObject bullet, Vector3 spawnPos)
     {
         bullet.transform.position = spawnPos;
-        bullet.transform.localEulerAngles = new Vector2(1, -1);
+        bullet.transform.localEulerAngles = new Vector3(0, 0, 45f);
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.right);
+        bulletData.Initialize(_attackValue, _player.layer, -bullet.transform.up);
     }
 
     private void Charge()
