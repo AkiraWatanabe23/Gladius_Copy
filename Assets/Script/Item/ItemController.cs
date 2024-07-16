@@ -17,7 +17,7 @@ public class ItemController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Fan _)) { return; }
-        else if (collision.gameObject.TryGetComponent(out PlayerController _))
+        else if (collision.gameObject.TryGetComponent(out PlayerCollider _))
         {
             _itemSystem.PlayEffect();
             GameManager.Instance.ObjectPool.RemoveObject(gameObject);

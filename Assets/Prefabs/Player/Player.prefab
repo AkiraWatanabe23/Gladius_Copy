@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7692273299242974453}
   - component: {fileID: 757008743113316813}
   - component: {fileID: 1410875950676238}
+  - component: {fileID: 5183497239064167496}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -115,7 +116,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -131,6 +132,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &5183497239064167496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647903126744770458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3990ad9569ffcb3489828c97858e7c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 8311411244607703030}
 --- !u!1 &2843425500774282802
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5468749406094669629}
   - component: {fileID: 8311411244607703030}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +301,7 @@ MonoBehaviour:
     _plusShots: 
     _onDrawGizmos: 1
     _gizmoSquareSize: 1
-    _reflectShotAngle: 0
+    _reflectShotAngle: 30
   _health:
     _healthData:
       rid: 520568829755523074

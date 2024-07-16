@@ -12,7 +12,7 @@ public class EnemyMovementData
     public GameObject EnemyPrefab { get; private set; }
 }
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour, IPause
 {
     [SerializeField]
     private EnemyMovementParams _movementParam = new();
@@ -25,6 +25,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private List<EnemyController> _enemies = default;
 
+    private bool _isPause = false;
     private AssaultSystem _assaultSystem = default;
     private ShotSystem _shotSystem = default;
     private BossSystem _bossSystem = default;
@@ -78,6 +79,8 @@ public class EnemyManager : MonoBehaviour
 
     public void OnUpdate(float deltaTime)
     {
+        if (_isPause) { return; }
+
         if (_enemySystems.Length == 0) { return; }
         foreach (var enemy in _enemySystems) { enemy.OnUpdate(); }
 
@@ -112,4 +115,8 @@ public class EnemyManager : MonoBehaviour
             case Boss: _bossSystem.RemoveEnemy(target); break;
         }
     }
+
+    public void Pause() => _isPause = true;
+
+    public void Resume() => _isPause = false;
 }

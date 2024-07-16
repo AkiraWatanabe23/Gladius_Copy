@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IPause
         _attack.OnUpdate();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void HitTrigger(Collider2D collision)
     {
         _health.OnTriggerEnter2D(collision);
     }

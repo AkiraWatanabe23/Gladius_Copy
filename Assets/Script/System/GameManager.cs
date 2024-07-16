@@ -172,4 +172,6 @@ public class GameManager : MonoBehaviour
 
         return _clearConditions.All(condition => condition.ClearCondition());
     }
+
+    public EnemyManager GetEnemyManager() => _enemyManager;
 }
