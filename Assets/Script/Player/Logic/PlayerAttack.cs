@@ -174,6 +174,7 @@ public class PlayerAttack : PlayerSystemBase
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
                 if (_plusShotBullet == PlusShotType.TwoWay) { TwoWayBulletSetting(bullet, _spawnMuzzle.position); }
                 else if (_plusShotBullet == PlusShotType.ReflectLaser) { ReflectShot(bullet, _spawnMuzzle.position); }
+                else if (_plusShotBullet == PlusShotType.Missile) { MissileShot(bullet, _spawnMuzzle.position); }
             }
             bullet.transform.position = _spawnMuzzle.position;
             var bulletData = bullet.GetComponent<BulletController>();
@@ -210,6 +211,19 @@ public class PlayerAttack : PlayerSystemBase
         foreach (var support in supports) { support.Attack(); }
     }
 
+    private void TwoWayBulletSetting(GameObject bullet, Vector3 spawnPos)
+    {
+        bullet.transform.position = spawnPos;
+
+        var angle = _direction == Diagonal.Up ? 45f : -45f;
+        var rotation = bullet.transform.localEulerAngles;
+        rotation.z = angle - 90f;
+        bullet.transform.localEulerAngles = rotation;
+
+        var bulletData = bullet.GetComponent<BulletController>();
+        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.up);
+    }
+
     private void ReflectShot(GameObject bullet, Vector3 spawnPos)
     {
         bullet.transform.position = spawnPos;
@@ -224,17 +238,13 @@ public class PlayerAttack : PlayerSystemBase
         bulletData.Initialize(_attackValue, _player.layer, bullet.transform.right);
     }
 
-    private void TwoWayBulletSetting(GameObject bullet, Vector3 spawnPos)
+    private void MissileShot(GameObject bullet, Vector3 spawnPos)
     {
         bullet.transform.position = spawnPos;
-
-        var angle = _direction == Diagonal.Up ? 45f : -45f;
-        var rotation = bullet.transform.localEulerAngles;
-        rotation.z = angle - 90f;
-        bullet.transform.localEulerAngles = rotation;
+        bullet.transform.localEulerAngles = new Vector2(1, -1);
 
         var bulletData = bullet.GetComponent<BulletController>();
-        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.up);
+        bulletData.Initialize(_attackValue, _player.layer, bullet.transform.right);
     }
 
     private void Charge()

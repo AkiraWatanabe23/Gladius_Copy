@@ -13,7 +13,6 @@ public class MissileBullet : IBulletData
 
     public void Movement()
     {
-        Debug.Log($"{Rb2d == null} {MoveForward} {Speed}");
         Rb2d.velocity = MoveForward * Speed;
     }
 
