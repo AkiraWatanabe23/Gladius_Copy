@@ -46,7 +46,6 @@ public class EnemyManager : MonoBehaviour, IPause
             return _enemyPrefsDict;
         }
     }
-    public EnemySpawner[] EnemySpawners { get => _enemySpawners; private set => _enemySpawners = value; }
     public List<EnemyController> Enemies => _enemies;
     public Transform PlayerTransform { get; private set; }
 
@@ -104,6 +103,7 @@ public class EnemyManager : MonoBehaviour, IPause
             case Shot: _shotSystem.AddEnemy(target); break;
             case Boss: _bossSystem.AddEnemy(target); break;
         }
+        _enemies?.Add(target.Controller);
     }
 
     public void RemoveEnemy(IEnemy target)
@@ -114,6 +114,7 @@ public class EnemyManager : MonoBehaviour, IPause
             case Shot: _shotSystem.RemoveEnemy(target); break;
             case Boss: _bossSystem.RemoveEnemy(target); break;
         }
+        _enemies?.Remove(target.Controller);
     }
 
     public void Pause() => _isPause = true;
