@@ -5,10 +5,7 @@ public class PlusShotItem : IGameItem
 {
     [SerializeField]
     private PlusShotType _plusShotType = PlusShotType.Missile;
-    [Tooltip("プラスショットが永続の効果か")]
-    [SerializeField]
-    private bool _isEffectPermanent = false;
-    [Tooltip("プラスショットの持続時間（_isEffectPermanent == false の場合）")]
+    [Tooltip("プラスショットの効果持続時間")]
     [SerializeField]
     private float _effectDuration = 1f;
 
@@ -18,7 +15,10 @@ public class PlusShotItem : IGameItem
     {
         AudioManager.Instance.PlaySE(SEType.AddPlusShot);
         //ショット追加
-        GameManager.Instance.Player.Attack.PlusShotBullet = _plusShotType;
+        var player = GameManager.Instance.Player;
+
+        player.Attack.PlusShotEffectTime = _effectDuration;
+        player.Attack.PlusShotBullet = _plusShotType;
         if (_plusShotType == PlusShotType.SupportShot) { GenerateSupport(); }
     }
 

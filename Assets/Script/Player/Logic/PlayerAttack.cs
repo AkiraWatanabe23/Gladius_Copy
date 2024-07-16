@@ -49,6 +49,9 @@ public class PlayerAttack : PlayerSystemBase
     [SerializeField]
     private float _reflectShotAngle = 0f;
 
+    private float _plusShotEffectTime = 10f;
+    private float _effectTimer = 0f;
+
     private IEnumerator _waitSec = default;
     private bool _isAttacked = false;
     private float _attackIntervalTimer = 0f;
@@ -70,6 +73,7 @@ public class PlayerAttack : PlayerSystemBase
         }
     }
     public List<InitialBulletType> InitialBullets => _initialBullets;
+    public float PlusShotEffectTime { get => _plusShotEffectTime; set => _plusShotEffectTime = value; }
 
     protected float AttackIntervalTimer
     {
@@ -102,6 +106,16 @@ public class PlayerAttack : PlayerSystemBase
     public override void OnUpdate()
     {
         if (_isPause) { return; }
+
+        if (_plusShotBullet != PlusShotType.None)
+        {
+            _effectTimer += Time.deltaTime;
+            if (_effectTimer >= _plusShotEffectTime)
+            {
+                _plusShotBullet = PlusShotType.None;
+                _effectTimer = 0f;
+            }
+        }
 
         if (_isAttacked)
         {
@@ -164,6 +178,8 @@ public class PlayerAttack : PlayerSystemBase
 
     private void PlusShotAttack()
     {
+        if (_plusShotBullet == PlusShotType.None) { return; }
+
         var attackCount = _plusShotBullet != PlusShotType.None ? 2 : 1;
         for (int i = 0; i < attackCount; i++)
         {
