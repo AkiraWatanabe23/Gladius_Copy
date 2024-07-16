@@ -19,13 +19,16 @@ public class HomingBullet : IBulletData
     public void Movement()
     {
         SettingTarget();
+        if (_homingTarget == null) { MoveForward = Vector2.right; }
+        else
+        {
+            Vector2 direction = _homingTarget.transform.position - Transform.position;
+            direction.Normalize();
+            MoveForward = direction;
 
-        Vector2 direction = _homingTarget.transform.position - Transform.position;
-        direction.Normalize();
-        MoveForward = direction;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+        }
 
         Rb2d.velocity = MoveForward * Speed;
     }
