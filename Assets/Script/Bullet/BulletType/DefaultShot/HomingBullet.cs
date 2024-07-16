@@ -47,6 +47,7 @@ public class HomingBullet : IBulletData
         if (enemies == null || enemies.Count <= 0)
         {
             MoveForward = Vector2.right;
+            _homingTarget = null;
             return;
         }
 
