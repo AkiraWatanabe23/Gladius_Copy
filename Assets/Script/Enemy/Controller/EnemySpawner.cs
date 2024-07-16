@@ -89,7 +89,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 var targetPos = GameManager.Instance.PlayerTransform.position;
                 var sqrDistance = (targetPos - transform.position).sqrMagnitude;
-                if (sqrDistance <= _spawnSearchRadius) { _isEnterArea = true; }
+                if (sqrDistance <= _spawnSearchRadius * _spawnSearchRadius) { _isEnterArea = true; }
             }
             else
             {
