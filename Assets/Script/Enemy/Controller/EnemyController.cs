@@ -54,6 +54,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             damageData.ReceiveDamage(_attackValue);
             if (_enemyType == EnemyType.Assault)
             {
+                GameManager.Instance.GetEnemyManager().RemoveEnemy(_enemySystem);
                 GameManager.Instance.ObjectPool.RemoveObject(gameObject);
             }
         }
@@ -62,6 +63,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// <summary> 画面外からいなくなったら呼び出される </summary>
     private void OnBecameInvisible()
     {
+        GameManager.Instance.GetEnemyManager().RemoveEnemy(_enemySystem);
         GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 
@@ -84,6 +86,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         AudioManager.Instance.PlaySE(SEType.EnemyCrashed);
         GameManager.Instance.EnemyDeadPos = transform;
         GameManager.Instance.EnemyDeadCount++;
+        GameManager.Instance.GetEnemyManager().RemoveEnemy(_enemySystem);
         GameManager.Instance.ObjectPool.RemoveObject(gameObject);
     }
 
