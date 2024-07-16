@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary> 追尾 </summary>
 public class HomingBullet : IBulletData
 {
     /// <summary> 追尾対象 </summary>
-    private Transform _homingTarget = default;
+    private GameObject _homingTarget = default;
 
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
@@ -15,41 +14,13 @@ public class HomingBullet : IBulletData
     public Vector2 MoveForward { get; set; }
     public Rigidbody2D Rb2d { get; set; }
 
-    public void CashReset()
-    {
-        _homingTarget = null;
-    }
+    public void CashReset() => SettingTarget();
 
     public void Movement()
     {
-        //enemyを追尾するように直す
-        if (_homingTarget == null)
-        {
-            //一番近くにいる敵を割り当てる
-            var enemies = GameManager.Instance.GetEnemyManager().Enemies;
-            if (enemies == null || enemies.Count <= 0)
-            {
-                MoveForward = Vector2.right;
-                return;
-            }
+        SettingTarget();
 
-            var player = GameManager.Instance.PlayerTransform.position;
-            _homingTarget = enemies[0].gameObject.transform;
-
-            var currentClosedDist = Vector3.Distance(player, enemies[0].gameObject.transform.position);
-            for (int i = 1; i < enemies.Count; i++)
-            {
-                var enemy = enemies[i].gameObject.transform;
-                var distance = Vector3.Distance(player, enemy.position);
-                if (distance < currentClosedDist)
-                {
-                    currentClosedDist = distance;
-                    _homingTarget = enemy.transform;
-                }
-            }
-        }
-
-        Vector2 direction = _homingTarget.position - Transform.position;
+        Vector2 direction = _homingTarget.transform.position - Transform.position;
         direction.Normalize();
         MoveForward = direction;
 
@@ -65,5 +36,32 @@ public class HomingBullet : IBulletData
 
         damageTarget.ReceiveDamage(AttackValue);
         GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
+    }
+
+    private void SettingTarget()
+    {
+        var enemies = GameManager.Instance.GetEnemyManager().Enemies;
+        if (enemies == null || enemies.Count <= 0)
+        {
+            MoveForward = Vector2.right;
+            return;
+        }
+
+        var player = GameManager.Instance.PlayerTransform.position;
+        _homingTarget = enemies[0].gameObject;
+
+        var currentClosedDist = Vector3.Distance(player, enemies[0].gameObject.transform.position);
+        for (int i = 1; i < enemies.Count; i++)
+        {
+            var enemy = enemies[i].gameObject;
+            if (enemy == _homingTarget) { continue; }
+
+            var distance = Vector3.Distance(player, enemy.transform.position);
+            if (distance < currentClosedDist)
+            {
+                currentClosedDist = distance;
+                _homingTarget = enemy;
+            }
+        }
     }
 }
