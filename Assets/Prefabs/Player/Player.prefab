@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7692273299242974453}
   - component: {fileID: 757008743113316813}
   - component: {fileID: 1410875950676238}
-  - component: {fileID: 2749351274463916370}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -31,7 +30,8 @@ Transform:
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 3183293626290084505}
   m_Father: {fileID: 5468749406094669629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &757008743113316813
@@ -131,45 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &2749351274463916370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647903126744770458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5f98b5c2f9a8fa4b973672f751f97ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movement:
-    _moveSpeed: 5
-    _minSpeed: 1
-  _attack:
-    _spawnMuzzle: {fileID: 3183293626290084505}
-    _attackValue: 1
-    _attackCoolTime: 0.5
-    _chargeBeamValue: 010000000500000005000000
-    _fanCollider: {fileID: 8243738606894669133}
-    _direction: 0
-    _plusShotBullet: 0
-    _initialBullets: 010000000300000005000000
-    _plusShots: 
-    _onDrawGizmos: 1
-    _gizmoSquareSize: 1
-    _reflectShotAngle: 0
-  _health:
-    _healthData:
-      rid: 520568829755523074
-  references:
-    version: 2
-    RefIds:
-    - rid: 520568829755523074
-      type: {class: HP, ns: , asm: Assembly-CSharp}
-      data:
-        _currentLife: 1
-        _maxLife: 5
 --- !u!1 &2843425500774282802
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5468749406094669629}
+  - component: {fileID: 8311411244607703030}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -295,10 +257,48 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7692273299242974453}
-  - {fileID: 3183293626290084505}
   - {fileID: 4665309681451353395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8311411244607703030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625040646187760026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f98b5c2f9a8fa4b973672f751f97ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement:
+    _moveSpeed: 5
+    _minSpeed: 1
+  _attack:
+    _spawnMuzzle: {fileID: 3183293626290084505}
+    _attackValue: 1
+    _attackCoolTime: 0.5
+    _chargeBeamValue: 010000000500000005000000
+    _fanCollider: {fileID: 8243738606894669133}
+    _direction: 0
+    _plusShotBullet: 0
+    _initialBullets: 010000000300000005000000
+    _plusShots: 
+    _onDrawGizmos: 1
+    _gizmoSquareSize: 1
+    _reflectShotAngle: 0
+  _health:
+    _healthData:
+      rid: 520568829755523074
+  references:
+    version: 2
+    RefIds:
+    - rid: 520568829755523074
+      type: {class: HP, ns: , asm: Assembly-CSharp}
+      data:
+        _currentLife: 1
+        _maxLife: 5
 --- !u!1 &8467908183284965079
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,9 +324,9 @@ Transform:
   m_GameObject: {fileID: 8467908183284965079}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5468749406094669629}
+  m_Father: {fileID: 7692273299242974453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

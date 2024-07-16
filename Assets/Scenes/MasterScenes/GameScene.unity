@@ -209,7 +209,7 @@ PrefabInstance:
     - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 4875325871337881682}
+      objectReference: {fileID: 1615053715384687363}
     - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: _itemSpawner
       value: 
@@ -222,78 +222,6 @@ PrefabInstance:
       propertyPath: _cameraController
       value: 
       objectReference: {fileID: 1689953599}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[-2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _clearConditions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _clearConditions.Array.data[0]
-      value: 520568829755523077
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: _clearConditions.Array.data[1]
-      value: 520568320048234498
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234496]
-      value: Assembly-CSharp DefeatBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234497]
-      value: Assembly-CSharp ArriveGoal
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234498]
-      value: Assembly-CSharp TimeAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568385944420352]
-      value: Assembly-CSharp EnemyAnnihilated
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568829755523076]
-      value: Assembly-CSharp EnemyAnnihilated
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568829755523077]
-      value: Assembly-CSharp DefeatBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234497]._goalPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234496]._stageBoss
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568320048234498]._clearTime
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568829755523077]._stageBoss
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568385944420352]._totalEnemyCount
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568829755523076]._totalEnemyCount
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568385944420352]._spawnedEnemyCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
-      propertyPath: managedReferences[520568829755523076]._spawnedEnemyCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2925223453046732365, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4190,9 +4118,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
---- !u!114 &4875325871337881682 stripped
+--- !u!114 &1615053715384687363 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2749351274463916370, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8311411244607703030, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
   m_PrefabInstance: {fileID: 1615053715384687359}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

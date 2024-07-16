@@ -3,6 +3,9 @@
 /// <summary> 追尾 </summary>
 public class HomingBullet : IBulletData
 {
+    /// <summary> 追尾対象 </summary>
+    private Transform _homingTarget = default;
+
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
     public float Speed { get; set; }
@@ -14,7 +17,13 @@ public class HomingBullet : IBulletData
     public void Movement()
     {
         //enemyを追尾するように直す
-        Vector2 direction = GameManager.Instance.PlayerTransform.position - Transform.position;
+        if (_homingTarget == null)
+        {
+            //一番近くにいる敵を割り当てる
+            return;
+        }
+
+        Vector2 direction = _homingTarget.position - Transform.position;
         direction.Normalize();
         MoveForward = direction;
 

@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0261be3a50fb21547841c3edaabfb37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clearConditions: []
+  _clearConditions:
+  - rid: 520568829755523077
   _timer: 0
   _cameraController: {fileID: 0}
   _player: {fileID: 0}
@@ -86,4 +87,8 @@ MonoBehaviour:
   _currentSupportCount: 0
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 520568829755523077
+      type: {class: DefeatBoss, ns: , asm: Assembly-CSharp}
+      data:
+        _stageBoss: {fileID: 0}
