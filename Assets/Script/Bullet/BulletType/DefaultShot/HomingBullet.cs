@@ -6,6 +6,7 @@ public class HomingBullet : IBulletData
 {
     /// <summary> 追尾対象 </summary>
     private Transform _homingTarget = default;
+    private bool _isSetTarget = false;
 
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
@@ -17,6 +18,12 @@ public class HomingBullet : IBulletData
 
     public void Movement()
     {
+        if (_isSetTarget)
+        {
+            _homingTarget = null;
+            _isSetTarget = false;
+        }
+
         //enemyを追尾するように直す
         if (_homingTarget == null)
         {
@@ -42,6 +49,7 @@ public class HomingBullet : IBulletData
                     _homingTarget = enemy.transform;
                 }
             }
+            _isSetTarget = true;
         }
 
         Vector2 direction = _homingTarget.position - Transform.position;
