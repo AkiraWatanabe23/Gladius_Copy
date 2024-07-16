@@ -22,6 +22,12 @@ public class HomingBullet : IBulletData
         {
             //一番近くにいる敵を割り当てる
             var enemies = GameManager.Instance.GetEnemyManager().Enemies;
+            if (enemies == null || enemies.Count <= 0)
+            {
+                MoveForward = Vector2.right;
+                return;
+            }
+
             var player = GameManager.Instance.PlayerTransform.position;
             _homingTarget = enemies[0].gameObject.transform;
 
