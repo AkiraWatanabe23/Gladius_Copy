@@ -22,6 +22,11 @@ public class BulletController : MonoBehaviour
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
 
         PlayInitAudio();
+        if (_bulletData is HomingBullet)
+        {
+            var homing = (HomingBullet)_bulletData;
+            homing.CashReset();
+        }
     }
 
     private void PlayInitAudio()
