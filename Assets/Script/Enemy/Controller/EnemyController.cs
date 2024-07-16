@@ -48,10 +48,10 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerController _) &&
-            collision.gameObject.TryGetComponent(out IDamageable player))
+        if (collision.gameObject.TryGetComponent(out PlayerCollider _))
         {
-            player.ReceiveDamage(_attackValue);
+            var damageData = GameManager.Instance.Player.gameObject.GetComponent<IDamageable>();
+            damageData.ReceiveDamage(_attackValue);
             if (_enemyType == EnemyType.Assault)
             {
                 GameManager.Instance.ObjectPool.RemoveObject(gameObject);

@@ -30,10 +30,10 @@ public class SpeedDownGimmick : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerController player))
+        if (collision.gameObject.TryGetComponent(out PlayerCollider _))
         {
             AudioManager.Instance.PlaySE(SEType.SpeedDown);
-            player.Movement.SpeedDown(_speedDownValue);
+            GameManager.Instance.Player.Movement.SpeedDown(_speedDownValue);
             GimmickLife = 0;
         }
         else if (collision.gameObject.TryGetComponent(out BulletController _))

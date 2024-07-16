@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary> 追尾 </summary>
 public class HomingBullet : IBulletData
@@ -20,7 +21,21 @@ public class HomingBullet : IBulletData
         if (_homingTarget == null)
         {
             //一番近くにいる敵を割り当てる
-            return;
+            var enemies = GameManager.Instance.GetEnemyManager().Enemies;
+            var player = GameManager.Instance.PlayerTransform.position;
+            _homingTarget = enemies[0].gameObject.transform;
+
+            var currentClosedDist = Vector3.Distance(player, enemies[0].gameObject.transform.position);
+            for (int i = 1; i < enemies.Count; i++)
+            {
+                var enemy = enemies[i].gameObject.transform;
+                var distance = Vector3.Distance(player, enemy.position);
+                if (distance < currentClosedDist)
+                {
+                    currentClosedDist = distance;
+                    _homingTarget = enemy.transform;
+                }
+            }
         }
 
         Vector2 direction = _homingTarget.position - Transform.position;
