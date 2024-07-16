@@ -178,8 +178,6 @@ public class PlayerAttack : PlayerSystemBase
 
     private void PlusShotAttack()
     {
-        if (_plusShotBullet == PlusShotType.None) { return; }
-
         var attackCount = _plusShotBullet != PlusShotType.None ? 2 : 1;
         for (int i = 0; i < attackCount; i++)
         {
