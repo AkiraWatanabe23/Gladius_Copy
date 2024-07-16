@@ -27,6 +27,11 @@ public class BulletController : MonoBehaviour
             var homing = (HomingBullet)_bulletData;
             homing.CashReset();
         }
+        else if (_bulletData is BombBullet)
+        {
+            var bomb = (BombBullet)_bulletData;
+            bomb.Init();
+        }
     }
 
     private void PlayInitAudio()
