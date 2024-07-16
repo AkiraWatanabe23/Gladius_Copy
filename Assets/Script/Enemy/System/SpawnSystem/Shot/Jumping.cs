@@ -46,28 +46,30 @@ public class Jumping : IEnemyGeneration
     private bool MovementForSemicircle(float currentAngle) => currentAngle >= Mathf.PI;
 
     /// <summary> 半円を描くように弾を撃ちだす </summary>
+    /// <summary> 半円を描くように弾を撃ちだす </summary>
     private void Attack(Shot shot)
     {
         AudioManager.Instance.PlaySE(SEType.EnemyShot);
-        //半円を弾数分だけ分割したときの1つあたりの角度
+
+        // 半円を弾数分だけ分割したときの1つあたりの角度
         var splitAngle = 180f / (_semicircleAttackCount - 1);
-        //半円を等分に割って弾を撃ちだす
+
+        // 半円を等分に割って弾を撃ちだす
         for (int i = 0; i < _semicircleAttackCount; i++)
         {
             var currentAngle = i * splitAngle;
             if (i == 0) { currentAngle = 0f; }
             else if (i == _semicircleAttackCount - 1) { currentAngle = 180f; }
 
-            float angle = Mathf.Deg2Rad * (currentAngle);
+            float angle = Mathf.Deg2Rad * (currentAngle); // 0° to 180° (oriented correctly)
             var direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f);
 
             var spawnBullet = GameManager.Instance.BulletHolder.EnemyBullet;
-            var bullet =
-                GameManager.Instance.ObjectPool.SpawnObject(spawnBullet);
-            bullet.transform.position = shot.Transform.position + direction;
+            var bullet = GameManager.Instance.ObjectPool.SpawnObject(spawnBullet);
+            bullet.transform.position = shot.Transform.position;
             if (bullet.TryGetComponent(out BulletController bulletData))
             {
-                bulletData.Initialize(shot.Controller.AttackValue, shot.Enemy.layer, Vector2.left);
+                bulletData.Initialize(shot.Controller.AttackValue, shot.Enemy.layer, direction);
             }
         }
     }
