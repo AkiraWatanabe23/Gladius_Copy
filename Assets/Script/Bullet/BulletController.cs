@@ -63,11 +63,9 @@ public class BulletController : MonoBehaviour
     {
         if (_bulletData is Barrier)
         {
-            Debug.Log("koko");
             if (collision.gameObject.TryGetComponent(out BulletController target) &&
                 target.BulletData.GunnerLayer != _bulletData.GunnerLayer)
             {
-                Debug.Log("different");
                 _bulletData.Hit(collision);
             }
             return;

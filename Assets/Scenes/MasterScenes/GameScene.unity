@@ -219,6 +219,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1449977744}
     - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 2044887349}
+    - target: {fileID: 2925223453046732364, guid: 38aad85b503986945beaca9a26067bde, type: 3}
       propertyPath: _cameraController
       value: 
       objectReference: {fileID: 1689953599}
@@ -4061,6 +4065,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2044887349 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7692273299242974453, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+  m_PrefabInstance: {fileID: 1615053715384687359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1615053715384687359
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,7 +33,8 @@ public class Barrier : IBulletData
         if (_initEnduranceCount < 0) { _initEnduranceCount = _enduranceCount; }
 
         if (collision.gameObject.TryGetComponent(out IDamageable _) ||
-            collision.gameObject.TryGetComponent(out BulletController _))
+            collision.gameObject.TryGetComponent(out BulletController _) ||
+            collision.gameObject.TryGetComponent(out EnemyController _))
         {
             GameManager.Instance.ObjectPool.RemoveObject(collision.gameObject);
 
