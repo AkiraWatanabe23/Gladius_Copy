@@ -84,4 +84,6 @@ public class GameUpdate : MonoBehaviour
         Consts.Log("game over");
         SceneLoader.FadeLoad(SceneName.StageSelect);
     }
+
+    public void GameOverRequest() => GameOver();
 }

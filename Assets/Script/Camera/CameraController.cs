@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour, IPause
             _deadTimer = value;
             if (_deadTimer >= _deadTime)
             {
-                if (IsEnterDeadZone) { Consts.Log("GameOver"); }
+                if (IsEnterDeadZone) { GameManager.Instance.InGameUpdate.GameOverRequest(); }
             }
         }
     }

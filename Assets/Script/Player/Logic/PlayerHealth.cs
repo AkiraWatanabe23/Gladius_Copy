@@ -95,6 +95,8 @@ public class PlayerHealth :  PlayerSystemBase
         {
             _hpInstance.SettingLife(_hpInstance.Life + value);
             if (_hpInstance.Life > _hpInstance.MaxLife) { _hpInstance.SettingLife(_hpInstance.MaxLife); }
+
+            GameManager.Instance.UIController.OnUpdateHealth($"{_hpInstance.Life} / {_hpInstance.MaxLife}");
         }
         else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
@@ -103,6 +105,7 @@ public class PlayerHealth :  PlayerSystemBase
             {
                 _aircraftInstance.SettingRemainingAircraft(_aircraftInstance.MaxRemainingAircraft);
             }
+            GameManager.Instance.UIController.OnUpdateAircraft(_aircraftInstance.MaxRemainingAircraft, true);
         }
     }
 
