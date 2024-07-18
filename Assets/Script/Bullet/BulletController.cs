@@ -19,7 +19,7 @@ public class BulletController : MonoBehaviour
         if (forward == Vector2.zero && _bulletData is not Barrier) { forward = Vector2.right; }
 
         _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, forward);
-        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
+        if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.Player.gameObject.transform); }
 
         PlayInitAudio();
         if (_bulletData is HomingBullet)
