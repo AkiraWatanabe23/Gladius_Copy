@@ -20,6 +20,7 @@ public class PlusShotItem : IGameItem
         player.Attack.PlusShotEffectTime = _effectDuration;
         player.Attack.PlusShotBullet = _plusShotType;
         if (_plusShotType == PlusShotType.SupportShot) { GenerateSupport(); }
+        else if (_plusShotType == PlusShotType.Barrier) { GenerateBarrier(); }
     }
 
     private void GenerateSupport()
@@ -35,6 +36,17 @@ public class PlusShotItem : IGameItem
             GameManager.Instance.BulletHolder.PlusShotsDictionary[PlusShotType.SupportShot]);
 
         support.transform.position = GameManager.Instance.PlayerTransform.position;
+
+        var bulletData = support.GetComponent<BulletController>();
+        bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer, Vector2.zero);
+    }
+
+    private void GenerateBarrier()
+    {
+        var support = GameManager.Instance.ObjectPool.SpawnObject(
+            GameManager.Instance.BulletHolder.PlusShotsDictionary[PlusShotType.Barrier]);
+
+        support.transform.position = GameManager.Instance.Player.Attack.Muzzle.position;
 
         var bulletData = support.GetComponent<BulletController>();
         bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer, Vector2.zero);

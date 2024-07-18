@@ -78,7 +78,7 @@ MonoBehaviour:
     - <ShotType>k__BackingField: 5
       <BulletPrefab>k__BackingField: {fileID: 5921464289701798954, guid: 6644b648f295e5b4f912cb002bf263a9, type: 3}
     - <ShotType>k__BackingField: 6
-      <BulletPrefab>k__BackingField: {fileID: 3532635984654770327, guid: 5fa8bedceddd5de4ba7d8b11637ab118, type: 3}
+      <BulletPrefab>k__BackingField: {fileID: 132004251590751232, guid: 5fa8bedceddd5de4ba7d8b11637ab118, type: 3}
     _enemyBullet: {fileID: 4270151735557775222, guid: 870e9abc34d99994e96425c2c7b28180, type: 3}
   _enemyDeadCount: 0
   _shotGunCount: 3

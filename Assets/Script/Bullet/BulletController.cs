@@ -16,7 +16,7 @@ public class BulletController : MonoBehaviour
 
     public void Initialize(int attackValue, LayerMask gunner, Vector2 forward)
     {
-        if (forward == Vector2.zero) { forward = Vector2.right; }
+        if (forward == Vector2.zero && _bulletData is not Barrier) { forward = Vector2.right; }
 
         _bulletData.Init(gameObject, _moveSpeed, attackValue, gunner, forward);
         if (_isChildSetting) { _bulletData.Transform.SetParent(GameManager.Instance.PlayerTransform); }
@@ -61,10 +61,25 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_bulletData is Barrier)
+        {
+            Debug.Log("koko");
+            if (collision.gameObject.TryGetComponent(out BulletController target) &&
+                target.BulletData.GunnerLayer != _bulletData.GunnerLayer)
+            {
+                Debug.Log("different");
+                _bulletData.Hit(collision);
+            }
+            return;
+        }
+
         //衝突対象が攻撃対象でなければ無視
         if (collision.gameObject == null) { return; }
         if (collision.gameObject.TryGetComponent(out Fan _)) { return; }
-        if (collision.gameObject.layer == _bulletData.GunnerLayer) { return; }
+        if (collision.gameObject.TryGetComponent(out BulletController bullet))
+        {
+            if (bullet.BulletData.GunnerLayer == _bulletData.GunnerLayer) { return; }
+        }
 
         _bulletData.Hit(collision);
     }
