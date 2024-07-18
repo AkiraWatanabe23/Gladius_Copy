@@ -4075,7 +4075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5468749406094669629, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 5468749406094669629, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4112,22 +4112,6 @@ PrefabInstance:
     - target: {fileID: 5468749406094669629, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311411244607703030, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: _health._healthData
-      value: 5622923720535310336
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311411244607703030, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: managedReferences[5622923720535310336]
-      value: Assembly-CSharp RemainingAircraft
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311411244607703030, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: managedReferences[5622923720535310336]._remainingAircraft
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311411244607703030, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
-      propertyPath: managedReferences[5622923720535310336]._maxRemainingAircraft
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

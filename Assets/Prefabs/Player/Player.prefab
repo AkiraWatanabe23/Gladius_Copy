@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 647903126744770458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 2843425500774282802}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -304,15 +304,15 @@ MonoBehaviour:
     _reflectShotAngle: 30
   _health:
     _healthData:
-      rid: 520568829755523074
+      rid: 5622923720535310336
   references:
     version: 2
     RefIds:
-    - rid: 520568829755523074
-      type: {class: HP, ns: , asm: Assembly-CSharp}
+    - rid: 5622923720535310336
+      type: {class: RemainingAircraft, ns: , asm: Assembly-CSharp}
       data:
-        _currentLife: 1
-        _maxLife: 5
+        _remainingAircraft: 5
+        _maxRemainingAircraft: 5
 --- !u!1 &8467908183284965079
 GameObject:
   m_ObjectHideFlags: 0

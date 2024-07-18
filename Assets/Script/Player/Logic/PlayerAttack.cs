@@ -63,6 +63,7 @@ public class PlayerAttack : PlayerSystemBase
     private float _chargeTimer = 0f;
     private bool _isPause = false;
 
+    public Transform Muzzle => _spawnMuzzle;
     public PlusShotType PlusShotBullet
     {
         get => _plusShotBullet;
@@ -182,13 +183,11 @@ public class PlayerAttack : PlayerSystemBase
         for (int i = 0; i < attackCount; i++)
         {
             GameObject bullet = null;
-            if (i == 0)
-            {
-                bullet = GameManager.Instance.ObjectPool.SpawnObject(_bullets[_bulletIndex]);
-            }
+            if (i == 0) { bullet = GameManager.Instance.ObjectPool.SpawnObject(_bullets[_bulletIndex]); }
             else if (_plusShotBullet != PlusShotType.None)
             {
                 if (_plusShotBullet == PlusShotType.SupportShot) { SupportShot(); return; }
+                else if (_plusShotBullet == PlusShotType.Barrier) { return; }
 
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);
