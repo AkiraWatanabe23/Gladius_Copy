@@ -78,6 +78,7 @@ public class BulletController : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out BulletController bullet))
         {
             if (bullet.BulletData.GunnerLayer == _bulletData.GunnerLayer) { return; }
+            if (bullet.BulletData is Barrier) { GameManager.Instance.ObjectPool.RemoveObject(gameObject); }
         }
 
         _bulletData.Hit(collision);
