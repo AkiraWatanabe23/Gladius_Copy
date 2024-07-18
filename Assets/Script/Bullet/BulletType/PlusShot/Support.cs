@@ -2,12 +2,16 @@
 
 public class Support : IBulletData
 {
+    [Tooltip("何秒間生きてるか")]
+    [SerializeField]
+    private float _effectLife = 5f;
     [SerializeField]
     private Transform _laserMuzzle = default;
 
     private Transform _player = default;
     /// <summary> 自分が何番目の補助兵装か </summary>
     private int _supportIndex = -1;
+    private float _effectTimer = 0f;
 
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
@@ -27,6 +31,9 @@ public class Support : IBulletData
             GameManager.Instance.Supports.Add(this);
         }
 
+        if (_effectTimer >= _effectLife) { Reset(); }
+        _effectTimer += Time.deltaTime;
+
         var offset = _player.position - Transform.position;
         //playerとの位置差が一定以上離れたら動く
         MoveForward =
@@ -45,5 +52,13 @@ public class Support : IBulletData
         bullet.transform.position = _laserMuzzle.position;
         var bulletData = bullet.GetComponent<BulletController>();
         bulletData.Initialize(AttackValue, GunnerLayer, Vector2.right);
+    }
+
+    private void Reset()
+    {
+        _effectTimer = 0f;
+        GameManager.Instance.Supports.Remove(this);
+
+        GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
     }
 }
