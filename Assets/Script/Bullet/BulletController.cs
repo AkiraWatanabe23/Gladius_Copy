@@ -74,12 +74,12 @@ public class BulletController : MonoBehaviour
 
         //衝突対象が攻撃対象でなければ無視
         if (collision.gameObject == null) { return; }
-        if (collision.gameObject.TryGetComponent(out Fan _)) { return; }
         if (collision.gameObject.TryGetComponent(out BulletController bullet))
         {
             if (bullet.BulletData.GunnerLayer == _bulletData.GunnerLayer) { return; }
             if (bullet.BulletData is Barrier) { GameManager.Instance.ObjectPool.RemoveObject(gameObject); }
         }
+        if (collision.gameObject.TryGetComponent(out Fan _)) { return; }
 
         _bulletData.Hit(collision);
     }
