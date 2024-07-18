@@ -50,6 +50,8 @@ public class BombBullet : IBulletData
 
             GameObject effect = GameObject.Instantiate(_bombEffect, Transform.position, Quaternion.identity);
             effect.GetComponent<CircleCollider2D>().radius = _bombAreaRadius;
+
+            GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
         }
         else if (collision.gameObject.TryGetComponent(out EnemyController enemy)) //Enemyに衝突したらダメージ
         {
