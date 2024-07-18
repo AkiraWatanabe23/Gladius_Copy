@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [Header("For Debug")]
     [SerializeField]
     private PathDrawer _pathDrawer = new();
+
+    private SpriteRenderer _sprite;
 
     public PathDrawer PathDrawer => _pathDrawer;
 
@@ -46,6 +49,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         _enemySystem.Transform = gameObject.transform;
 
         if (_enemyType == EnemyType.Boss) { GameManager.Instance.CameraController.AppearBoss(); }
+
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,8 +84,23 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else
         {
-            //ToDo : 点滅Animation
+            StartCoroutine(HitFlash());
         }
+    }
+
+    private IEnumerator HitFlash()
+    {
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 0);
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 1);
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 0);
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 1);
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 0);
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = new Color(_sprite.color.r, _sprite.color.g, _sprite.color.b, 1);
     }
 
     private void Dead()
