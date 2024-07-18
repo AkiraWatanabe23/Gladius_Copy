@@ -21,9 +21,7 @@ public class GameSceneUI : ISceneUI
     [SerializeField]
     private GameObject _aircraftImages = default;
     [SerializeField]
-    private GameObject _lifeTexts = default;
-    [SerializeField]
-    private Text _healthText = default;
+    private GameObject _lifePrefab = default;
     [SerializeField]
     private Image[] _shotKindImages = new Image[3];
     [SerializeField]
@@ -81,19 +79,7 @@ public class GameSceneUI : ISceneUI
         _healthData = player.Health;
         yield return null;
 
-        if (_healthData.HealthType == HealthType.HP)
-        {
-            _lifeTexts.SetActive(true);
-            if (_healthText != null) { OnUpdateHealthText($"{_healthData.HP.Life} / {_healthData.HP.MaxLife}"); }
-
-            _aircraftImages.SetActive(false);
-        }
-        else if (_healthData.HealthType == HealthType.RemainingAircraft)
-        {
-            _aircraftImages.SetActive(true);
-            OnUpdateAircraft(_aircraftImages.gameObject.transform.childCount, true);
-            _lifeTexts.SetActive(false);
-        }
+        OnUpdateAircraft(player.Health.MaxRemainingCount, true);
         yield return null;
 
         _pausePanel.SetActive(false);
@@ -144,21 +130,38 @@ public class GameSceneUI : ISceneUI
         _shotKindImages[index].color = Color.gray;
     }
 
-    public void OnUpdateHealthText(string text) { _healthText.text = text; }
-
     public void OnUpdateAircraft(int count = 1, bool isHeal = false)
     {
-        int changeCounter = 0;
-        var aircraftCount = _aircraftImages.transform.childCount;
-        for (int i = 0; i < aircraftCount; i++)
+        if (isHeal)
         {
-            if (!_aircraftImages.transform.GetChild(i).gameObject.activeSelf)
+            var aircraftCount = _aircraftImages.transform.childCount;
+            for (int i = 1; i < count + 1; i++)
             {
-                continue;
+                if (i > aircraftCount)
+                {
+                    var target = GameManager.Instance.ObjectPool.SpawnObject(_lifePrefab);
+                    target.transform.SetParent(_aircraftImages.transform);
+                }
+                var child = _aircraftImages.transform.GetChild(i - 1).gameObject;
+
+                if (child.activeSelf) { continue; }
+
+                child.SetActive(true);
             }
-            _aircraftImages.transform.GetChild(i).gameObject.SetActive(isHeal);
-            changeCounter++;
-            if (changeCounter == count) { break; }
+            if (count < aircraftCount) { OnUpdateAircraft(aircraftCount - count); }
+        }
+        else
+        {
+            int changeCounter = 0;
+            var aircraftCount = _aircraftImages.transform.childCount;
+            for (int i = 0; i < aircraftCount; i++)
+            {
+                if (!_aircraftImages.transform.GetChild(i).gameObject.activeSelf) { continue; }
+
+                _aircraftImages.transform.GetChild(i).gameObject.SetActive(false);
+                changeCounter++;
+                if (changeCounter == count) { break; }
+            }
         }
     }
 }

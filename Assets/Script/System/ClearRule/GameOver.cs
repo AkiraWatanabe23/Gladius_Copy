@@ -8,16 +8,6 @@ public class GameOver
         _healthInstance = GameManager.Instance.Player.Health;
     }
 
-    /// <summary> ゲームオーバーの条件 -> 体力 or 残機が0 </summary>
-    public bool GameOverCondition()
-    {
-        if (_healthInstance.HealthType == HealthType.HP)
-        {
-           return _healthInstance.HP.Life <= 0;
-        }
-        else
-        {
-            return _healthInstance.Aircraft.RemainingAircraftCount <= 0;
-        }
-    }
+    /// <summary> ゲームオーバーの条件 → 残機が0 </summary>
+    public bool GameOverCondition() => _healthInstance.RemainingCount <= 0;
 }
