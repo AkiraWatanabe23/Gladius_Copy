@@ -18,10 +18,20 @@ public class DefautBullet : IBulletData
 
     public void Hit(Collider2D collision)
     {
-        if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
         if (collision.gameObject.layer == GunnerLayer) { return; }
 
-        damageTarget.ReceiveDamage(AttackValue);
+        IDamageable target = null;
+        if (GunnerLayer == 6) //EnemyBulletがPlayerに
+        {
+            target = collision.gameObject.GetComponentInParent<IDamageable>();
+            if (target == null) { return; }
+        }
+        else if (GunnerLayer == 3) //PlayerBulletがEnemyに
+        {
+            if (!collision.gameObject.TryGetComponent(out target)) { return; }
+        }
+
+        target.ReceiveDamage(AttackValue);
         Debug.Log("receive");
         GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
     }

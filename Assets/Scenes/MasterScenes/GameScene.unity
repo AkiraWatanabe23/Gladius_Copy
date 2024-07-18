@@ -1764,11 +1764,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._moveType
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._spawnCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217650, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: _spawnParam._maxSpawnCount
@@ -2038,6 +2038,10 @@ PrefabInstance:
     - target: {fileID: 4479510200018217652, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: m_Name
       value: EnemySpawner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479510200018217652, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4479510200018217653, guid: 499875e495626bf4e88588c6a5303f46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3582,6 +3586,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 647903126744770458, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
+      propertyPath: m_Name
+      value: PlayerC
+      objectReference: {fileID: 0}
     - target: {fileID: 4625040646187760026, guid: 3e45c0398d8a80543b8a8ba2715b9ae6, type: 3}
       propertyPath: m_Name
       value: Player
