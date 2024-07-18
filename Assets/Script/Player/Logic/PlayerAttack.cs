@@ -187,7 +187,7 @@ public class PlayerAttack : PlayerSystemBase
             else if (_plusShotBullet != PlusShotType.None)
             {
                 if (_plusShotBullet == PlusShotType.SupportShot) { SupportShot(); return; }
-                else if (_plusShotBullet == PlusShotType.Barrier) { return; }
+                else if (_plusShotBullet == PlusShotType.Melee || _plusShotBullet == PlusShotType.Barrier) { return; }
 
                 //PlusShotを撃つ
                 bullet = GameManager.Instance.ObjectPool.SpawnObject(_plusShot);

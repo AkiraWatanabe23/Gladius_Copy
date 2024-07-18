@@ -21,6 +21,7 @@ public class PlusShotItem : IGameItem
         player.Attack.PlusShotBullet = _plusShotType;
         if (_plusShotType == PlusShotType.SupportShot) { GenerateSupport(); }
         else if (_plusShotType == PlusShotType.Barrier) { GenerateBarrier(); }
+        else if (_plusShotType == PlusShotType.Melee) { GenerateMelee(); }
     }
 
     private void GenerateSupport()
@@ -43,12 +44,23 @@ public class PlusShotItem : IGameItem
 
     private void GenerateBarrier()
     {
-        var support = GameManager.Instance.ObjectPool.SpawnObject(
+        var barrier = GameManager.Instance.ObjectPool.SpawnObject(
             GameManager.Instance.BulletHolder.PlusShotsDictionary[PlusShotType.Barrier]);
 
-        support.transform.position = GameManager.Instance.Player.Attack.Muzzle.position;
+        barrier.transform.position = GameManager.Instance.Player.Attack.Muzzle.position;
 
-        var bulletData = support.GetComponent<BulletController>();
+        var bulletData = barrier.GetComponent<BulletController>();
+        bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer, Vector2.zero);
+    }
+
+    private void GenerateMelee()
+    {
+        var melee = GameManager.Instance.ObjectPool.SpawnObject(
+            GameManager.Instance.BulletHolder.PlusShotsDictionary[PlusShotType.Melee]);
+
+        melee.transform.position = GameManager.Instance.PlayerTransform.position;
+
+        var bulletData = melee.GetComponent<BulletController>();
         bulletData.Initialize(0, GameManager.Instance.Player.gameObject.layer, Vector2.zero);
     }
 }
