@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -12,6 +13,16 @@ public class PlayerMovement : PlayerSystemBase
     [Range(0.1f, 14f)]
     [SerializeField]
     private float _minSpeed = 1f;
+    [Header("見た目")]
+    [SerializeField]
+    private SpriteRenderer _plyerSprite;
+    [SerializeField]
+    private Sprite _idolSprite;
+    [SerializeField]
+    private Sprite _upSprite;
+    [SerializeField]
+    private Sprite _downSprite;
+
 
     private Rigidbody2D _rb2d = default;
     private bool _isPause = false;
@@ -43,6 +54,19 @@ public class PlayerMovement : PlayerSystemBase
 
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
+
+        switch (vertical)
+        {
+            case > 0: //Up
+                _plyerSprite.sprite = _upSprite;
+                break;
+            case < 0: //Down
+                _plyerSprite.sprite = _downSprite;
+                break;
+            default: //Idol
+                _plyerSprite.sprite = _idolSprite;
+                break;
+        }
 
         _rb2d.velocity = new Vector2(horizontal, vertical) * _moveSpeed;
     }

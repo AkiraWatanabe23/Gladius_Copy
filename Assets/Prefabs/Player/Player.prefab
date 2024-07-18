@@ -289,6 +289,10 @@ MonoBehaviour:
   _movement:
     _moveSpeed: 5
     _minSpeed: 1
+    _plyerSprite: {fileID: 757008743113316813}
+    _idolSprite: {fileID: 21300000, guid: 58cfca40813af324d92949d934e07255, type: 3}
+    _upSprite: {fileID: 21300000, guid: 602c32f7aed8b65498aef797c7061465, type: 3}
+    _downSprite: {fileID: 21300000, guid: d906d45b38f952f46af9e6210718cb1c, type: 3}
   _attack:
     _spawnMuzzle: {fileID: 3183293626290084505}
     _attackValue: 1
@@ -297,22 +301,15 @@ MonoBehaviour:
     _fanCollider: {fileID: 8243738606894669133}
     _direction: 0
     _plusShotBullet: 0
-    _initialBullets: 010000000300000005000000
+    _initialBullets: 060000000300000005000000
     _plusShots: 
     _onDrawGizmos: 1
     _gizmoSquareSize: 1
     _reflectShotAngle: 30
   _health:
-    _healthData:
-      rid: 5622923720535310336
-  references:
-    version: 2
-    RefIds:
-    - rid: 5622923720535310336
-      type: {class: RemainingAircraft, ns: , asm: Assembly-CSharp}
-      data:
-        _remainingAircraft: 5
-        _maxRemainingAircraft: 5
+    _remainingAircraft: 5
+    _initialRemainingAircraft: 5
+    _explosionAnim: {fileID: 4077853075069170537, guid: b9adaac3d99a1354aa812f00e747632a, type: 3}
 --- !u!1 &8467908183284965079
 GameObject:
   m_ObjectHideFlags: 0
