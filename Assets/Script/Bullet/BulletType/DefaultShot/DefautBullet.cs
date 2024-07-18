@@ -19,6 +19,7 @@ public class DefautBullet : IBulletData
     public void Hit(Collider2D collision)
     {
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
+        if (collision.gameObject.layer == GunnerLayer) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
         Debug.Log("receive");
