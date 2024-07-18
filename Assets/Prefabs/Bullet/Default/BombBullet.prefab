@@ -108,8 +108,9 @@ MonoBehaviour:
     - rid: 3756758921890496513
       type: {class: BombBullet, ns: , asm: Assembly-CSharp}
       data:
+        _throwPower: 1
         _bombAreaRadius: 1
-        _bombEffect: {fileID: 0}
+        _bombEffect: {fileID: 8444402258871611124, guid: 04cc4a9bdc26ef64dbd9cfcc47ac0c25, type: 3}
 --- !u!70 &1817630116664434533
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

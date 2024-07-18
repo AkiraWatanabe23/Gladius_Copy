@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary> 爆発 </summary>
 public class BombBullet : IBulletData
@@ -47,11 +48,14 @@ public class BombBullet : IBulletData
         {
             if (_bombEffect == null) { Debug.Log("no assigned"); return; }
 
-            _bombEffect.SetActive(true);
-            _bombEffect.GetComponent<CircleCollider2D>().radius = _bombAreaRadius;
+            GameObject effect = GameObject.Instantiate(_bombEffect, Transform.position, Quaternion.identity);
+            effect.GetComponent<CircleCollider2D>().radius = _bombAreaRadius;
         }
         else if (collision.gameObject.TryGetComponent(out EnemyController enemy)) //Enemyに衝突したらダメージ
         {
+            GameObject effect = GameObject.Instantiate(_bombEffect, Transform.position, Quaternion.identity);
+            effect.GetComponent<CircleCollider2D>().radius = _bombAreaRadius;
+
             var damageData = enemy.gameObject.GetComponent<IDamageable>();
             damageData.ReceiveDamage(AttackValue);
 
