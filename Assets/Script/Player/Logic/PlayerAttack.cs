@@ -245,14 +245,16 @@ public class PlayerAttack : PlayerSystemBase
     private void ReflectShot(GameObject bullet, Vector3 spawnPos)
     {
         bullet.transform.position = spawnPos;
-
-        var direction =
-            spawnPos + new Vector3(MathF.Cos(_reflectShotAngle * Mathf.Deg2Rad), MathF.Sin(_reflectShotAngle * Mathf.Deg2Rad)) -
-            spawnPos;
-
-        bullet.transform.localEulerAngles = direction.normalized;
-
         var bulletData = bullet.GetComponent<BulletController>();
+
+        var reflect = bulletData.BulletData as ReflectLaser;
+
+        /*var direction =
+            spawnPos + new Vector3(MathF.Cos(_reflectShotAngle * Mathf.Deg2Rad), MathF.Sin(_reflectShotAngle * Mathf.Deg2Rad)) -
+            spawnPos;*/
+
+        bullet.transform.localEulerAngles = new Vector3(0, 0, reflect.ReflectAngle);
+
         bulletData.Initialize(_attackValue, _player.layer, bullet.transform.right);
     }
 
