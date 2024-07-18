@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerController _player = default;
     [SerializeField]
+    private Transform _playerTransform = default;
+    [SerializeField]
     private EnemyManager _enemyManager = default;
     [SerializeField]
     private ItemSpawner _itemSpawner = default;
@@ -51,7 +53,6 @@ public class GameManager : MonoBehaviour
     private readonly GameOver _gameOver = new();
 
     private bool _isTimeMeasuring = false;
-    private Transform _playerTransform = default;
     private GameUpdate _inGameUpdate = default;
     private EnemyAnnihilated _enemyAnnihilated = default;
     private DefeatBoss _defeatBoss = default;
