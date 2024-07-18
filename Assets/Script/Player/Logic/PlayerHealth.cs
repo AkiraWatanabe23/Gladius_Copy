@@ -11,6 +11,9 @@ public class PlayerHealth : PlayerSystemBase
     [Header("残機数の初期値")]
     [SerializeField]
     private int _initialRemainingAircraft = 5;
+    [Header("死亡時演出")]
+    [SerializeField]
+    private GameObject _explosionAnim;
 
     public int RemainingCount => _remainingAircraft;
     public int MaxRemainingCount => _initialRemainingAircraft;
@@ -38,6 +41,10 @@ public class PlayerHealth : PlayerSystemBase
 
     private void Dead()
     {
+        //GameOver時の演出処理
+        GameObject.Instantiate(_explosionAnim, GameManager.Instance.Player.transform.position, Quaternion.identity);
+        GameManager.Instance.Player.Pause();
+
         AudioManager.Instance.PlaySE(SEType.PlayerCrashed);
         _remainingAircraft = 0;
     }

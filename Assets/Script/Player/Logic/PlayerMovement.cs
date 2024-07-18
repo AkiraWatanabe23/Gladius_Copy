@@ -24,8 +24,17 @@ public class PlayerMovement : PlayerSystemBase
 
     public override void OnUpdate()
     {
-        if (_isPause) { return; }
+        if (_isPause) 
+        {
+            PauseFunction();
+            return; 
+        }
         Movement();
+    }
+
+    private void PauseFunction()
+    {
+        _rb2d.velocity = new Vector2(0, 0);
     }
 
     private void Movement()
