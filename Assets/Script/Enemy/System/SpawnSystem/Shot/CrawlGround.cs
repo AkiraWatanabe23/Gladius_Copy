@@ -1,14 +1,14 @@
 ﻿using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CrawlGround : IEnemyGeneration
 {
-    private Transform _player = GameManager.Instance.Player.transform;
     private const float _minDistance = 0.1f; // プレイヤーとの最小距離
     private const float _smoothTime = 0.3f; // スムーズな移動のための時間
 
     private float _velocityX = 0f;
+
+    protected Transform Player => GameManager.Instance.Player.transform;
 
     public void Movement(EnemyController enemy)
     {
@@ -19,11 +19,11 @@ public class CrawlGround : IEnemyGeneration
         if (!shot.IsAiming)
         {
             // プレイヤーに近づくが、ある程度の距離を保つ
-            float distanceX = Mathf.Abs(_player.position.x - enemy.transform.position.x);
+            float distanceX = Mathf.Abs(Player.position.x - enemy.transform.position.x);
             if (distanceX > _minDistance)
             {
                 // スムーズな移動
-                float targetPositionX = Mathf.SmoothDamp(enemy.transform.position.x, _player.position.x, ref _velocityX, _smoothTime);
+                float targetPositionX = Mathf.SmoothDamp(enemy.transform.position.x, Player.position.x, ref _velocityX, _smoothTime);
                 Vector2 targetPosition = new Vector2(targetPositionX, enemy.transform.position.y);
                 shot.Rb2d.velocity = (targetPosition - (Vector2)enemy.transform.position).normalized * enemy.MoveSpeed;
             }
