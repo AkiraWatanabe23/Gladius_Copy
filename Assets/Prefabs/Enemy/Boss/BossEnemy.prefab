@@ -105,6 +105,7 @@ MonoBehaviour:
   _enemySystem:
     rid: 4576127351809638401
   _movementType: 9
+  _explosionEffect: {fileID: 4361393228148097241, guid: a686ed67af99fa6479041cb6ecc11ff8, type: 3}
   _pathDrawer:
     _startPoint: {fileID: 0}
     _goalPoint: {fileID: 0}

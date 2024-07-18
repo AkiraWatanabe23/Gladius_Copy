@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [ReadOnly]
     [SerializeField]
     private EnemyMovementType _movementType = EnemyMovementType.None;
+    [SerializeField]
+    private GameObject _explosionEffect;
 
     [Header("For Debug")]
     [SerializeField]
@@ -83,6 +85,11 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void Dead()
     {
+        if (_explosionEffect)
+        {
+            GameObject.Instantiate(_explosionEffect,transform.position,Quaternion.identity);
+        }
+
         AudioManager.Instance.PlaySE(SEType.EnemyCrashed);
         GameManager.Instance.EnemyDeadPos = transform;
         GameManager.Instance.EnemyDeadCount++;
