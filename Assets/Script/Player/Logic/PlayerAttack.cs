@@ -170,7 +170,6 @@ public class PlayerAttack : PlayerSystemBase
                 var bulletData = bullet.GetComponent<BulletController>();
                 bulletData.Initialize(_attackValue, _player.layer, bullet.transform.up);
             }
-            return;
         }
 
         if (_spawnMuzzle == null) { return; }
