@@ -46,8 +46,8 @@ public class UIController : MonoBehaviour, IPause
         if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateHealthText(text); }
     }
 
-    public void OnUpdateAircraft()
+    public void OnUpdateAircraft(int count = 1, bool isHeal = false)
     {
-        if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateAircraft(); }
+        if (_sceneUI is GameSceneUI inGame) { inGame.OnUpdateAircraft(count, isHeal); }
     }
 }

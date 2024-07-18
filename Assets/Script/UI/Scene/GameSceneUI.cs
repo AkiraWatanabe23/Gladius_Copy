@@ -91,6 +91,7 @@ public class GameSceneUI : ISceneUI
         else if (_healthData.HealthType == HealthType.RemainingAircraft)
         {
             _aircraftImages.SetActive(true);
+            OnUpdateAircraft(_aircraftImages.gameObject.transform.childCount, true);
             _lifeTexts.SetActive(false);
         }
         yield return null;
@@ -145,8 +146,9 @@ public class GameSceneUI : ISceneUI
 
     public void OnUpdateHealthText(string text) { _healthText.text = text; }
 
-    public void OnUpdateAircraft()
+    public void OnUpdateAircraft(int count = 1, bool isHeal = false)
     {
+        int changeCounter = 0;
         var aircraftCount = _aircraftImages.transform.childCount;
         for (int i = 0; i < aircraftCount; i++)
         {
@@ -154,8 +156,9 @@ public class GameSceneUI : ISceneUI
             {
                 continue;
             }
-            _aircraftImages.transform.GetChild(i).gameObject.SetActive(false);
-            break;
+            _aircraftImages.transform.GetChild(i).gameObject.SetActive(isHeal);
+            changeCounter++;
+            if (changeCounter == count) { break; }
         }
     }
 }
