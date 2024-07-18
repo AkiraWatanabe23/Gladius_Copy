@@ -64,7 +64,8 @@ public class BulletController : MonoBehaviour
         if (_bulletData is Barrier)
         {
             if (collision.gameObject.TryGetComponent(out BulletController target) &&
-                target.BulletData.GunnerLayer != _bulletData.GunnerLayer)
+                target.BulletData.GunnerLayer != _bulletData.GunnerLayer ||
+                collision.gameObject.TryGetComponent(out IDamageable _))
             {
                 _bulletData.Hit(collision);
             }
