@@ -7,6 +7,8 @@ public class LaserBullet : IBulletData
     [SerializeField]
     private int _penetrationCount = 5;
 
+    private int _initialPenetrationCount = -1;
+
     public GameObject BulletObj { get; set; }
     public Transform Transform { get; set; }
     public float Speed { get; set; }
@@ -25,11 +27,13 @@ public class LaserBullet : IBulletData
         if (!collision.gameObject.TryGetComponent(out IDamageable damageTarget)) { return; }
 
         damageTarget.ReceiveDamage(AttackValue);
+        if (_initialPenetrationCount < 0) { _initialPenetrationCount = _penetrationCount; }
+
         _penetrationCount--;
 
         if (_penetrationCount <= 0)
         {
-            _penetrationCount = 5;
+            _penetrationCount = _initialPenetrationCount;
             GameManager.Instance.ObjectPool.RemoveObject(BulletObj);
         }
     }
