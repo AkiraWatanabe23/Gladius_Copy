@@ -2,7 +2,7 @@
 
 public class BulletController : MonoBehaviour
 {
-    [Range(1f, 40f)]
+    [Range(1f, 70f)]
     [SerializeField]
     private float _moveSpeed = 1f;
     [Tooltip("Playerの子オブジェクトに設定するか")]

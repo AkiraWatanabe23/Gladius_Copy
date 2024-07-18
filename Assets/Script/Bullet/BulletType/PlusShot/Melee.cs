@@ -9,6 +9,7 @@ public class Melee : IBulletData
     [SerializeField]
     private float _rotateDistance = 1f;
 
+    private float _angle = 0f;
     private float _effectTimer = 0f;
     private Transform _rotateCenter = default;
 
@@ -28,9 +29,21 @@ public class Melee : IBulletData
         if (!GameManager.Instance.Melees.Contains(this)) { GameManager.Instance.Melees.Add(this); }
 
         _effectTimer += Time.deltaTime;
-        _rotateCenter ??= GameManager.Instance.PlayerTransform;
 
-        Transform.RotateAround(_rotateCenter.position, Vector3.forward, 360f / 2f * Time.deltaTime);
+        _rotateCenter ??= GameManager.Instance.PlayerTransform;
+        _angle += Speed * Time.deltaTime;
+        // ラジアンに変換する
+        float angleRad = _angle * Mathf.Deg2Rad;
+
+        // 新しい位置を計算する
+        Vector3 newPos = new(
+            _rotateCenter.position.x + Mathf.Cos(angleRad) * _rotateDistance,
+            _rotateCenter.position.y + Mathf.Sin(angleRad) * _rotateDistance,
+            Transform.position.z
+        );
+
+        // オブジェクトを新しい位置に移動させる
+        Transform.position = newPos;
     }
 
     public void Hit(Collider2D collision)
