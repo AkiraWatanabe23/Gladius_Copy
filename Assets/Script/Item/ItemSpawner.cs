@@ -22,7 +22,7 @@ public class ItemSpawner : MonoBehaviour
         if (_spawnCounter + 1 >= _itemPrefabs.Count) { _spawnCounter = 0; }
 
         _spawnCounter++;
-        var spawnItem = Instantiate(_itemPrefabs[_spawnCounter - 1], spawnPos.position, spawnPos.rotation);
+        var spawnItem = Instantiate(_itemPrefabs[_spawnCounter - 1], spawnPos.position, Quaternion.identity);
         if (spawnItem.TryGetComponent(out ItemController item)) { item.ItemSystem.Initialize(); }
     }
 }
